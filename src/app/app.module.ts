@@ -1,22 +1,24 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AngularFireModule } from '@angular/fire/compat';
-import { environment } from '../environments/environment';
-import { AngularFireAnalyticsModule } from '@angular/fire/compat/analytics';
-import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { NavbarComponent } from './common/navbar/navbar.component';
+import { HttpClientModule } from '@angular/common/http';
+import { HomeComponent } from './home/home.component';
+import { DatePipe } from './pipes/date.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
+    NavbarComponent,
+    HomeComponent,
+    //DatePipe
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFireAnalyticsModule,
-    AngularFirestoreModule
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

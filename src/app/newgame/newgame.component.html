@@ -1,0 +1,142 @@
+<br>
+<form #form=ngForm (ngSubmit)="onSubmit(form)">
+  <table class="table table-borderless">
+    <tr>
+      <td>
+        <h3>Player1 <span class="badge bg-danger"><small>必須</small></span></h3>
+      </td>
+      <td>
+        <mat-form-field>
+          <mat-label>Player1</mat-label>
+          <input matInput required placeholder="氏名" [ngModel]="user.name1" name="name1" class="form-control" #name1 (blur)="inputCheck(name1.value, name2.value, name3.value)">
+        </mat-form-field>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <h3>Player2 <span class="badge bg-danger"><small>必須</small></span></h3>
+      </td>
+      <td>
+        <mat-form-field>
+          <mat-label>Player2</mat-label>
+          <input matInput required placeholder="氏名" [ngModel]="user.name2" name="name2" class="form-control" #name2 (blur)="inputCheck(name1.value, name2.value, name3.value)">
+        </mat-form-field>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <h3>Player3 <span class="badge bg-danger"><small>必須</small></span></h3>
+      </td>
+      <td>
+        <mat-form-field>
+          <mat-label>Player3</mat-label>
+          <input matInput required placeholder="氏名" [ngModel]="user.name3" name="name3" class="form-control" #name3 (blur)="inputCheck(name1.value, name2.value, name3.value)">
+        </mat-form-field>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <h3>Player4</h3>
+      </td>
+      <td>
+        <mat-form-field>
+          <mat-label>Player4</mat-label>
+          <input matInput placeholder="氏名" [ngModel]="user.name4" name="name4" class="form-control">
+        </mat-form-field>
+      </td>
+    </tr>
+    <tr>
+      <td><h3>Date</h3></td>
+      <td>
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Choose a date</mat-label>
+          <input [ngModel]="user.playDate" name="playDate" matInput [matDatepicker]="picker">
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker touchUi #picker></mat-datepicker>
+        </mat-form-field>
+      </td>
+    </tr>
+    <tr>
+      <td><h3>Course Name</h3></td>
+      <td>
+        <mat-form-field style="width: 100%;">
+          <mat-label>Course Name</mat-label>
+          <input matInput placeholder="コース名" [ngModel]="user.courseName" name="courseName" class="form-control">
+        </mat-form-field>
+      </td>
+    </tr>
+    <tr>
+      <td><h3>IN/OUT <span class="badge bg-danger"><small>必須</small></span></h3></td>
+      <td>
+        <mat-form-field>
+          <mat-label>Course Root</mat-label>
+          <mat-select [(ngModel)]="user.inout" name="inout" id="inout" appearance="fill">
+            <mat-option [value]=0>OUT → IN</mat-option>
+            <mat-option [value]=1>IN → OUT</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </td>
+    </tr>
+  </table>
+  <div class="container">
+    <div class="row">
+      <div class="col-4"></div>
+      <div class="col-4 d-grid gap-2">
+        <button *ngIf="validate; else elseButton" class="btn btn-secondary btn-block" type="submit" [disabled]="validate" data-bs-toggle="modal" data-bs-target="#saveDialog">
+          <s>プレイ開始</s>
+        </button>
+        <ng-template #elseButton>
+          <button class="btn btn-primary btn-block" type="submit" [disabled]="validate" data-bs-toggle="modal" data-bs-target="#saveDialog">
+            プレイ開始
+          </button>
+        </ng-template>
+      </div>
+      <div class="col-4"></div>
+    </div>
+    <div class="row">
+      <div class="col"></div>
+      <div class="col-6">
+        <div *ngIf="validate;">
+          <div class="text-center" style="color: red;"><h5>未入力箇所があります</h5></div>
+        </div>
+      </div>
+      <div class="col"></div>
+    </div>
+  </div>
+</form>
+
+<!-- 保存確認ダイアログ -->
+<div class="modal fade" id="saveDialog" tabindex="-1" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+  <div class="modal-dialog modal-sm modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-9 text-center">
+              <div *ngIf="saving; else elseContent">
+                <div class="spinner-border text-primary" role="status">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+              </div>
+              <ng-template #elseContent>
+                <mat-icon style="color: green">check_circle</mat-icon>
+                <h3>作成が完了しました。</h3>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-9">
+              <div class="d-grid">
+                <button type="button" class="btn btn-primary" [disabled]="saving" data-bs-dismiss="modal" (click)="reload()">移動する</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

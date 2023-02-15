@@ -1,17 +1,11 @@
-import { Component } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { Observable } from 'rxjs';
+import { Component, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class AppComponent {
-  title = 'golfscore-web-app-firebase';
-
-  scores: Observable<any[]>;
-  constructor(firestore: AngularFirestore) {
-    this.scores = firestore.collection('scores').valueChanges();
-  }
+  title = 'golfscore-web-app';
 }
