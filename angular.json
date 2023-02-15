@@ -32,7 +32,12 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "allowedCommonJsDependencies": [
+              "firebase",
+              "@firebase/database",
+              "@firebase/auth"
+            ]
           },
           "configurations": {
             "production": {
@@ -56,7 +61,13 @@
               "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
-              "namedChunks": true
+              "namedChunks": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.development.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"
@@ -97,8 +108,21 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "golfscore-web-app-firebase:build:production",
+            "firebaseProject": "strong-land-377016",
+            "firebaseHostingSite": "strong-land-377016"
+          }
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "a62ae3ef-6a31-43a1-b3c4-31692d6a5b2c"
   }
 }

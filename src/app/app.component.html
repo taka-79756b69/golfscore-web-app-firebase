@@ -327,6 +327,13 @@
 
 <div class="content" role="main">
 
+  <div>テストデプロイ</div>
+  <div>angular fire インストール後</div>
+  <ul>
+    <li class="text" *ngFor="let score of scores | async">
+      {{score.name}}
+    </li>
+  </ul>
   <!-- Highlight Card -->
   <div class="card highlight-card card-small">
 
