@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "strong-land-377016"
+  },
+  "targets": {
+    "strong-land-377016": {
+      "hosting": {
+        "golfscore-web-app-firebase": [
+          "strong-land-377016"
+        ]
+      }
+    }
+  }
+}
