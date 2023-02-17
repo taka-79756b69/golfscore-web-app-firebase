@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Subscription } from 'rxjs';
-import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-scorelist',
@@ -129,9 +127,7 @@ export class ScorelistComponent {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private formBuilder: FormBuilder,
-    private afs: AngularFirestore,
-    private domSanitizer: DomSanitizer,
+    private firestore: AngularFirestore,
     ){
     }
 
@@ -172,7 +168,7 @@ export class ScorelistComponent {
     this.olympic4 = data.olympic4
     this.player = data.player
     this.no = data.no
-    this.order1st = data.course1order
+    this.order1st = data.order1st
     this.playerArray.push(this._index_name1, this._index_name2, this._index_name3, this._index_name4)
 
     this.save()
@@ -193,7 +189,7 @@ export class ScorelistComponent {
    */
   getScoreDocument(_id: string){
     this.subscriptions.add(
-      this.afs.doc('scores/'+_id).valueChanges().subscribe(data => {
+      this.firestore.doc('scores/'+_id).valueChanges().subscribe(data => {
 
         this.score = data
         this.setInitParam(data)
@@ -753,7 +749,7 @@ export class ScorelistComponent {
 
     this.saving = true
     try {
-      this.afs.doc('scores/'+this._id).update(this.checkoutForm)
+      this.firestore.doc('scores/'+this._id).update(this.checkoutForm)
       console.log('POST Firestore Document: '+'scores/'+this._id)
     } catch (error) {
       this.saving = false

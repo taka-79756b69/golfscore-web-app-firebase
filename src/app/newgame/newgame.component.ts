@@ -1,3 +1,5 @@
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { serverTimestamp } from "firebase/firestore"
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { DateAdapter, NativeDateAdapter } from '@angular/material/core';
@@ -20,20 +22,28 @@ export class NewgameComponent {
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
+    private firestore: AngularFirestore,
     dateAdapter: DateAdapter<NativeDateAdapter>) {
     dateAdapter.setLocale('ja-JP');
   }
 
   //modelの初期化
   user: User = { name1: '', name2: '', name3: '', name4: '', playDate: new Date(), courseName: '', player: 0, inout: 0 };
+
   //NgFormの作成
   form!: NgForm;
+
   //保存ダイアログ用のフラグ
   saving: any
+
   //バリデーション
   validate = true
+
   //プレイヤー人数
   player = 0
+
+  //フォーム
+  checkoutForm: any
 
   /**
    * フォーム入力内容で新規作成
@@ -44,9 +54,8 @@ export class NewgameComponent {
 
     //alert("保存を開始します。「保存完了」が表示されるまで待ってください。")
     this.saving = true
-    //MongoDBの仕様で、日付の保存時にISODate型かつUTC保存するため、日付がずれてしまうため
-    //9時間プラスして保存する
-    form.value.playDate = form.value.playDate.setHours(form.value.playDate.getHours() + 9)
+    //1000で割って日付を保存
+    form.value.playDate = form.value.playDate / 1000
 
     if(form.value.name1 != ''){
       this.player++
@@ -61,6 +70,43 @@ export class NewgameComponent {
       this.player++
     }
 
+    // リクエスト送信用にJSON作成
+    this.checkoutForm = ({
+
+      name1: form.value.name1,
+      name2: form.value.name2,
+      name3: form.value.name3,
+      name4: form.value.name4,
+      courseName: form.value.courseName,
+      player: this.player,
+      playDate: form.value.playDate,
+      order1st: [0,0,0,0],
+      no: (form.value.inout ?
+        ["10th","11th","12th","13th","14th","15th","16th","17th","18th","1st","2nd","3rd","4th","5th","6th","7th","8th","9th"]
+        : ["1st","2nd","3rd","4th","5th","6th","7th","8th","9th","10th","11th","12th","13th","14th","15th","16th","17th","18th"]),
+      score1: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      score2: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      score3: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      score4: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      lasvegas1: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      lasvegas2: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      lasvegas3: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      lasvegas4: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      olympic1: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      olympic2: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      olympic3: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      olympic4: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      timestamp: serverTimestamp()
+    });
+
+    this.saving = true
+    try {
+      this.firestore.collection('scores').add(this.checkoutForm)
+      console.log('POST Firestore Document: New Document')
+    } catch (error) {
+      this.saving = false
+      console.log('POST Error: '+error)
+    }
   }
 
   /**
