@@ -37,7 +37,7 @@ const routes: Routes = [
     ScorelistComponent,
     ScorelisttopComponent,
     Scorelist3ptComponent,
-    DatePipe
+    DatePipe,
   ],
   imports: [
     RouterModule.forChild(routes),

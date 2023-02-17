@@ -1,3 +1,4 @@
+import { Subscription } from 'rxjs';
 import { Component } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 
@@ -34,21 +35,43 @@ export class ScorelisttopComponent {
     this.firestore = firestore
   }
 
+  // 購読設定停止用
+  private subscriptions = new Subscription();
+
   /**
    * コレクションをFirestoreから取得する
    */
   getScoreLists(){
     //let firestore: AngularFirestore
-
-    this.firestore.collection('scores').snapshotChanges().subscribe(colSnap => {
-      colSnap.forEach(snap => {
-        const scores: any = snap.payload.doc.data();
-        scores.id = snap.payload.doc.id;
-        this.addList(scores, scores.id)
+    this.subscriptions.add(
+      this.firestore.collection('scores').snapshotChanges().subscribe(colSnap => {
+        colSnap.forEach(snap => {
+          const scores: any = snap.payload.doc.data();
+          scores.id = snap.payload.doc.id;
+          this.addList(scores, scores.id)
+        })
+        this.execUnsubscribe()
       })
-    })
+    )
     this.scorelist = this.listArray
   }
+
+/**
+   * コンポーネントの破棄
+   */
+ngOnDestroy() {
+  // unsubscribe
+  this.execUnsubscribe()
+}
+
+/**
+ * Subscribeの停止
+ */
+execUnsubscribe(){
+  // 購読を停止する
+  console.log("scorelisttop.component: unsubscribe")
+  this.subscriptions.unsubscribe()
+}
 
   /**
    * Listに追加する
@@ -77,6 +100,7 @@ export class ScorelisttopComponent {
    * コレクション取得処理を呼び出す
    */
   ngOnInit(): void {
+    this.listArray = new Array()
     this.getScoreLists()
   }
 
