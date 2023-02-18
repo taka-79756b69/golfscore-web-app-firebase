@@ -610,8 +610,8 @@ export class ScorelistComponent {
         this.order[i][this._index_name4] = this.order1st[this._index_name4]
       } else {
         //最初のコース以外の場合、スコアを見て判定する
-        if (this.score1[i] == 0 && this.score2[i] == 0
-          && this.score3[i] == 0 && this.score4[i] == 0) {
+        if (this.score1[i-1] == 0 && this.score2[i-1] == 0
+          && this.score3[i-1] == 0 && this.score4[i-1] == 0) {
             //前のコースの打数が未入力0の場合は、バッジは出さない
             this.order[i][this._index_name1] = 0
             this.order[i][this._index_name2] = 0
@@ -619,8 +619,8 @@ export class ScorelistComponent {
             this.order[i][this._index_name4] = 0
           }
 
-        if (this.score1[i] != 0 && this.score2[i] != 0
-          && this.score3[i] != 0 && this.score4[i] != 0) {
+        if (this.score1[i-1] != 0 && this.score2[i-1] != 0
+          && this.score3[i-1] != 0 && this.score4[i-1] != 0) {
             //前のコースが入力済み、かつ
             //前のコースのバッジが表示済みの場合、バッジを表示
             if (this.order[i-1][this._index_name1] != 0 && this.order[i-1][this._index_name2] != 0
