@@ -41,12 +41,12 @@
                 <span class="float-start">
                   <a routerLink="{{ tmp[_index_player] }}/{{ tmp[_index_id] }}">
                     <div class="btn btn-sm btn-primary">
-                      <i class="material-icons small-size align-top">auto_stories</i> スコア表示
+                      <i class="material-icons align-top">auto_stories</i> スコア表示
                     </div>
                   </a>
                 </span>
                 <span class="float-end">
-                  <div class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop" (click)="setDelTarget(tmp[_index_id])">
+                  <div class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop" (click)="deleteConf()">
                     <i class="material-icons small-size align-top">delete</i> データ削除
                   </div>
                 </span>
@@ -74,7 +74,7 @@
             <div *ngIf="confflag; else elseContentFooter">
               <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">キャンセル</button>
               &nbsp;&nbsp;
-              <button type="button" class="btn btn-danger btn-sm" (click)="deleteData()">削除</button>
+              <button type="button" class="btn btn-danger btn-sm" (click)="delDocument(tmp[_index_id])">削除</button>
             </div>
             <ng-template #elseContentFooter>
               <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal" (click)="reload()">閉じる</button>

@@ -10,7 +10,6 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 export class ScorelisttopComponent {
 
   scorelist: any
-  deleteTrget: any
   confflag: any
   listArray: any[] = new Array()
   items: any
@@ -48,6 +47,7 @@ export class ScorelisttopComponent {
         colSnap.forEach(snap => {
           const scores: any = snap.payload.doc.data();
           scores.id = snap.payload.doc.id;
+          console.log("COLLECTION: "+JSON.stringify(scores));
           this.addList(scores, scores.id)
         })
         this.execUnsubscribe()
@@ -105,22 +105,23 @@ execUnsubscribe(){
   }
 
   /**
-   * ドキュメント削除処理
-   * this.deleteTrgetのIDをキーにしてコレクションから削除する
+   * ドキュメント削除前の確認メッセージ切り替え用のフラグセット
    */
-  deleteData() {
-    this.confflag = false
-    //this.deleteTrgetのIDを削除する処理を用意する
+  deleteConf() {
+    //削除確認メッセージ表示用のフラグをセット
+    this.confflag = true
   }
 
   /**
-   * 削除対象セット
-   * 削除する対象のIDをセットする
+   * ドキュメント削除処理
+   * 削除する対象のIDをキーにして削除する
    * @param trget 削除対象ID
    */
-  setDelTarget(trget: any) {
-    this.confflag = true
-    this.deleteTrget = trget
+  delDocument(trget: any) {
+    this.confflag = false
+    this.firestore.collection('scores').doc(trget).delete()
+    console.log("Document Delete Complete. : " + trget);
+    this.getScoreLists()
   }
 
   /**
