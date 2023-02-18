@@ -1,3 +1,4 @@
+import { Subscription } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { serverTimestamp } from "firebase/firestore"
 import { Component } from '@angular/core';
@@ -45,6 +46,12 @@ export class NewgameComponent {
   //フォーム
   checkoutForm: any
 
+  //作成後のドキュメントID
+  createdDocId: any
+
+  // 購読設定停止用
+  private subscriptions = new Subscription();
+
   /**
    * フォーム入力内容で新規作成
    * 空のスコア入力データをDBに作成する。
@@ -52,10 +59,10 @@ export class NewgameComponent {
    */
   onSubmit(form: any) {
 
-    //alert("保存を開始します。「保存完了」が表示されるまで待ってください。")
     this.saving = true
+
     //1000で割って日付を保存
-    form.value.playDate = form.value.playDate / 1000
+    let savePlayDate = form.value.playDate / 1000
 
     if(form.value.name1 != ''){
       this.player++
@@ -79,7 +86,7 @@ export class NewgameComponent {
       name4: form.value.name4,
       courseName: form.value.courseName,
       player: this.player,
-      playDate: form.value.playDate,
+      playDate: savePlayDate,
       order1st: [0,0,0,0],
       no: (form.value.inout ?
         ["10th","11th","12th","13th","14th","15th","16th","17th","18th","1st","2nd","3rd","4th","5th","6th","7th","8th","9th"]
@@ -101,8 +108,10 @@ export class NewgameComponent {
 
     this.saving = true
     try {
-      this.firestore.collection('scores').add(this.checkoutForm)
-      console.log('POST Firestore Document: New Document')
+      this.firestore.collection('scores').add(this.checkoutForm).then(result =>{
+        console.log('POST Firestore New Document: ID=' + result.id)
+        this.createdDocId = result.id
+      })
     } catch (error) {
       this.saving = false
       console.log('POST Error: '+error)
@@ -114,7 +123,7 @@ export class NewgameComponent {
    * 新規作成したデータを取得してrouterでスコア入力画面に遷移する。
    */
   reload(){
-
+    this.router.navigate(["score/" + this.player + "/"+this.createdDocId])
   }
 
   /**

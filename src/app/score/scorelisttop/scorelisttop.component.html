@@ -9,10 +9,10 @@
               <h3 class="card-title">
                 <div>
                   <span>
-                    {{ tmp[_index_courseName] }}
+                    {{ tmp.courseName }}
                   </span>
                   <span class="float-end">
-                    <small>({{ tmp[_index_playDate] | customDate }})</small>
+                    <small>({{ tmp.playDate | customDate }})</small>
                   </span>
                 </div>
               </h3>
@@ -20,18 +20,18 @@
                 <div class="container">
                   <span class="row justify-content-center">
                     <div class="col-6">
-                      <small>{{ tmp[_index_name1] }}</small>
+                      <small>{{ tmp.name1 }}</small>
                     </div>
                     <div class="col-6">
-                      <small>{{ tmp[_index_name2] }}</small>
+                      <small>{{ tmp.name2 }}</small>
                     </div>
                   </span>
                   <div class="row justify-content-center">
                     <div class="col-6">
-                      <small>{{ tmp[_index_name3] }}</small>
+                      <small>{{ tmp.name3 }}</small>
                     </div>
                     <div class="col-6">
-                      <small>{{ tmp[_index_name4] }}</small>
+                      <small>{{ tmp.name4 }}</small>
                     </div>
                   </div>
                 </div>
@@ -39,14 +39,14 @@
               </div>
               <div>
                 <span class="float-start">
-                  <a routerLink="{{ tmp[_index_player] }}/{{ tmp[_index_id] }}">
+                  <a routerLink="{{ tmp.player }}/{{ tmp.id }}">
                     <div class="btn btn-sm btn-primary">
                       <i class="material-icons align-top">auto_stories</i> スコア表示
                     </div>
                   </a>
                 </span>
                 <span class="float-end">
-                  <div class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop" (click)="deleteConf()">
+                  <div class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop" (click)="deleteConf(tmp.id)">
                     <i class="material-icons small-size align-top">delete</i> データ削除
                   </div>
                 </span>
@@ -57,29 +57,29 @@
       </div>
       <br>
     </div>
+  </div>
 
-    <!-- Modal -->
-    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-body">
-            <div *ngIf="confflag; else elseContent">
-              データを削除します。よろしいですか？
-            </div>
-            <ng-template #elseContent>
-              データを削除しました。
-            </ng-template>
+  <!-- Modal -->
+  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div *ngIf="confflag; else elseContent">
+            データを削除します。よろしいですか？
           </div>
-          <div class="modal-footer">
-            <div *ngIf="confflag; else elseContentFooter">
-              <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">キャンセル</button>
-              &nbsp;&nbsp;
-              <button type="button" class="btn btn-danger btn-sm" (click)="delDocument(tmp[_index_id])">削除</button>
-            </div>
-            <ng-template #elseContentFooter>
-              <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal" (click)="reload()">閉じる</button>
-            </ng-template>
+          <ng-template #elseContent>
+            データを削除しました。
+          </ng-template>
+        </div>
+        <div class="modal-footer">
+          <div *ngIf="confflag; else elseContentFooter">
+            <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">キャンセル</button>
+            &nbsp;&nbsp;
+            <button type="button" class="btn btn-danger btn-sm" (click)="delDocument()">削除</button>
           </div>
+          <ng-template #elseContentFooter>
+            <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal" (click)="reload()">閉じる</button>
+          </ng-template>
         </div>
       </div>
     </div>

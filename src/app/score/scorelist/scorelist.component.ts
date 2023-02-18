@@ -154,6 +154,7 @@ export class ScorelistComponent {
    * @param data Firestoreドキュメントデータ
    */
   setInitParam(data: any){
+
     this.score1 = data.score1
     this.score2 = data.score2
     this.score3 = data.score3

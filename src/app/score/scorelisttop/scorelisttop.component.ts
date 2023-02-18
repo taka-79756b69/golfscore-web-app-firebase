@@ -11,8 +11,7 @@ export class ScorelisttopComponent {
 
   scorelist: any
   confflag: any
-  listArray: any[] = new Array()
-  items: any
+  delDocId: any
 
   _index_id = 0
   _index_courseName = 1
@@ -30,69 +29,52 @@ export class ScorelisttopComponent {
    * AngularFirestoreサービスを定義
    * @param firestore
    */
-  constructor(firestore: AngularFirestore) {
+  constructor(firestore: AngularFirestore,
+    ) {
     this.firestore = firestore
   }
 
   // 購読設定停止用
-  private subscriptions = new Subscription();
+  private subscriptions = new Subscription()
 
   /**
    * コレクションをFirestoreから取得する
    */
   getScoreLists(){
-    //let firestore: AngularFirestore
+
+    this.scorelist = new Array()
+
+    this.subscriptions = new Subscription()
+
     this.subscriptions.add(
-      this.firestore.collection('scores').snapshotChanges().subscribe(colSnap => {
+      this.firestore.collection('scores', ref => ref.orderBy('timestamp', 'desc')).snapshotChanges().subscribe(colSnap => {
         colSnap.forEach(snap => {
-          const scores: any = snap.payload.doc.data();
+          let scores: any = snap.payload.doc.data();
           scores.id = snap.payload.doc.id;
-          console.log("COLLECTION: "+JSON.stringify(scores));
-          this.addList(scores, scores.id)
+          console.log("COLLECTION: " + JSON.stringify(scores));
+          this.scorelist.push(scores)
         })
+        console.log("getScoreLists():unsubscribe")
         this.execUnsubscribe()
       })
     )
-    this.scorelist = this.listArray
   }
 
-/**
-   * コンポーネントの破棄
-   */
-ngOnDestroy() {
-  // unsubscribe
-  this.execUnsubscribe()
-}
-
-/**
- * Subscribeの停止
- */
-execUnsubscribe(){
-  // 購読を停止する
-  console.log("scorelisttop.component: unsubscribe")
-  this.subscriptions.unsubscribe()
-}
+  /**
+     * コンポーネントの破棄
+     */
+  ngOnDestroy() {
+    console.log("ngOnDestroy():unsubscribe")
+    this.execUnsubscribe()
+  }
 
   /**
-   * Listに追加する
-   * ※配列の並びを変更する場合はインデックスも修正すること
-   * @param val ドキュメントの中身
-   * @param _id ドキュメントID
+   * Subscribeの停止
    */
-  addList(val: any, _id: any) {
-    //debugger
-    let arrayList = new Array()
-    arrayList.push(_id)             //0
-    arrayList.push(val.courseName)  //1
-    arrayList.push(val.playDate)    //2
-    arrayList.push(val.player)      //3
-    arrayList.push(val.name1)       //4
-    arrayList.push(val.name2)       //5
-    arrayList.push(val.name3)       //6
-    arrayList.push(val.name4)       //7
-
-    //HTMLテンプレートに追加
-    this.listArray.push(arrayList)
+  execUnsubscribe(){
+    // 購読を停止する
+    console.log("scorelisttop.component: unsubscribe")
+    this.subscriptions.unsubscribe()
   }
 
   /**
@@ -100,28 +82,34 @@ execUnsubscribe(){
    * コレクション取得処理を呼び出す
    */
   ngOnInit(): void {
-    this.listArray = new Array()
     this.getScoreLists()
   }
 
   /**
-   * ドキュメント削除前の確認メッセージ切り替え用のフラグセット
+   * ドキュメント削除前処理
+   * 削除対象のIDと確認メッセージ切り替えフラグをセットする
+   * @param trget 削除対象ID
    */
-  deleteConf() {
+  deleteConf(trget: any) {
     //削除確認メッセージ表示用のフラグをセット
     this.confflag = true
+    //削除対象IDをセット
+    this.delDocId = trget
   }
 
   /**
    * ドキュメント削除処理
    * 削除する対象のIDをキーにして削除する
-   * @param trget 削除対象ID
    */
-  delDocument(trget: any) {
+  delDocument() {
     this.confflag = false
-    this.firestore.collection('scores').doc(trget).delete()
-    console.log("Document Delete Complete. : " + trget);
-    this.getScoreLists()
+
+    try {
+      this.firestore.collection('scores').doc(this.delDocId).delete()
+      console.log("Document Delete Complete : ID=" + this.delDocId)
+    } catch (error) {
+      console.log('POST Error: '+error)
+    }
   }
 
   /**
@@ -129,7 +117,6 @@ execUnsubscribe(){
    * 削除後にコレクションを再読み込みする
    */
   reload() {
-    this.listArray = new Array()
     this.getScoreLists()
   }
 }
