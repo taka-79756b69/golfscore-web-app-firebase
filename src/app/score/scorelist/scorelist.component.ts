@@ -626,10 +626,10 @@ export class ScorelistComponent {
             //前のコースのバッジが表示済みの場合、バッジを表示
             if (this.order[i-1][this._index_name1] != 0 && this.order[i-1][this._index_name2] != 0
               && this.order[i-1][this._index_name3] != 0 && this.order[i-1][this._index_name4] != 0) {
-                p1point = +this.score1[i] * 10 + +this.order[i-1][this._index_name1]
-                p2point = +this.score2[i] * 10 + +this.order[i-1][this._index_name2]
-                p3point = +this.score3[i] * 10 + +this.order[i-1][this._index_name3]
-                p4point = +this.score4[i] * 10 + +this.order[i-1][this._index_name4]
+                p1point = +this.score1[i-1] * 10 + +this.order[i-1][this._index_name1]
+                p2point = +this.score2[i-1] * 10 + +this.order[i-1][this._index_name2]
+                p3point = +this.score3[i-1] * 10 + +this.order[i-1][this._index_name3]
+                p4point = +this.score4[i-1] * 10 + +this.order[i-1][this._index_name4]
               }
 
             this.setBagdeOrder(i, p1point, p2point, p3point, p4point)
