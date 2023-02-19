@@ -530,7 +530,7 @@
                 OLYMPIC
               </div>
               <div class="col-6 mb-2">
-                <select class="form-select form-select-sm" [(ngModel)]='olympic1[courseIndex]' name="dropdownOption" id="dropdownOption">
+                <select class="form-select form-select-sm"[(ngModel)]='olympic1[courseIndex]' name="dropdownOption" id="dropdownOption">
                   <option value=0>---</option>
                   <option value=5>DIAMOND</option>
                   <option value=4>GOLD</option>
@@ -561,6 +561,52 @@
                 </div>
               </div>
             </div>
+            <mat-button-toggle-group aria-label="olympic selection">
+              <span [ngSwitch]="olympic1[courseIndex]">
+                <p *ngSwitchCase=5>
+                  <mat-chip-option selected #olympic1 value=5 (selectionChange)="olympicSelect1(courseIndex, 5)">DIAMOND</mat-chip-option>
+                  <mat-chip-option #olympic1 value=4 (selectionChange)="olympicSelect1(courseIndex, 4)">GOLD</mat-chip-option>
+                  <mat-chip-option #olympic1 value=3 (selectionChange)="olympicSelect1(courseIndex, 3)">SILVER</mat-chip-option>
+                  <mat-chip-option #olympic1 value=2 (selectionChange)="olympicSelect1(courseIndex, 2)">BRONZE</mat-chip-option>
+                  <mat-chip-option #olympic1 value=1 (selectionChange)="olympicSelect1(courseIndex, 1)">IRON</mat-chip-option>
+                </p>
+                <p *ngSwitchCase=4>
+                  <mat-chip-option #olympic1 value=5 (selectionChange)="olympicSelect1(courseIndex, 5)">DIAMOND</mat-chip-option>
+                  <mat-chip-option selected #olympic1 value=4 (selectionChange)="olympicSelect1(courseIndex, 4)">GOLD</mat-chip-option>
+                  <mat-chip-option #olympic1 value=3 (selectionChange)="olympicSelect1(courseIndex, 3)">SILVER</mat-chip-option>
+                  <mat-chip-option #olympic1 value=2 (selectionChange)="olympicSelect1(courseIndex, 2)">BRONZE</mat-chip-option>
+                  <mat-chip-option #olympic1 value=1 (selectionChange)="olympicSelect1(courseIndex, 1)">IRON</mat-chip-option>
+                </p>
+                <p *ngSwitchCase=3>
+                  <mat-chip-option #olympic1 value=5 (selectionChange)="olympicSelect1(courseIndex, 5)">DIAMOND</mat-chip-option>
+                  <mat-chip-option #olympic1 value=4 (selectionChange)="olympicSelect1(courseIndex, 4)">GOLD</mat-chip-option>
+                  <mat-chip-option selected #olympic1 value=3 (selectionChange)="olympicSelect1(courseIndex, 3)">SILVER</mat-chip-option>
+                  <mat-chip-option #olympic1 value=2 (selectionChange)="olympicSelect1(courseIndex, 2)">BRONZE</mat-chip-option>
+                  <mat-chip-option #olympic1 value=1 (selectionChange)="olympicSelect1(courseIndex, 1)">IRON</mat-chip-option>
+                </p>
+                <p *ngSwitchCase=2>
+                  <mat-chip-option #olympic1 value=5 (selectionChange)="olympicSelect1(courseIndex, 5)">DIAMOND</mat-chip-option>
+                  <mat-chip-option #olympic1 value=4 (selectionChange)="olympicSelect1(courseIndex, 4)">GOLD</mat-chip-option>
+                  <mat-chip-option #olympic1 value=3 (selectionChange)="olympicSelect1(courseIndex, 3)">SILVER</mat-chip-option>
+                  <mat-chip-option selected #olympic1 value=2 (selectionChange)="olympicSelect1(courseIndex, 2)">BRONZE</mat-chip-option>
+                  <mat-chip-option #olympic1 value=1 (selectionChange)="olympicSelect1(courseIndex, 1)">IRON</mat-chip-option>
+                </p>
+                <p *ngSwitchCase=1>
+                  <mat-chip-option #olympic1 value=5 (selectionChange)="olympicSelect1(courseIndex, 5)">DIAMOND</mat-chip-option>
+                  <mat-chip-option #olympic1 value=4 (selectionChange)="olympicSelect1(courseIndex, 4)">GOLD</mat-chip-option>
+                  <mat-chip-option #olympic1 value=3 (selectionChange)="olympicSelect1(courseIndex, 3)">SILVER</mat-chip-option>
+                  <mat-chip-option #olympic1 value=2 (selectionChange)="olympicSelect1(courseIndex, 2)">BRONZE</mat-chip-option>
+                  <mat-chip-option selected #olympic1 value=1 (selectionChange)="olympicSelect1(courseIndex, 1)">IRON</mat-chip-option>
+                </p>
+                <p *ngSwitchDefault>
+                  <mat-chip-option #olympic1 value=5 (selectionChange)="olympicSelect1(courseIndex, 5)">DIAMOND</mat-chip-option>
+                  <mat-chip-option #olympic1 value=4 (selectionChange)="olympicSelect1(courseIndex, 4)">GOLD</mat-chip-option>
+                  <mat-chip-option #olympic1 value=3 (selectionChange)="olympicSelect1(courseIndex, 3)">SILVER</mat-chip-option>
+                  <mat-chip-option #olympic1 value=2 (selectionChange)="olympicSelect1(courseIndex, 2)">BRONZE</mat-chip-option>
+                  <mat-chip-option #olympic1 value=1 (selectionChange)="olympicSelect1(courseIndex, 1)">IRON</mat-chip-option>
+                </p>
+              </span>
+            </mat-button-toggle-group>
             <br>
             <div class="row">
               <div class="col-3 d-flex align-items-center justify-content-center">

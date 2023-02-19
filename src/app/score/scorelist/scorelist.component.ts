@@ -1,3 +1,4 @@
+import { MatChipInputEvent, MatChipSelectionChange } from '@angular/material/chips';
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
@@ -125,17 +126,17 @@ export class ScorelistComponent {
   //保存確認フラグ
   saving: any
 
-  constructor(
-    private activatedRoute: ActivatedRoute,
-    private firestore: AngularFirestore,
-    ){
-    }
-
   // 購読設定停止用
   private subscriptions = new Subscription();
 
   //ドキュメントID
   _id: any
+
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private firestore: AngularFirestore
+    ){
+    }
 
   /**
    * 初期処理
@@ -579,7 +580,9 @@ export class ScorelistComponent {
     this.lasvegasTotal4_rated = this.lasvegasTotal4 * this.rateValue
   }
 
-  //打順のバッジを表示する処理
+  /**
+   * 打順のバッジを表示する処理
+   */
   setBadgeOrder() {
 
     let p1point: any
@@ -638,7 +641,15 @@ export class ScorelistComponent {
     }
   }
 
-  //バッジを設定する処理
+  /**
+   * バッジを設定する処理
+   * 打順のバッジとラスベガスのチーム色をセットする
+   * @param trgt
+   * @param p1point
+   * @param p2point
+   * @param p3point
+   * @param p4point
+   */
   setBagdeOrder(trgt:any, p1point:any, p2point:any, p3point:any, p4point:any) {
 
     //一人目
@@ -653,12 +664,14 @@ export class ScorelistComponent {
       ||(p1point > p3point && p1point < p2point && p1point < p4point)
       ||(p1point > p4point && p1point < p2point && p1point < p3point)){
         this.order[trgt][this._index_name1] = 2
+        this.lasvegas1[trgt] = 1
     }
     if(
       (p1point < p2point && p1point > p3point && p1point > p4point)
       ||(p1point < p3point && p1point > p2point && p1point > p4point)
       ||(p1point < p4point && p1point > p2point && p1point > p3point)){
         this.order[trgt][this._index_name1] = 3
+        this.lasvegas1[trgt] = 1
     }
 
     //二人目
@@ -673,12 +686,14 @@ export class ScorelistComponent {
       ||(p2point > p3point && p2point < p1point && p2point < p4point)
       ||(p2point > p4point && p2point < p1point && p2point < p3point)){
         this.order[trgt][this._index_name2] = 2
+        this.lasvegas2[trgt] = 1
     }
     if(
       (p2point < p1point && p2point > p3point && p2point > p4point)
       ||(p2point < p3point && p2point > p1point && p2point > p4point)
       ||(p2point < p4point && p2point > p1point && p2point > p3point)){
         this.order[trgt][this._index_name2] = 3
+        this.lasvegas2[trgt] = 1
     }
 
     //三人目
@@ -693,12 +708,14 @@ export class ScorelistComponent {
       ||(p3point > p2point && p3point < p1point && p3point < p4point)
       ||(p3point > p4point && p3point < p1point && p3point < p2point)){
         this.order[trgt][this._index_name3] = 2
+        this.lasvegas3[trgt] = 1
     }
     if(
       (p3point < p1point && p3point > p2point && p3point > p4point)
       ||(p3point < p2point && p3point > p1point && p3point > p4point)
       ||(p3point < p4point && p3point > p1point && p3point > p2point)){
         this.order[trgt][this._index_name3] = 3
+        this.lasvegas3[trgt] = 1
     }
 
     //四人目
@@ -713,12 +730,23 @@ export class ScorelistComponent {
       ||(p4point > p2point && p4point < p1point && p4point < p3point)
       ||(p4point > p3point && p4point < p1point && p4point < p2point)){
         this.order[trgt][this._index_name4] = 2
+        this.lasvegas4[trgt] = 1
     }
     if(
       (p4point < p1point && p4point > p2point && p4point > p3point)
       ||(p4point < p2point && p4point > p1point && p4point > p3point)
       ||(p4point < p3point && p4point > p1point && p4point > p2point)){
         this.order[trgt][this._index_name4] = 3
+        this.lasvegas4[trgt] = 1
+    }
+  }
+
+  olympicSelect1(courseNo: any, olympic: any){
+
+    if(this.olympic1[courseNo] == olympic){
+      this.olympic1[courseNo] = 0
+    }else{
+      this.olympic1[courseNo] = olympic
     }
   }
 

@@ -12,6 +12,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { Scorelist3ptComponent } from './scorelist_3pt/scorelist3pt.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { AngularFireModule } from '@angular/fire/compat';
 import { environment } from 'src/environments/environment';
 import { AngularFireAnalyticsModule } from '@angular/fire/compat/analytics';
@@ -49,6 +51,8 @@ const routes: Routes = [
     MatSnackBarModule,
     MatIconModule,
     MatButtonModule,
+    MatChipsModule,
+    MatButtonToggleModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAnalyticsModule,
     AngularFirestoreModule,
