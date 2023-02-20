@@ -472,12 +472,12 @@
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div *ngIf="score">
-          <nav class="navbar navbar-dark bg-primary fixed-top" aria-label="nabverTop">
+          <nav class="navbar navbar-dark bg-primary sticky-top" aria-label="nabverTop">
             <div class="container">
               <div class="col-4"></div>
               <div class="col-4 d-flex align-items-center justify-content-center">
                 <div class="text-center" style="color: #ffffff;">
-                  {{ no[courseIndex] }}
+                  <h2>{{ no[courseIndex] }}</h2>
                 </div>
               </div>
               <div class="col-4"></div>
@@ -486,25 +486,12 @@
           <div class="container">
             <br>
             <div class="row">
-              <div class="col-3 d-flex align-items-center justify-content-center">
-                <p><small>{{ score.name1 }}</small></p>
+              <div class="col-3">
+              </div>
+              <div class="col-6 d-flex justify-content-center" style="font-weight: bold;">
+                <p>{{ score.name1 }}</p>
               </div>
               <div class="col-3">
-                <div class="d-grid">
-                  <button mat-raised-button color="accent" (click)="setScoreCounterDown(courseIndex, _index_name1)">
-                    DOWN
-                  </button>
-                </div>
-              </div>
-              <div class="col-3">
-                <h2 class="text-center align-items-center">{{ score1[courseIndex] }}</h2>
-              </div>
-              <div class="col-3">
-                <div class="d-grid">
-                  <button mat-raised-button color="accent" (click)="setScoreCounterUp(courseIndex, _index_name1)">
-                    UP
-                  </button>
-                </div>
               </div>
             </div>
             <div class="row">
@@ -526,87 +513,76 @@
                   </div>
                 </ng-container>
               </div>
-              <div class="col-3 d-flex align-items-center justify-content-center">
-                OLYMPIC
-              </div>
-              <div class="col-6 mb-2">
-                <select class="form-select form-select-sm"[(ngModel)]='olympic1[courseIndex]' name="dropdownOption" id="dropdownOption">
-                  <option value=0>---</option>
-                  <option value=5>DIAMOND</option>
-                  <option value=4>GOLD</option>
-                  <option value=3>SILVER</option>
-                  <option value=2>BRONZE</option>
-                  <option value=1>IRON</option>
-                </select>
-              </div>
-            </div>
-            <div class="row border-bottom pb-2">
               <div class="col-3">
-              </div>
-              <div class="col-3 d-flex align-items-center justify-content-center">
-                LASVEGAS
-              </div>
-              <div class="col-6 align-items-center justify-content-center">
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" [(ngModel)]='lasvegas1[courseIndex]' type="radio" name="radioBtn1_1_1" id="radioBtn1_1_1" [value]=0>
-                  <label class="form-check-label" for="radioBtn1_1_1">
-                    <small>Team A</small>
-                  </label>
+                <div class="d-grid">
+                  <button mat-raised-button color="accent" (click)="setScoreCounterDown(courseIndex, _index_name1)">
+                    DOWN
+                  </button>
                 </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" [(ngModel)]='lasvegas1[courseIndex]' type="radio" name="radioBtn1_1_1" id="radioBtn1_1_2" [value]=1>
-                  <label class="form-check-label" for="radioBtn1_1_2">
-                    <small>Team B</small>
-                  </label>
+              </div>
+              <div class="col-3">
+                <h2 class="text-center align-items-center">{{ score1[courseIndex] }}</h2>
+              </div>
+              <div class="col-3">
+                <div class="d-grid">
+                  <button mat-raised-button color="accent" (click)="setScoreCounterUp(courseIndex, _index_name1)">
+                    UP
+                  </button>
                 </div>
               </div>
             </div>
-            <mat-button-toggle-group aria-label="olympic selection">
-              <span [ngSwitch]="olympic1[courseIndex]">
-                <p *ngSwitchCase=5>
-                  <mat-chip-option selected #olympic1 value=5 (selectionChange)="olympicSelect1(courseIndex, 5)">DIAMOND</mat-chip-option>
-                  <mat-chip-option #olympic1 value=4 (selectionChange)="olympicSelect1(courseIndex, 4)">GOLD</mat-chip-option>
-                  <mat-chip-option #olympic1 value=3 (selectionChange)="olympicSelect1(courseIndex, 3)">SILVER</mat-chip-option>
-                  <mat-chip-option #olympic1 value=2 (selectionChange)="olympicSelect1(courseIndex, 2)">BRONZE</mat-chip-option>
-                  <mat-chip-option #olympic1 value=1 (selectionChange)="olympicSelect1(courseIndex, 1)">IRON</mat-chip-option>
-                </p>
-                <p *ngSwitchCase=4>
-                  <mat-chip-option #olympic1 value=5 (selectionChange)="olympicSelect1(courseIndex, 5)">DIAMOND</mat-chip-option>
-                  <mat-chip-option selected #olympic1 value=4 (selectionChange)="olympicSelect1(courseIndex, 4)">GOLD</mat-chip-option>
-                  <mat-chip-option #olympic1 value=3 (selectionChange)="olympicSelect1(courseIndex, 3)">SILVER</mat-chip-option>
-                  <mat-chip-option #olympic1 value=2 (selectionChange)="olympicSelect1(courseIndex, 2)">BRONZE</mat-chip-option>
-                  <mat-chip-option #olympic1 value=1 (selectionChange)="olympicSelect1(courseIndex, 1)">IRON</mat-chip-option>
-                </p>
-                <p *ngSwitchCase=3>
-                  <mat-chip-option #olympic1 value=5 (selectionChange)="olympicSelect1(courseIndex, 5)">DIAMOND</mat-chip-option>
-                  <mat-chip-option #olympic1 value=4 (selectionChange)="olympicSelect1(courseIndex, 4)">GOLD</mat-chip-option>
-                  <mat-chip-option selected #olympic1 value=3 (selectionChange)="olympicSelect1(courseIndex, 3)">SILVER</mat-chip-option>
-                  <mat-chip-option #olympic1 value=2 (selectionChange)="olympicSelect1(courseIndex, 2)">BRONZE</mat-chip-option>
-                  <mat-chip-option #olympic1 value=1 (selectionChange)="olympicSelect1(courseIndex, 1)">IRON</mat-chip-option>
-                </p>
-                <p *ngSwitchCase=2>
-                  <mat-chip-option #olympic1 value=5 (selectionChange)="olympicSelect1(courseIndex, 5)">DIAMOND</mat-chip-option>
-                  <mat-chip-option #olympic1 value=4 (selectionChange)="olympicSelect1(courseIndex, 4)">GOLD</mat-chip-option>
-                  <mat-chip-option #olympic1 value=3 (selectionChange)="olympicSelect1(courseIndex, 3)">SILVER</mat-chip-option>
-                  <mat-chip-option selected #olympic1 value=2 (selectionChange)="olympicSelect1(courseIndex, 2)">BRONZE</mat-chip-option>
-                  <mat-chip-option #olympic1 value=1 (selectionChange)="olympicSelect1(courseIndex, 1)">IRON</mat-chip-option>
-                </p>
-                <p *ngSwitchCase=1>
-                  <mat-chip-option #olympic1 value=5 (selectionChange)="olympicSelect1(courseIndex, 5)">DIAMOND</mat-chip-option>
-                  <mat-chip-option #olympic1 value=4 (selectionChange)="olympicSelect1(courseIndex, 4)">GOLD</mat-chip-option>
-                  <mat-chip-option #olympic1 value=3 (selectionChange)="olympicSelect1(courseIndex, 3)">SILVER</mat-chip-option>
-                  <mat-chip-option #olympic1 value=2 (selectionChange)="olympicSelect1(courseIndex, 2)">BRONZE</mat-chip-option>
-                  <mat-chip-option selected #olympic1 value=1 (selectionChange)="olympicSelect1(courseIndex, 1)">IRON</mat-chip-option>
-                </p>
-                <p *ngSwitchDefault>
-                  <mat-chip-option #olympic1 value=5 (selectionChange)="olympicSelect1(courseIndex, 5)">DIAMOND</mat-chip-option>
-                  <mat-chip-option #olympic1 value=4 (selectionChange)="olympicSelect1(courseIndex, 4)">GOLD</mat-chip-option>
-                  <mat-chip-option #olympic1 value=3 (selectionChange)="olympicSelect1(courseIndex, 3)">SILVER</mat-chip-option>
-                  <mat-chip-option #olympic1 value=2 (selectionChange)="olympicSelect1(courseIndex, 2)">BRONZE</mat-chip-option>
-                  <mat-chip-option #olympic1 value=1 (selectionChange)="olympicSelect1(courseIndex, 1)">IRON</mat-chip-option>
-                </p>
-              </span>
-            </mat-button-toggle-group>
+            <div class="row justify-content-center" style="border-bottom: 1px solid #dee2e6">
+              <div class="col-1"></div>
+              <div class="col-auto">
+                <mat-chip-listbox aria-label="olympic selection">
+                  <span [ngSwitch]="olympic1[courseIndex]">
+                    <p *ngSwitchCase=5>
+                      <mat-chip-option selected #olympic1 value=5 (selectionChange)="olympicSelect1(courseIndex, 5)">ダイヤ</mat-chip-option>
+                      <mat-chip-option #olympic1 value=4 (selectionChange)="olympicSelect1(courseIndex, 4)">金</mat-chip-option>
+                      <mat-chip-option #olympic1 value=3 (selectionChange)="olympicSelect1(courseIndex, 3)">銀</mat-chip-option>
+                      <mat-chip-option #olympic1 value=2 (selectionChange)="olympicSelect1(courseIndex, 2)">銅</mat-chip-option>
+                      <mat-chip-option #olympic1 value=1 (selectionChange)="olympicSelect1(courseIndex, 1)">鉄</mat-chip-option>
+                    </p>
+                    <p *ngSwitchCase=4>
+                      <mat-chip-option #olympic1 value=5 (selectionChange)="olympicSelect1(courseIndex, 5)">ダイヤ</mat-chip-option>
+                      <mat-chip-option selected #olympic1 value=4 (selectionChange)="olympicSelect1(courseIndex, 4)">金</mat-chip-option>
+                      <mat-chip-option #olympic1 value=3 (selectionChange)="olympicSelect1(courseIndex, 3)">銀</mat-chip-option>
+                      <mat-chip-option #olympic1 value=2 (selectionChange)="olympicSelect1(courseIndex, 2)">銅</mat-chip-option>
+                      <mat-chip-option #olympic1 value=1 (selectionChange)="olympicSelect1(courseIndex, 1)">鉄</mat-chip-option>
+                    </p>
+                    <p *ngSwitchCase=3>
+                      <mat-chip-option #olympic1 value=5 (selectionChange)="olympicSelect1(courseIndex, 5)">ダイヤ</mat-chip-option>
+                      <mat-chip-option #olympic1 value=4 (selectionChange)="olympicSelect1(courseIndex, 4)">金</mat-chip-option>
+                      <mat-chip-option selected #olympic1 value=3 (selectionChange)="olympicSelect1(courseIndex, 3)">銀</mat-chip-option>
+                      <mat-chip-option #olympic1 value=2 (selectionChange)="olympicSelect1(courseIndex, 2)">銅</mat-chip-option>
+                      <mat-chip-option #olympic1 value=1 (selectionChange)="olympicSelect1(courseIndex, 1)">鉄</mat-chip-option>
+                    </p>
+                    <p *ngSwitchCase=2>
+                      <mat-chip-option #olympic1 value=5 (selectionChange)="olympicSelect1(courseIndex, 5)">ダイヤ</mat-chip-option>
+                      <mat-chip-option #olympic1 value=4 (selectionChange)="olympicSelect1(courseIndex, 4)">金</mat-chip-option>
+                      <mat-chip-option #olympic1 value=3 (selectionChange)="olympicSelect1(courseIndex, 3)">銀</mat-chip-option>
+                      <mat-chip-option selected #olympic1 value=2 (selectionChange)="olympicSelect1(courseIndex, 2)">銅</mat-chip-option>
+                      <mat-chip-option #olympic1 value=1 (selectionChange)="olympicSelect1(courseIndex, 1)">鉄</mat-chip-option>
+                    </p>
+                    <p *ngSwitchCase=1>
+                      <mat-chip-option #olympic1 value=5 (selectionChange)="olympicSelect1(courseIndex, 5)">ダイヤ</mat-chip-option>
+                      <mat-chip-option #olympic1 value=4 (selectionChange)="olympicSelect1(courseIndex, 4)">金</mat-chip-option>
+                      <mat-chip-option #olympic1 value=3 (selectionChange)="olympicSelect1(courseIndex, 3)">銀</mat-chip-option>
+                      <mat-chip-option #olympic1 value=2 (selectionChange)="olympicSelect1(courseIndex, 2)">銅</mat-chip-option>
+                      <mat-chip-option selected #olympic1 value=1 (selectionChange)="olympicSelect1(courseIndex, 1)">鉄</mat-chip-option>
+                    </p>
+                    <p *ngSwitchDefault>
+                      <mat-chip-option #olympic1 value=5 (selectionChange)="olympicSelect1(courseIndex, 5)">ダイヤ</mat-chip-option>
+                      <mat-chip-option #olympic1 value=4 (selectionChange)="olympicSelect1(courseIndex, 4)">金</mat-chip-option>
+                      <mat-chip-option #olympic1 value=3 (selectionChange)="olympicSelect1(courseIndex, 3)">銀</mat-chip-option>
+                      <mat-chip-option #olympic1 value=2 (selectionChange)="olympicSelect1(courseIndex, 2)">銅</mat-chip-option>
+                      <mat-chip-option #olympic1 value=1 (selectionChange)="olympicSelect1(courseIndex, 1)">鉄</mat-chip-option>
+                    </p>
+                  </span>
+                </mat-chip-listbox>
+              </div>
+              <div class="col-1"></div>
+            </div>
             <br>
             <div class="row">
               <div class="col-3 d-flex align-items-center justify-content-center">
@@ -655,11 +631,11 @@
               <div class="col-6 mb-2">
                 <select class="form-select form-select-sm" [(ngModel)]='olympic2[courseIndex]' name="dropdownOption" id="dropdownOption">
                   <option value=0>---</option>
-                  <option value=5>DIAMOND</option>
-                  <option value=4>GOLD</option>
-                  <option value=3>SILVER</option>
-                  <option value=2>BRONZE</option>
-                  <option value=1>IRON</option>
+                  <option value=5>ダイヤ</option>
+                  <option value=4>金</option>
+                  <option value=3>銀</option>
+                  <option value=2>銅</option>
+                  <option value=1>鉄</option>
                 </select>
               </div>
             </div>
@@ -732,11 +708,11 @@
               <div class="col-6 mb-2">
                 <select class="form-select form-select-sm" [(ngModel)]='olympic3[courseIndex]' name="dropdownOption" id="dropdownOption">
                   <option value=0>---</option>
-                  <option value=5>DIAMOND</option>
-                  <option value=4>GOLD</option>
-                  <option value=3>SILVER</option>
-                  <option value=2>BRONZE</option>
-                  <option value=1>IRON</option>
+                  <option value=5>ダイヤ</option>
+                  <option value=4>金</option>
+                  <option value=3>銀</option>
+                  <option value=2>銅</option>
+                  <option value=1>鉄</option>
                 </select>
               </div>
             </div>
@@ -809,11 +785,11 @@
               <div class="col-6 mb-2">
                 <select class="form-select form-select-sm" [(ngModel)]='olympic4[courseIndex]' name="dropdownOption" id="dropdownOption">
                   <option value=0>---</option>
-                  <option value=5>DIAMOND</option>
-                  <option value=4>GOLD</option>
-                  <option value=3>SILVER</option>
-                  <option value=2>BRONZE</option>
-                  <option value=1>IRON</option>
+                  <option value=5>ダイヤ</option>
+                  <option value=4>金</option>
+                  <option value=3>銀</option>
+                  <option value=2>銅</option>
+                  <option value=1>鉄</option>
                 </select>
               </div>
             </div>
@@ -839,7 +815,20 @@
               </div>
             </div>
           </div>
-          <br>
+          <div class="accordion" id="accordionExample">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                  打順設定
+                </button>
+              </h2>
+              <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                  <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                </div>
+              </div>
+            </div>
+          </div>
           <div class="container">
             <div class="row justify-content-center">
               <div class="col-4">
