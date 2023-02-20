@@ -1,4 +1,3 @@
-import { MatChipInputEvent, MatChipSelectionChange } from '@angular/material/chips';
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
@@ -223,27 +222,27 @@ export class ScorelistComponent {
   }
 
   /**
-   * スコアのカウントアップ
+   * スコアのカウントアップ(プラス1)
    * ダイアログ用イベント
    * @param courseNo コースNo
    * @param playerIndex プレイヤー番号
    */
-  setScoreCounterUp(courseNo: any, playerIndex: any){
+  setScoreCounter1Up(courseNo: any, playerIndex: any){
     switch (playerIndex){
       case this._index_name1:
-        if(this.score1[courseNo] !== 15 )
+        if(this.score1[courseNo] < 15 )
           this.score1[courseNo]++
         break
       case this._index_name2:
-        if(this.score2[courseNo] !== 15 )
+        if(this.score2[courseNo] < 15 )
           this.score2[courseNo]++
         break
       case this._index_name3:
-        if(this.score3[courseNo] !== 15 )
+        if(this.score3[courseNo] < 15 )
           this.score3[courseNo]++
         break
       case this._index_name4:
-        if(this.score4[courseNo] !== 15 )
+        if(this.score4[courseNo] < 15 )
           this.score4[courseNo]++
         break
       default:
@@ -252,28 +251,86 @@ export class ScorelistComponent {
   }
 
   /**
-   * スコアのカウントダウン
+   * スコアのカウントアップ(プラス3)
    * ダイアログ用イベント
    * @param courseNo コースNo
    * @param playerIndex プレイヤー番号
    */
-  setScoreCounterDown(courseNo: any, playerIndex: any){
+  setScoreCounter3Up(courseNo: any, playerIndex: any){
     switch (playerIndex){
       case this._index_name1:
-        if(this.score1[courseNo] !== 0 )
+        if(this.score1[courseNo] < 15 )
+          this.score1[courseNo] = this.score1[courseNo] + 3 > 15 ? 15 : this.score1[courseNo] + 3
+        break
+      case this._index_name2:
+        if(this.score2[courseNo] < 15 )
+          this.score2[courseNo] = this.score2[courseNo] + 3 > 15 ? 15 : this.score2[courseNo] + 3
+        break
+      case this._index_name3:
+        if(this.score3[courseNo] < 15 )
+          this.score3[courseNo] = this.score3[courseNo] + 3 > 15 ? 15 : this.score3[courseNo] + 3
+        break
+      case this._index_name4:
+        if(this.score4[courseNo] < 15 )
+          this.score4[courseNo] = this.score4[courseNo] + 3 > 15 ? 15 : this.score4[courseNo] + 3
+        break
+      default:
+        break
+    }
+  }
+
+  /**
+   * スコアのカウントダウン（マイナス1）
+   * ダイアログ用イベント
+   * @param courseNo コースNo
+   * @param playerIndex プレイヤー番号
+   */
+  setScoreCounter1Down(courseNo: any, playerIndex: any){
+    switch (playerIndex){
+      case this._index_name1:
+        if(this.score1[courseNo] > 0 )
           this.score1[courseNo]--
         break
       case this._index_name2:
-        if(this.score2[courseNo] !== 0 )
+        if(this.score2[courseNo] > 0 )
           this.score2[courseNo]--
         break
       case this._index_name3:
-        if(this.score3[courseNo] !== 0 )
+        if(this.score3[courseNo] > 0 )
           this.score3[courseNo]--
         break
       case this._index_name4:
-        if(this.score4[courseNo] !== 0 )
+        if(this.score4[courseNo] > 0 )
           this.score4[courseNo]--
+        break
+      default:
+        break
+    }
+  }
+
+  /**
+   * スコアのカウントダウン（マイナス3）
+   * ダイアログ用イベント
+   * @param courseNo コースNo
+   * @param playerIndex プレイヤー番号
+   */
+  setScoreCounter3Down(courseNo: any, playerIndex: any){
+    switch (playerIndex){
+      case this._index_name1:
+        if(this.score1[courseNo] > 0 )
+          this.score1[courseNo] = this.score1[courseNo] - 3 < 0 ? 0 : this.score1[courseNo] - 3
+        break
+      case this._index_name2:
+        if(this.score2[courseNo] > 0 )
+          this.score2[courseNo] = this.score2[courseNo] - 3 < 0 ? 0 : this.score2[courseNo] - 3
+        break
+      case this._index_name3:
+        if(this.score3[courseNo] > 0 )
+          this.score3[courseNo] = this.score3[courseNo] - 3 < 0 ? 0 : this.score3[courseNo] - 3
+        break
+      case this._index_name4:
+        if(this.score4[courseNo] > 0 )
+          this.score4[courseNo] = this.score4[courseNo] - 3 < 0 ? 0 : this.score4[courseNo] - 3
         break
       default:
         break
@@ -671,9 +728,11 @@ export class ScorelistComponent {
     //一人目
     if(p1point < p2point && p1point < p3point && p1point < p4point){
       this.order[trgt][this._index_name1] = 1
+      this.lasvegas1[trgt] = 0
     }
     if(p1point > p2point && p1point > p3point && p1point > p4point){
       this.order[trgt][this._index_name1] = 4
+      this.lasvegas1[trgt] = 0
     }
     if(
       (p1point > p2point && p1point < p3point && p1point < p4point)
@@ -693,9 +752,11 @@ export class ScorelistComponent {
     //二人目
     if(p2point < p1point && p2point < p3point && p2point < p4point){
       this.order[trgt][this._index_name2] = 1
+      this.lasvegas2[trgt] = 0
     }
     if(p2point > p1point && p2point > p3point && p2point > p4point){
       this.order[trgt][this._index_name2] = 4
+      this.lasvegas2[trgt] = 0
     }
     if(
       (p2point > p1point && p2point < p3point && p2point < p4point)
@@ -715,9 +776,11 @@ export class ScorelistComponent {
     //三人目
     if(p3point < p1point && p3point < p2point && p3point < p4point){
       this.order[trgt][this._index_name3] = 1
+      this.lasvegas3[trgt] = 0
     }
     if(p3point > p1point && p3point > p2point && p3point > p4point){
       this.order[trgt][this._index_name3] = 4
+      this.lasvegas3[trgt] = 0
     }
     if(
       (p3point > p1point && p3point < p2point && p3point < p4point)
@@ -737,9 +800,11 @@ export class ScorelistComponent {
     //四人目
     if(p4point < p1point && p4point < p2point && p4point < p3point){
       this.order[trgt][this._index_name4] = 1
+      this.lasvegas4[trgt] = 0
     }
     if(p4point > p1point && p4point > p2point && p4point > p3point){
       this.order[trgt][this._index_name4] = 4
+      this.lasvegas4[trgt] = 0
     }
     if(
       (p4point > p1point && p4point < p2point && p4point < p3point)
