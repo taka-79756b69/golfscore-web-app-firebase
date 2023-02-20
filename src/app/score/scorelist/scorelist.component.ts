@@ -1,3 +1,4 @@
+import { MatChipInputEvent, MatChipSelectionChange } from '@angular/material/chips';
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
@@ -125,17 +126,20 @@ export class ScorelistComponent {
   //保存確認フラグ
   saving: any
 
-  constructor(
-    private activatedRoute: ActivatedRoute,
-    private firestore: AngularFirestore,
-    ){
-    }
+  //オーダーフラグ
+  orderError: any
 
   // 購読設定停止用
   private subscriptions = new Subscription();
 
   //ドキュメントID
   _id: any
+
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private firestore: AngularFirestore
+    ){
+    }
 
   /**
    * 初期処理
@@ -579,7 +583,9 @@ export class ScorelistComponent {
     this.lasvegasTotal4_rated = this.lasvegasTotal4 * this.rateValue
   }
 
-  //打順のバッジを表示する処理
+  /**
+   * 打順のバッジを表示する処理
+   */
   setBadgeOrder() {
 
     let p1point: any
@@ -588,6 +594,14 @@ export class ScorelistComponent {
     let p4point: any
 
     this.courseIndex = 0
+
+    if(this.order1st[this._index_name1] == 0 || this.order1st[this._index_name2] == 0
+        || this.order1st[this._index_name3] == 0 || this.order1st[this._index_name4] == 0) {
+        //最初の打順設定が完了していない場合は、エラーフラグを立てる
+        this.orderError = true
+    } else {
+      this.orderError = false
+    }
 
     for (let i=0; i<=17; i++) {
 
@@ -605,14 +619,14 @@ export class ScorelistComponent {
 
       //最初のコースの場合、手入力した値をバッジにセット
       if(i == 0){
-        this.order[i][this._index_name1] = this.order1st[this._index_name1]
-        this.order[i][this._index_name2] = this.order1st[this._index_name2]
-        this.order[i][this._index_name3] = this.order1st[this._index_name3]
-        this.order[i][this._index_name4] = this.order1st[this._index_name4]
+        if(!this.orderError){
+          this.setBagdeOrder(i, this.order1st[this._index_name1], this.order1st[this._index_name2]
+            , this.order1st[this._index_name3], this.order1st[this._index_name4])
+        }
       } else {
         //最初のコース以外の場合、スコアを見て判定する
-        if (this.score1[i-1] == 0 && this.score2[i-1] == 0
-          && this.score3[i-1] == 0 && this.score4[i-1] == 0) {
+        if (this.score1[i-1] == 0 || this.score2[i-1] == 0
+          || this.score3[i-1] == 0 || this.score4[i-1] == 0) {
             //前のコースの打数が未入力0の場合は、バッジは出さない
             this.order[i][this._index_name1] = 0
             this.order[i][this._index_name2] = 0
@@ -626,6 +640,11 @@ export class ScorelistComponent {
             //前のコースのバッジが表示済みの場合、バッジを表示
             if (this.order[i-1][this._index_name1] != 0 && this.order[i-1][this._index_name2] != 0
               && this.order[i-1][this._index_name3] != 0 && this.order[i-1][this._index_name4] != 0) {
+                //バッジ上書きできるように最初にクリアしておく
+                this.order[i][this._index_name1] = 0
+                this.order[i][this._index_name2] = 0
+                this.order[i][this._index_name3] = 0
+                this.order[i][this._index_name4] = 0
                 p1point = +this.score1[i-1] * 10 + +this.order[i-1][this._index_name1]
                 p2point = +this.score2[i-1] * 10 + +this.order[i-1][this._index_name2]
                 p3point = +this.score3[i-1] * 10 + +this.order[i-1][this._index_name3]
@@ -638,7 +657,15 @@ export class ScorelistComponent {
     }
   }
 
-  //バッジを設定する処理
+  /**
+   * バッジを設定する処理
+   * 打順のバッジとラスベガスのチーム色をセットする
+   * @param trgt
+   * @param p1point
+   * @param p2point
+   * @param p3point
+   * @param p4point
+   */
   setBagdeOrder(trgt:any, p1point:any, p2point:any, p3point:any, p4point:any) {
 
     //一人目
@@ -653,12 +680,14 @@ export class ScorelistComponent {
       ||(p1point > p3point && p1point < p2point && p1point < p4point)
       ||(p1point > p4point && p1point < p2point && p1point < p3point)){
         this.order[trgt][this._index_name1] = 2
+        this.lasvegas1[trgt] = 1
     }
     if(
       (p1point < p2point && p1point > p3point && p1point > p4point)
       ||(p1point < p3point && p1point > p2point && p1point > p4point)
       ||(p1point < p4point && p1point > p2point && p1point > p3point)){
         this.order[trgt][this._index_name1] = 3
+        this.lasvegas1[trgt] = 1
     }
 
     //二人目
@@ -673,12 +702,14 @@ export class ScorelistComponent {
       ||(p2point > p3point && p2point < p1point && p2point < p4point)
       ||(p2point > p4point && p2point < p1point && p2point < p3point)){
         this.order[trgt][this._index_name2] = 2
+        this.lasvegas2[trgt] = 1
     }
     if(
       (p2point < p1point && p2point > p3point && p2point > p4point)
       ||(p2point < p3point && p2point > p1point && p2point > p4point)
       ||(p2point < p4point && p2point > p1point && p2point > p3point)){
         this.order[trgt][this._index_name2] = 3
+        this.lasvegas2[trgt] = 1
     }
 
     //三人目
@@ -693,12 +724,14 @@ export class ScorelistComponent {
       ||(p3point > p2point && p3point < p1point && p3point < p4point)
       ||(p3point > p4point && p3point < p1point && p3point < p2point)){
         this.order[trgt][this._index_name3] = 2
+        this.lasvegas3[trgt] = 1
     }
     if(
       (p3point < p1point && p3point > p2point && p3point > p4point)
       ||(p3point < p2point && p3point > p1point && p3point > p4point)
       ||(p3point < p4point && p3point > p1point && p3point > p2point)){
         this.order[trgt][this._index_name3] = 3
+        this.lasvegas3[trgt] = 1
     }
 
     //四人目
@@ -713,12 +746,50 @@ export class ScorelistComponent {
       ||(p4point > p2point && p4point < p1point && p4point < p3point)
       ||(p4point > p3point && p4point < p1point && p4point < p2point)){
         this.order[trgt][this._index_name4] = 2
+        this.lasvegas4[trgt] = 1
     }
     if(
       (p4point < p1point && p4point > p2point && p4point > p3point)
       ||(p4point < p2point && p4point > p1point && p4point > p3point)
       ||(p4point < p3point && p4point > p1point && p4point > p2point)){
         this.order[trgt][this._index_name4] = 3
+        this.lasvegas4[trgt] = 1
+    }
+  }
+
+  olympicSelect1(courseNo: any, olympic: any){
+
+    if(this.olympic1[courseNo] == olympic){
+      this.olympic1[courseNo] = 0
+    }else{
+      this.olympic1[courseNo] = olympic
+    }
+  }
+
+  olympicSelect2(courseNo: any, olympic: any){
+
+    if(this.olympic2[courseNo] == olympic){
+      this.olympic2[courseNo] = 0
+    }else{
+      this.olympic2[courseNo] = olympic
+    }
+  }
+
+  olympicSelect3(courseNo: any, olympic: any){
+
+    if(this.olympic3[courseNo] == olympic){
+      this.olympic3[courseNo] = 0
+    }else{
+      this.olympic3[courseNo] = olympic
+    }
+  }
+
+  olympicSelect4(courseNo: any, olympic: any){
+
+    if(this.olympic4[courseNo] == olympic){
+      this.olympic4[courseNo] = 0
+    }else{
+      this.olympic4[courseNo] = olympic
     }
   }
 
