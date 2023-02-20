@@ -359,10 +359,10 @@ export class ScorelistComponent {
     this.total3 = this.setTotal3()
     this.total4 = this.setTotal4()
 
+    this.setBadgeOrder()
     this.setOlympicTotal()
     this.setLasvegasTotal()
     this.setOlympicAndLasvegasAfterRate()
-    this.setBadgeOrder()
   }
 
   /**
