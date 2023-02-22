@@ -1,4 +1,24 @@
-<br>
+<div class="container my-2">
+  <div class="row justify-content-center sticky-top">
+    <div class="col-1"></div>
+    <div class="col">
+      <a routerLink="{{ '/home' }}">
+        <button class="btn btn-sm btn-secondary mt-2" type="button" style="width: 75px;">
+          戻る
+        </button>
+      </a>
+    </div>
+  </div>
+</div>
+<div *ngIf="scorelist.length === 0">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-12">
+        <div class="text-center">データが登録されていません<br>TOP画面から登録を開始してください</div>
+      </div>
+    </div>
+  </div>
+</div>
 <div *ngIf="scorelist">
   <div *ngFor="let tmp of scorelist; let i=index">
     <div class="container">
@@ -85,3 +105,4 @@
     </div>
   </div>
 </div>
+

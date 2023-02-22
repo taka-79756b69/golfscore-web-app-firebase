@@ -4,6 +4,11 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Deploy
 
+- Run `ng build --configuration development` developmentモードでビルド
+- Run `ng build --configuration production` productionモードでビルド
+- Run `firebase deploy --only hosting:staging` ステージング環境にデプロイ
+- Run `firebase deploy --only hosting:prod` 本番環境にデプロイ
+
 Run `ng deploy` Firebaseへのデプロイを行う。
 
 ## Development server

@@ -10,7 +10,10 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 export class ScorelisttopComponent {
 
   scorelist: any
+
   confflag: any
+  scoresEmpty: any
+
   delDocId: any
 
   _index_id = 0
@@ -43,9 +46,7 @@ export class ScorelisttopComponent {
   getScoreLists(){
 
     this.scorelist = new Array()
-
     this.subscriptions = new Subscription()
-
     this.subscriptions.add(
       this.firestore.collection('scores', ref => ref.orderBy('timestamp', 'desc')).snapshotChanges().subscribe(colSnap => {
         colSnap.forEach(snap => {

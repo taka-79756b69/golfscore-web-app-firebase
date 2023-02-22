@@ -1,13 +1,34 @@
 {
   "projects": {
-    "default": "strong-land-377016"
+    "default": "strong-land-377016",
+    "prod": "mygolfscore-prod",
+    "staging": "strong-land-377016"
   },
   "targets": {
     "strong-land-377016": {
       "hosting": {
-        "golfscore-web-app-firebase": [
+        "default": [
           "strong-land-377016"
+        ],
+        "staging": [
+          "strong-land-377016"
+        ],
+        "prod": [
+          "mygolfscore-prod"
         ]
+      },
+      "mygolfscore-prod": {
+        "hosting": {
+          "default": [
+            "mygolfscore-prod"
+          ],
+          "staging": [
+            "strong-land-377016"
+          ],
+          "prod": [
+            "mygolfscore-prod"
+          ]
+        }
       }
     }
   }

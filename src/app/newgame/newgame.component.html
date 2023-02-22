@@ -80,8 +80,8 @@
   </table>
   <div class="container">
     <div class="row">
-      <div class="col-4"></div>
-      <div class="col-4 d-grid gap-2">
+      <div class="col"></div>
+      <div class="col-5 d-grid gap-2">
         <button *ngIf="validate; else elseButton" class="btn btn-secondary btn-block" type="submit" [disabled]="validate" data-bs-toggle="modal" data-bs-target="#saveDialog">
           プレイ開始
         </button>
@@ -91,9 +91,9 @@
           </button>
         </ng-template>
       </div>
-      <div class="col text-end">
+      <div class="col">
         <a routerLink="{{ '/home' }}">
-          <button class="btn btn-sm btn-secondary mt-2" type="button" style="width: 60%;">
+          <button class="btn btn-sm btn-secondary mt-2" type="button" style="width: 80%;">
             戻る
           </button>
         </a>

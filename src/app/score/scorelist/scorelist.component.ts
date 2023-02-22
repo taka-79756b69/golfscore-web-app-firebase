@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Subscription } from 'rxjs';
@@ -8,7 +8,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './scorelist.component.html',
   styleUrls: ['./scorelist.component.scss']
 })
-export class ScorelistComponent {
+export class ScorelistComponent implements OnInit {
 
   //DBから取得した値のかたまり(ドキュメント)
   score: any
@@ -150,6 +150,14 @@ export class ScorelistComponent {
       this._id = params.get("scoreId")!
       this.getScoreDocument(this._id)
     })
+
+    //ページの更新前に確認メッセージを出す
+    window.addEventListener("beforeunload", function (e) {
+      let confirmationMessage = "\o/";
+      console.log("log : beforeunload");
+      e.returnValue = confirmationMessage;     // Gecko, Trident, Chrome 34+
+      return confirmationMessage;              // Gecko, WebKit, Chrome <34
+  });
   }
 
   /**
