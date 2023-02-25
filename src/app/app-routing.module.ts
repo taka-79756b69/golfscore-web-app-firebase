@@ -1,3 +1,7 @@
+import { LogoutComponent } from './logout/logout.component';
+import { LoginComponent } from './login/login.component';
+import { AuthGuard } from './guard/auth.guard';
+import { SignupComponent } from './signup/signup.component';
 import { ScoreComponent } from './score/score.component';
 import { HomeComponent } from './home/home.component';
 import { NgModule } from '@angular/core';
@@ -8,10 +12,38 @@ import { NewgameComponent } from './newgame/newgame.component';
 import { NewgameModule } from './newgame/newgame.module';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full'},
-  { path: 'home', component: HomeComponent },
-  { path: 'score', component: ScoreComponent },
-  { path: 'newgame', component: NewgameComponent }
+  {
+    path: '',
+    redirectTo: 'home',
+    pathMatch: 'full',
+  },
+  {
+    path: 'home',
+    component: HomeComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'score',
+    component: ScoreComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'newgame',
+    component: NewgameComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'signup',
+    component: SignupComponent,
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
+  },
+  { path: 'logout',
+    component: LogoutComponent,
+    canActivate: [AuthGuard]
+  }
 ];
 
 @NgModule({
@@ -19,7 +51,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     ScoreModule,
     BrowserModule,
-    NewgameModule
+    NewgameModule,
   ],
   exports: [RouterModule]
 })
