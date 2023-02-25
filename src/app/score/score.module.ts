@@ -26,8 +26,6 @@ const routes: Routes = [
      { path: '', component: ScorelisttopComponent },
      { path: '4/:scoreId', component: ScorelistComponent },
      { path: '3/:scoreId', component: Scorelist3ptComponent },
-    //  { path: ':scoreId/score', component: ScoreComponent },
-    //  { path: ':scoreId/score', redirectTo: '/score', pathMatch: 'full'},
      { path: 'scorelisttop', component: ScorelisttopComponent }
     ]
   }
