@@ -20,7 +20,7 @@ export class AuthGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     return this.authService.getAuthState().pipe(
       mergeMap((user) =>
-        user ? of(true) : this.router.navigateByUrl('/signup')
+        user ? of(true) : this.router.navigateByUrl('/login')
       )
     )
   }

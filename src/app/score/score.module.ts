@@ -1,3 +1,4 @@
+import { AuthGuard } from './../guard/auth.guard';
 import { DatePipe } from './../pipes/date.pipe';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ScoreComponent } from './score.component';
@@ -22,6 +23,7 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 const routes: Routes = [
   {
     path: 'score', component: ScoreComponent,
+    canActivate: [AuthGuard],
     children: [
      { path: '', component: ScorelisttopComponent },
      { path: '4/:scoreId', component: ScorelistComponent },

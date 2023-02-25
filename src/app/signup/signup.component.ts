@@ -1,3 +1,4 @@
+import { MessageService } from './../common/message/message.service';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -12,17 +13,25 @@ export class SignupComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private messageService: MessageService
   ) { }
 
+  //エラーメッセージ
+  errorMessage: any
+
   ngOnInit(): void {
+    //ngOninit
   }
 
-  signup(form: NgForm): void {
+  async signup(form: NgForm): Promise<void> {
     const { email, password } = form.value;
-
-    this.authService.login(email, password)
-    //  .then(() => this.router.navigateByUrl('/'));
+    try {
+      await this.authService.createUser(email, password)
+      .then(() => this.router.navigateByUrl('/'));
+    } catch (error: any) {
+      //alert(error.code)
+      this.errorMessage = this.messageService.getErrorMessageJapanese(error.code)
+    }
   }
-
 }
