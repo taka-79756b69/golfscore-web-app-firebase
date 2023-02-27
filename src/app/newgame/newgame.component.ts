@@ -4,7 +4,7 @@ import { serverTimestamp } from "firebase/firestore"
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { DateAdapter, NativeDateAdapter } from '@angular/material/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { User } from './user';
 
 export class MyDateAdapter extends NativeDateAdapter {
@@ -21,7 +21,6 @@ export class MyDateAdapter extends NativeDateAdapter {
 export class NewgameComponent {
 
   constructor(
-    private activatedRoute: ActivatedRoute,
     private router: Router,
     private firestore: AngularFirestore,
     dateAdapter: DateAdapter<NativeDateAdapter>) {

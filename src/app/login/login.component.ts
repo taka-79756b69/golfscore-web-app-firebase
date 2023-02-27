@@ -14,6 +14,9 @@ export class LoginComponent implements OnInit {
   //エラーメッセージ
   errorMessage: any
 
+  //ローディング
+  loading: any
+
   constructor(private router: Router,
     private authService: AuthService,
     private messageService: MessageService){}
@@ -23,13 +26,15 @@ export class LoginComponent implements OnInit {
   }
 
   async login(form: NgForm): Promise<void> {
+    this.loading = true
     const { email, password } = form.value;
     try {
       await this.authService.login(email, password)
       .then(() => this.router.navigateByUrl('/'));
     } catch (error: any) {
-      //alert(error.code)
+      this.loading = false
       this.errorMessage = this.messageService.getErrorMessageJapanese(error.code)
     }
+    this.loading = false
   }
 }

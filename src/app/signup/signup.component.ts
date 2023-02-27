@@ -1,3 +1,4 @@
+import { getAuth } from '@angular/fire/auth';
 import { MessageService } from './../common/message/message.service';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
@@ -28,10 +29,17 @@ export class SignupComponent implements OnInit {
     const { email, password } = form.value;
     try {
       await this.authService.createUser(email, password)
-      .then(() => this.router.navigateByUrl('/'));
+        .then(() => this.router.navigateByUrl('/'))
     } catch (error: any) {
       //alert(error.code)
       this.errorMessage = this.messageService.getErrorMessageJapanese(error.code)
     }
+
+  }
+
+  ngOnDestroy(): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+    console.log("LOG SIGNUP uid: " + getAuth().currentUser?.uid)
   }
 }

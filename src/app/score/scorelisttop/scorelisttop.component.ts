@@ -55,6 +55,9 @@ export class ScorelisttopComponent {
           console.log("COLLECTION: " + JSON.stringify(scores));
           this.scorelist.push(scores)
         })
+        if(this.scorelist==0){
+          this.scoresEmpty = true
+        }
         console.log("getScoreLists():unsubscribe")
         this.execUnsubscribe()
       })
