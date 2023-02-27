@@ -26,9 +26,7 @@ export class AuthService {
     return this.afAuth.createUserWithEmailAndPassword(email, password)
   }
 
-  deleteUser(){
-    console.log('delete');
-
-    getAuth().currentUser?.delete()
+  async deleteUser(){
+    await getAuth().currentUser?.delete()
   }
 }
