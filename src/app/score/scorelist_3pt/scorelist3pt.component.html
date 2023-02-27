@@ -302,7 +302,7 @@
           <small>{{ olympicTotal2_rated }}</small>
         </div>
       </div>
-      <div class="row mb-4">
+      <div class="row mb-5">
         <div class="col-3 text-center bg-secondary text-white">
           <small>{{ score.name3 }}</small>
         </div>
@@ -313,22 +313,29 @@
         </div>
       </div>
       <br>
-      <div class="row fixed-bottom" style="background-color: #f5f5f5;">
-        <br>
-        <div class="col text-end">
-          <a routerLink="{{ '/score' }}">
-            <button class="btn btn-sm btn-secondary mt-3" type="button" style="width: 75px; height: 35px;">
-              戻る
+      <br>
+      <br>
+      <div class="container fixed-bottom">
+        <div class="row">
+          <div class="col"></div>
+          <div class="col-5 d-grid gap-2">
+            <button class="btn btn-primary mb-3" type="submit" data-bs-toggle="modal" data-bs-target="#saveDialog">
+              <i class="material-icons small-size">save_as</i> スコア保存
             </button>
-          </a>
+          </div>
+          <div class="col"></div>
         </div>
-        <div class="col-5 d-grid gap-2">
-          <button class="btn btn-primary my-3" type="submit" data-bs-toggle="modal" data-bs-target="#saveDialog">
-            <i class="material-icons small-size">save_as</i> スコア保存
-          </button>
+        <div class="row">
+          <div class="col"></div>
+          <div class="col text-center">
+            <a routerLink="{{ '/score' }}">
+              <button class="btn btn-sm btn-secondary mb-3" type="button" style="width: 75px; height: 35px;">
+                戻る
+              </button>
+            </a>
+          </div>
+          <div class="col"></div>
         </div>
-        <div class="col"></div>
-        <br>
       </div>
     </div>
   </form>
