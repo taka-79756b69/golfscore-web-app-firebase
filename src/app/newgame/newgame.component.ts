@@ -6,6 +6,7 @@ import { NgForm } from '@angular/forms';
 import { DateAdapter, NativeDateAdapter } from '@angular/material/core';
 import { Router } from '@angular/router';
 import { User } from './user';
+import { getAuth } from '@angular/fire/auth';
 
 export class MyDateAdapter extends NativeDateAdapter {
   override getDateNames(): string[] {
@@ -50,6 +51,23 @@ export class NewgameComponent {
 
   // 購読設定停止用
   private subscriptions = new Subscription();
+
+  /**
+   * firestoreからドキュメントを取得
+   * ドキュメント内でユーザーID毎にドキュメントIDを割り当てて
+   * サブコレクションとしてスコア一覧を取得する想定
+   * @param parentDocId ドキュメントID（＝ユーザーID）
+   * @param subcollectionName サブコレクション名
+   * @returns 取得したサブコレクションの一覧
+   */
+  getSubcollection(parentDocId: string, subcollectionName: string) {
+    return this.firestore
+      .collection('members')
+      .doc(parentDocId)
+      //.collection(subcollectionName, ref => ref.orderBy('timestamp', 'desc'))
+      .collection(subcollectionName)
+      //.snapshotChanges()
+  }
 
   /**
    * フォーム入力内容で新規作成
@@ -107,7 +125,7 @@ export class NewgameComponent {
 
     this.saving = true
     try {
-      this.firestore.collection('scores').add(this.checkoutForm).then(result =>{
+      this.getSubcollection(getAuth().currentUser?.uid || '', 'scores').add(this.checkoutForm).then(result =>{
         console.log('POST Firestore New Document: ID=' + result.id)
         this.createdDocId = result.id
       })

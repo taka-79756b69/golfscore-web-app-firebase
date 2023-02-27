@@ -1,6 +1,8 @@
+import { getAuth } from '@angular/fire/auth';
 import { Subscription } from 'rxjs';
 import { Component } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Component({
   selector: 'app-scorelisttop',
@@ -25,32 +27,45 @@ export class ScorelisttopComponent {
   _index_name3 = 6
   _index_name4 = 7
 
-  firestore: AngularFirestore
-
   /**
    * コンストラクタ
    * AngularFirestoreサービスを定義
    * @param firestore
    */
-  constructor(firestore: AngularFirestore,
+  constructor(
+    private firestore: AngularFirestore
     ) {
-    this.firestore = firestore
   }
 
   // 購読設定停止用
   private subscriptions = new Subscription()
 
   /**
+   * firestoreからドキュメントを取得
+   * ドキュメント内でユーザーID毎にドキュメントIDを割り当てて
+   * サブコレクションとしてスコア一覧を取得する想定
+   * @param parentDocId ドキュメントID（＝ユーザーID）
+   * @param subcollectionName サブコレクション名
+   * @returns 取得したサブコレクションの一覧
+   */
+  getSubcollection(parentDocId: string, subcollectionName: string) {
+    return this.firestore
+      .collection('members')
+      .doc(parentDocId)
+      .collection(subcollectionName, ref => ref.orderBy('timestamp', 'desc'))
+      .snapshotChanges()
+  }
+
+  /**
    * コレクションをFirestoreから取得する
    */
   getScoreLists(){
-
     this.scorelist = new Array()
     this.subscriptions = new Subscription()
     this.subscriptions.add(
-      this.firestore.collection('scores', ref => ref.orderBy('timestamp', 'desc')).snapshotChanges().subscribe(colSnap => {
+      this.getSubcollection(getAuth().currentUser?.uid || '', 'scores').subscribe(colSnap => {
         colSnap.forEach(snap => {
-          let scores: any = snap.payload.doc.data();
+          let scores: any = snap.payload.doc.data()
           scores.id = snap.payload.doc.id;
           console.log("COLLECTION: " + JSON.stringify(scores));
           this.scorelist.push(scores)

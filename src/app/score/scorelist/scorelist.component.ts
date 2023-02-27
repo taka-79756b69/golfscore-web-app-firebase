@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Subscription } from 'rxjs';
+import { getAuth } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-scorelist',
@@ -195,14 +196,28 @@ export class ScorelistComponent implements OnInit {
   }
 
   /**
+   * firestoreからドキュメントを取得
+   * ドキュメント内でユーザーID毎にドキュメントIDを割り当てて
+   * サブコレクションとしてスコア一覧を取得する想定
+   * @param parentDocId ドキュメントID（＝ユーザーID）
+   * @param subcollectionName サブコレクション名
+   * @returns 取得したサブコレクションの一覧
+   */
+  getSubcollection(parentDocId: string, subcollectionName: string) {
+    return this.firestore
+      .collection('members')
+      .doc(parentDocId)
+      .collection(subcollectionName)
+  }
+
+  /**
    * ドキュメント取得処理
    * FirestoreからドキュメントIDをキーにして取得する
    * @param _id ドキュメントID
    */
   getScoreDocument(_id: string){
     this.subscriptions.add(
-      this.firestore.doc('scores/'+_id).valueChanges().subscribe(data => {
-
+      this.getSubcollection(getAuth().currentUser?.uid || '', 'scores').doc(_id).valueChanges().subscribe(data => {
         this.score = data
         this.setInitParam(data)
         console.log('GET Firestore Document: ' + 'ID=' + _id + ' DATA=' + JSON.stringify(data))
@@ -894,7 +909,7 @@ export class ScorelistComponent implements OnInit {
 
     this.saving = true
     try {
-      this.firestore.doc('scores/'+this._id).update(this.checkoutForm)
+      this.getSubcollection(getAuth().currentUser?.uid || '', 'scores').doc(this._id).update(this.checkoutForm)
       console.log('POST Firestore Document: '+'scores/'+this._id)
     } catch (error) {
       this.saving = false
