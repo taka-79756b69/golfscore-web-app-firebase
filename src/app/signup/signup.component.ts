@@ -21,20 +21,30 @@ export class SignupComponent implements OnInit {
   //エラーメッセージ
   errorMessage: any
 
+  loading: any
+
   ngOnInit(): void {
     //ngOninit
   }
 
   async signup(form: NgForm): Promise<void> {
-    const { email, password } = form.value;
+
+    const { email, password, passwordConf } = form.value;
+
+    if(password != passwordConf){
+      this.errorMessage = "パスワードと確認用パスワードが一致しません"
+      return
+    }
+
+    this.loading = true
     try {
       await this.authService.createUser(email, password)
         .then(() => this.router.navigateByUrl('/'))
     } catch (error: any) {
-      //alert(error.code)
+      this.loading = false
       this.errorMessage = this.messageService.getErrorMessageJapanese(error.code)
     }
-
+    this.loading = false
   }
 
   ngOnDestroy(): void {

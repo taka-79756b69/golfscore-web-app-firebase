@@ -1,12 +1,13 @@
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Injectable } from '@angular/core';
+import { getAuth } from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   constructor(
-    private afAuth: AngularFireAuth,
+    private afAuth: AngularFireAuth
     ) {}
 
   login(email: string, password: string) {
@@ -23,5 +24,11 @@ export class AuthService {
 
   createUser(email: string, password: string){
     return this.afAuth.createUserWithEmailAndPassword(email, password)
+  }
+
+  deleteUser(){
+    console.log('delete');
+
+    getAuth().currentUser?.delete()
   }
 }

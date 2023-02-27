@@ -57,6 +57,21 @@ export class ScorelisttopComponent {
   }
 
   /**
+   * firestoreからドキュメントを取得
+   * ドキュメント内でユーザーID毎にドキュメントIDを割り当てて
+   * サブコレクションとしてスコア一覧を取得する想定
+   * @param parentDocId ドキュメントID（＝ユーザーID）
+   * @param subcollectionName サブコレクション名
+   * @returns 取得したサブコレクションの一覧
+   */
+    getSubcollectionDel(parentDocId: string, subcollectionName: string) {
+      return this.firestore
+        .collection('members')
+        .doc(parentDocId)
+        .collection(subcollectionName)
+    }
+
+  /**
    * コレクションをFirestoreから取得する
    */
   getScoreLists(){
@@ -124,7 +139,8 @@ export class ScorelisttopComponent {
     this.confflag = false
 
     try {
-      this.firestore.collection('scores').doc(this.delDocId).delete()
+      //this.firestore.collection('scores').doc(this.delDocId).delete()
+      this.getSubcollectionDel(getAuth().currentUser?.uid || '', 'scores').doc(this.delDocId).delete()
       console.log("Document Delete Complete : ID=" + this.delDocId)
     } catch (error) {
       console.log('POST Error: '+error)
