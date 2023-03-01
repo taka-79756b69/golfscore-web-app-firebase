@@ -29,4 +29,8 @@ export class AuthService {
   async deleteUser(){
     await getAuth().currentUser?.delete()
   }
+
+  getAccountEmail() {
+    return getAuth().currentUser?.email
+  }
 }

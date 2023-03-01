@@ -85,8 +85,8 @@
         <div class="modal-footer">
           <div *ngIf="confflag; else elseContentFooter">
             <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">キャンセル</button>
-            &nbsp;&nbsp;
-            <button type="button" class="btn btn-danger btn-sm" (click)="delDocument()">削除</button>
+            &nbsp;
+            <button type="button" class="btn btn-danger btn-sm" (click)="delDocument()">&nbsp;&nbsp;削除&nbsp;&nbsp;</button>
           </div>
           <ng-template #elseContentFooter>
             <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal" (click)="reload()">閉じる</button>

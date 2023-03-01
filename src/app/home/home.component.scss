@@ -1,10 +1,19 @@
-.card{
+.card {
   width: 300px;
   height: 300px;
 }
 
-img{
+img {
   width: 298px;
   height: 250px;
   margin-left: -12px;
+}
+
+.modal-footer {
+  border-top: none;
+}
+
+.table {
+  margin-top: 1rem;
+  margin-bottom: -1rem;
 }
