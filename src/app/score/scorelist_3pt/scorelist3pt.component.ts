@@ -492,9 +492,12 @@ export class Scorelist3ptComponent implements OnInit {
 
     this.courseIndex = 0
 
+    //最初の打順設定が完了していない場合は、エラーフラグを立てる
     if(this.order1st[this._index_name1] == 0 || this.order1st[this._index_name2] == 0
         || this.order1st[this._index_name3] == 0) {
-        //最初の打順設定が完了していない場合は、エラーフラグを立てる
+        this.orderError = true
+    } else if (+this.order1st[this._index_name1] + +this.order1st[this._index_name2] +
+        +this.order1st[this._index_name3] != 6) {
         this.orderError = true
     } else {
       this.orderError = false
