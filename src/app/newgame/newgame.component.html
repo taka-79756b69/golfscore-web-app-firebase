@@ -2,53 +2,55 @@
   <table class="table table-borderless">
     <tr>
       <td>
-        <h3>Player1 <span class="badge bg-danger"><small>必須</small></span></h3>
+        <h3><span class="enFont">Player1 </span><span class="badge bg-danger"><small>必須</small></span></h3>
       </td>
       <td>
         <mat-form-field style="margin-bottom: -1.25em">
-          <mat-label>Player1</mat-label>
+          <mat-label><span class="enFont">Player1</span></mat-label>
           <input matInput required placeholder="氏名" [ngModel]="user.name1" name="name1" class="form-control" #name1 (blur)="inputCheck(name1.value, name2.value, name3.value)">
         </mat-form-field>
       </td>
     </tr>
     <tr>
       <td>
-        <h3>Player2 <span class="badge bg-danger"><small>必須</small></span></h3>
+        <h3><span class="enFont">Player2 </span><span class="badge bg-danger"><small>必須</small></span></h3>
       </td>
       <td>
         <mat-form-field style="margin-bottom: -1.25em">
-          <mat-label>Player2</mat-label>
+          <mat-label><span class="enFont">Player2</span></mat-label>
           <input matInput required placeholder="氏名" [ngModel]="user.name2" name="name2" class="form-control" #name2 (blur)="inputCheck(name1.value, name2.value, name3.value)">
         </mat-form-field>
       </td>
     </tr>
     <tr>
       <td>
-        <h3>Player3 <span class="badge bg-danger"><small>必須</small></span></h3>
+        <h3><span class="enFont">Player3 </span><span class="badge bg-danger"><small>必須</small></span></h3>
       </td>
       <td>
         <mat-form-field style="margin-bottom: -1.25em">
-          <mat-label>Player3</mat-label>
+          <mat-label><span class="enFont">Player3</span></mat-label>
           <input matInput required placeholder="氏名" [ngModel]="user.name3" name="name3" class="form-control" #name3 (blur)="inputCheck(name1.value, name2.value, name3.value)">
         </mat-form-field>
       </td>
     </tr>
     <tr>
       <td>
-        <h3>Player4</h3>
+        <h3><span class="enFont">Player4</span></h3>
       </td>
       <td>
         <mat-form-field style="margin-bottom: -1.25em">
-          <mat-label>Player4</mat-label>
+          <mat-label><span class="enFont">Player4</span></mat-label>
           <input matInput placeholder="氏名" [ngModel]="user.name4" name="name4" class="form-control">
         </mat-form-field>
       </td>
     </tr>
     <tr>
-      <td><h3>Date</h3></td>
+      <td>
+        <h3><span class="enFont">Date</span></h3>
+      </td>
       <td>
         <mat-form-field class="example-full-width" appearance="fill" style="margin-bottom: -1.25em">
-          <mat-label>Choose a date</mat-label>
+          <mat-label><span class="enFont">Choose a date</span></mat-label>
           <input [ngModel]="user.playDate" name="playDate" matInput [matDatepicker]="picker">
           <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker touchUi #picker></mat-datepicker>
@@ -56,22 +58,28 @@
       </td>
     </tr>
     <tr>
-      <td><h3>Course Name</h3></td>
+      <td>
+        <h3><span class="enFont">Course Name</span></h3>
+      </td>
       <td>
         <mat-form-field style="margin-bottom: -1.25em; width: 90%;">
-          <mat-label>Course Name</mat-label>
+          <mat-label><span class="enFont">Course Name</span></mat-label>
           <input matInput placeholder="コース名" [ngModel]="user.courseName" name="courseName" class="form-control">
         </mat-form-field>
       </td>
     </tr>
     <tr>
-      <td><h3>IN/OUT <span class="badge bg-danger"><small>必須</small></span></h3></td>
+      <td>
+        <h3><span class="enFont">IN/OUT </span><span class="badge bg-danger"><small>必須</small></span></h3>
+      </td>
       <td>
         <mat-form-field style="margin-bottom: -1.25em">
-          <mat-label>Course Root</mat-label>
+          <mat-label><span class="enFont">Course Root</span></mat-label>
           <mat-select [(ngModel)]="user.inout" name="inout" id="inout" appearance="fill">
-            <mat-option [value]=0>OUT → IN</mat-option>
-            <mat-option [value]=1>IN → OUT</mat-option>
+            <span class="enFont">
+              <mat-option [value]=0>OUT → IN</mat-option>
+              <mat-option [value]=1>IN → OUT</mat-option>
+            </span>
           </mat-select>
         </mat-form-field>
       </td>

@@ -675,9 +675,13 @@ export class ScorelistComponent implements OnInit {
 
     this.courseIndex = 0
 
+    //最初の打順設定が完了していない場合は、エラーフラグを立てる
+    //または、打順がかぶっていたりするとエラーフラグを立てる
     if(this.order1st[this._index_name1] == 0 || this.order1st[this._index_name2] == 0
         || this.order1st[this._index_name3] == 0 || this.order1st[this._index_name4] == 0) {
-        //最初の打順設定が完了していない場合は、エラーフラグを立てる
+        this.orderError = true
+    } else if(+this.order1st[this._index_name1] + +this.order1st[this._index_name2]
+        + +this.order1st[this._index_name3] + +this.order1st[this._index_name4] != 10){
         this.orderError = true
     } else {
       this.orderError = false

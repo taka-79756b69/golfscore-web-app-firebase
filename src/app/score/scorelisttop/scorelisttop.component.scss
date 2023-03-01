@@ -1,6 +1,10 @@
 /** scorelisttop.component.scss */
 .material-icons.small-size {
 	font-size: 17px;
+  vertical-align: -3px;
+}
+.material-icons {
+  vertical-align: -6px;
 }
 .card-title{
   margin: 0px 0px 5px;

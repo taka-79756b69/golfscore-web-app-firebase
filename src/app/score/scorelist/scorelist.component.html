@@ -3,7 +3,7 @@
     <table class="table table-sm">
       <thead class="sticky-top table-secondary">
         <tr class="table-primary">
-          <td class="text-center">#</td>
+          <td class="text-center"><span class="enFont">#</span></td>
           <td class="text-center"><small>{{ score.name1 }}</small></td>
           <td class="text-center"><small>{{ score.name2 }}</small></td>
           <td class="text-center"><small>{{ score.name3 }}</small></td>
@@ -19,96 +19,9 @@
         <ng-container *ngFor="let _score1 of score1; let i = index">
           <tr>
             <th scope="row" class="d-grid gap-2 mt-2">
-              <ng-container *ngIf="i == 0">
-                <button type="button" mat-raised-button color="primary" data-bs-toggle="modal" data-bs-target="#course1Modal" data-bs-whatever="0" (click)="setDialogIndex(i)">
-                  {{ no[i] }}
-                </button>
-              </ng-container>
-              <ng-container *ngIf="i == 1">
-                <button type="button" mat-raised-button color="primary" data-bs-toggle="modal" data-bs-target="#course1Modal" data-bs-whatever="1" (click)="setDialogIndex(i)">
-                  {{ no[i] }}
-                </button>
-              </ng-container>
-              <ng-container *ngIf="i == 2">
-                <button type="button" mat-raised-button color="primary" data-bs-toggle="modal" data-bs-target="#course1Modal" data-bs-whatever="2" (click)="setDialogIndex(i)">
-                  {{ no[i] }}
-                </button>
-              </ng-container>
-              <ng-container *ngIf="i == 3">
-                <button type="button" mat-raised-button color="primary" data-bs-toggle="modal" data-bs-target="#course1Modal" data-bs-whatever="3" (click)="setDialogIndex(i)">
-                  {{ no[i] }}
-                </button>
-              </ng-container>
-              <ng-container *ngIf="i == 4">
-                <button type="button" mat-raised-button color="primary" data-bs-toggle="modal" data-bs-target="#course1Modal" data-bs-whatever="4" (click)="setDialogIndex(i)">
-                  {{ no[i] }}
-                </button>
-              </ng-container>
-              <ng-container *ngIf="i == 5">
-                <button type="button" mat-raised-button color="primary" data-bs-toggle="modal" data-bs-target="#course1Modal" data-bs-whatever="5" (click)="setDialogIndex(i)">
-                  {{ no[i] }}
-                </button>
-              </ng-container>
-              <ng-container *ngIf="i == 6">
-                <button type="button" mat-raised-button color="primary" data-bs-toggle="modal" data-bs-target="#course1Modal" data-bs-whatever="6" (click)="setDialogIndex(i)">
-                  {{ no[i] }}
-                </button>
-              </ng-container>
-              <ng-container *ngIf="i == 7">
-                <button type="button" mat-raised-button color="primary" data-bs-toggle="modal" data-bs-target="#course1Modal" data-bs-whatever="7" (click)="setDialogIndex(i)">
-                  {{ no[i] }}
-                </button>
-              </ng-container>
-              <ng-container *ngIf="i == 8">
-                <button type="button" mat-raised-button color="primary" data-bs-toggle="modal" data-bs-target="#course1Modal" data-bs-whatever="8" (click)="setDialogIndex(i)">
-                  {{ no[i] }}
-                </button>
-              </ng-container>
-              <ng-container *ngIf="i == 9">
-                <button type="button" mat-raised-button color="primary" data-bs-toggle="modal" data-bs-target="#course1Modal" data-bs-whatever="9" (click)="setDialogIndex(i)">
-                  {{ no[i] }}
-                </button>
-              </ng-container>
-              <ng-container *ngIf="i == 10">
-                <button type="button" mat-raised-button color="primary" data-bs-toggle="modal" data-bs-target="#course1Modal" data-bs-whatever="10" (click)="setDialogIndex(i)">
-                  {{ no[i] }}
-                </button>
-              </ng-container>
-              <ng-container *ngIf="i == 11">
-                <button type="button" mat-raised-button color="primary" data-bs-toggle="modal" data-bs-target="#course1Modal" data-bs-whatever="11" (click)="setDialogIndex(i)">
-                  {{ no[i] }}
-                </button>
-              </ng-container>
-              <ng-container *ngIf="i == 12">
-                <button type="button" mat-raised-button color="primary" data-bs-toggle="modal" data-bs-target="#course1Modal" data-bs-whatever="12" (click)="setDialogIndex(i)">
-                  {{ no[i] }}
-                </button>
-              </ng-container>
-              <ng-container *ngIf="i == 13">
-                <button type="button" mat-raised-button color="primary" data-bs-toggle="modal" data-bs-target="#course1Modal" data-bs-whatever="13" (click)="setDialogIndex(i)">
-                  {{ no[i] }}
-                </button>
-              </ng-container>
-              <ng-container *ngIf="i == 14">
-                <button type="button" mat-raised-button color="primary" data-bs-toggle="modal" data-bs-target="#course1Modal" data-bs-whatever="14" (click)="setDialogIndex(i)">
-                  {{ no[i] }}
-                </button>
-              </ng-container>
-              <ng-container *ngIf="i == 15">
-                <button type="button" mat-raised-button color="primary" data-bs-toggle="modal" data-bs-target="#course1Modal" data-bs-whatever="15" (click)="setDialogIndex(i)">
-                  {{ no[i] }}
-                </button>
-              </ng-container>
-              <ng-container *ngIf="i == 16">
-                <button type="button" mat-raised-button color="primary" data-bs-toggle="modal" data-bs-target="#course1Modal" data-bs-whatever="16" (click)="setDialogIndex(i)">
-                  {{ no[i] }}
-                </button>
-              </ng-container>
-              <ng-container *ngIf="i == 17">
-                <button type="button" mat-raised-button color="primary" data-bs-toggle="modal" data-bs-target="#course1Modal" data-bs-whatever="17" (click)="setDialogIndex(i)">
-                  {{ no[i] }}
-                </button>
-              </ng-container>
+              <button type="button" mat-raised-button color="primary" data-bs-toggle="modal" data-bs-target="#course1Modal" data-bs-whatever="0" (click)="setDialogIndex(i)">
+                <span class="enFont">{{ no[i] }}</span>
+              </button>
             </th>
             <ng-container *ngFor="let _player of playerArray; let p = index">
               <td class="text-center align-bottom">
@@ -118,7 +31,7 @@
                       'backgroundColor' : lasvegas1[i] ? '#696969' : '#F8F9FA',
                       'color' : lasvegas1[i] ? 'white' : 'black'
                     }">
-                      {{ score1[i] }}
+                      <span class="enFont">{{ score1[i] }}</span>
                       <div *ngIf="order[i][p] != 0">
                         <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                           {{ order[i][p] }}
@@ -132,7 +45,7 @@
                       'backgroundColor' : lasvegas2[i] ? '#696969' : '#F8F9FA',
                       'color' : lasvegas2[i] ? 'white' : 'black'
                     }">
-                      {{ score2[i] }}
+                      <span class="enFont">{{ score2[i] }}</span>
                       <div *ngIf="order[i][p] != 0">
                         <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                           {{ order[i][p] }}
@@ -146,7 +59,7 @@
                       'backgroundColor' : lasvegas3[i] ? '#696969' : '#F8F9FA',
                       'color' : lasvegas3[i] ? 'white' : 'black'
                     }">
-                      {{ score3[i] }}
+                      <span class="enFont">{{ score3[i] }}</span>
                       <div *ngIf="order[i][p] != 0">
                         <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                           {{ order[i][p] }}
@@ -160,7 +73,7 @@
                       'backgroundColor' : lasvegas4[i] ? '#696969' : '#F8F9FA',
                       'color' : lasvegas4[i] ? 'white' : 'black'
                     }">
-                      {{ score4[i] }}
+                      <span class="enFont">{{ score4[i] }}</span>
                       <div *ngIf="order[i][p] != 0">
                         <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                           {{ order[i][p] }}
@@ -174,44 +87,44 @@
             </ng-container>
           </tr>
           <ng-container *ngIf="i == 8">
-            <tr class="table-warning">
+            <tr class="table-secondary">
               <td>
                 <ng-container *ngIf="no[i] == '9th'">
-                  <div class="text-center">OUT</div>
+                  <div class="text-center"><span class="enFont">OUT</span></div>
                 </ng-container>
                 <ng-container *ngIf="no[i] == '18th'">
-                  <div class="text-center">IN</div>
+                  <div class="text-center"><span class="enFont">IN</span></div>
                 </ng-container>
               </td>
-              <td class="text-center">{{ outTotal1 }}</td>
-              <td class="text-center">{{ outTotal2 }}</td>
-              <td class="text-center">{{ outTotal3 }}</td>
-              <td class="text-center">{{ outTotal4 }}</td>
+              <td class="text-center"><span class="enFont">{{ outTotal1 }}</span></td>
+              <td class="text-center"><span class="enFont">{{ outTotal2 }}</span></td>
+              <td class="text-center"><span class="enFont">{{ outTotal3 }}</span></td>
+              <td class="text-center"><span class="enFont">{{ outTotal4 }}</span></td>
             </tr>
           </ng-container>
           <ng-container *ngIf="i == 17">
-            <tr class="table-warning">
+            <tr class="table-secondary">
               <td>
                 <ng-container *ngIf="no[i] == '9th'">
-                  <div class="text-center">OUT</div>
+                  <div class="text-center"><span class="enFont">OUT</span></div>
                 </ng-container>
                 <ng-container *ngIf="no[i] == '18th'">
-                  <div class="text-center">IN</div>
+                  <div class="text-center"><span class="enFont">IN</span></div>
                 </ng-container>
               </td>
-              <td class="text-center">{{ inTotal1 }}</td>
-              <td class="text-center">{{ inTotal2 }}</td>
-              <td class="text-center">{{ inTotal3 }}</td>
-              <td class="text-center">{{ inTotal4 }}</td>
+              <td class="text-center"><span class="enFont">{{ inTotal1 }}</span></td>
+              <td class="text-center"><span class="enFont">{{ inTotal2 }}</span></td>
+              <td class="text-center"><span class="enFont">{{ inTotal3 }}</span></td>
+              <td class="text-center"><span class="enFont">{{ inTotal4 }}</span></td>
             </tr>
-            <tr class="table-danger">
+            <tr class="table-primary">
               <td>
-                <div class="text-center">TOTAL</div>
+                <div class="text-center"><span class="enFont">TOTAL</span></div>
               </td>
-              <td class="text-center">{{ total1 }}</td>
-              <td class="text-center">{{ total2 }}</td>
-              <td class="text-center">{{ total3 }}</td>
-              <td class="text-center">{{ total4 }}</td>
+              <td class="text-center"><span class="enFont">{{ total1 }}</span></td>
+              <td class="text-center"><span class="enFont">{{ total2 }}</span></td>
+              <td class="text-center"><span class="enFont">{{ total3 }}</span></td>
+              <td class="text-center"><span class="enFont">{{ total4 }}</span></td>
             </tr>
           </ng-container>
         </ng-container>
@@ -222,21 +135,21 @@
     <div class="container">
       <div class="row">
         <div class="col-12 text-center bg-secondary text-white">
-          <small>RESULT</small>
+          <small><span class="enFont">RESULT</span></small>
         </div>
       </div>
       <div class="row">
         <div class="col-3 text-center bg-secondary text-white ">
-          <small>#</small>
+          <small><span class="enFont">#</span></small>
         </div>
         <div class="col-3 text-center bg-secondary text-white">
-          <small><span class="badge bg-danger">A</span><br>OLYMPIC</small>
+          <small><span class="badge bg-danger enFont">A</span><br><span class="enFont">OLYMPIC</span></small>
         </div>
         <div class="col-3 text-center bg-secondary text-white">
-          <small><span class="badge bg-primary">B</span><br>LASVEGAS</small>
+          <small><span class="badge bg-primary enFont">B</span><br><span class="enFont">LASVEGAS</span></small>
         </div>
         <div class="col-3 text-center bg-secondary text-white">
-          <small><span class="badge bg-danger">A</span>+<span class="badge bg-primary">B</span><br>TOTAL</small>
+          <small><span class="badge bg-danger enFont">A</span><span class="enFont">+</span><span class="badge bg-primary enFont">B</span><br><span class="enFont">TOTAL</span></small>
         </div>
       </div>
       <div class="row">
@@ -246,23 +159,23 @@
         <div class="col-3 text-end border border-white" [ngStyle] = "{
           'color' : olympicTotal1 >= 0 ? 'blue' : 'red'
         }">
-          <small>{{ olympicTotal1 }}</small>
+          <small><span class="enFont">{{ olympicTotal1 }}</span></small>
         </div>
         <div class="visually-hidden">
-          <small>{{ olympicTotal1_rated }}</small>
+          <small><span class="enFont">{{ olympicTotal1_rated }}</span></small>
         </div>
         <div class="col-3 text-end border border-white" [ngStyle] = "{
           'color' : lasvegasTotal1 >= 0 ? 'blue' : 'red'
         }">
-          <small>{{ lasvegasTotal1 }}</small>
+          <small><span class="enFont">{{ lasvegasTotal1 }}</span></small>
         </div>
         <div class="visually-hidden">
-          <small>{{ lasvegasTotal1_rated }}</small>
+          <small><span class="enFont">{{ lasvegasTotal1_rated }}</span></small>
         </div>
         <div class="col-3 text-end border border-white" [ngStyle] = "{
           'color' : olympicTotal1 + lasvegasTotal1 >= 0 ? 'blue' : 'red'
         }">
-          <small>{{ olympicTotal1 + lasvegasTotal1 }}</small>
+          <small><span class="enFont">{{ olympicTotal1 + lasvegasTotal1 }}</span></small>
         </div>
       </div>
       <div class="row">
@@ -272,23 +185,23 @@
         <div class="col-3 text-end border border-white" [ngStyle] = "{
           'color' : olympicTotal2 >= 0 ? 'blue' : 'red'
         }">
-          <small>{{ olympicTotal2 }}</small>
+          <small><span class="enFont">{{ olympicTotal2 }}</span></small>
         </div>
         <div class="visually-hidden">
-          <small>{{ olympicTotal2_rated }}</small>
+          <small><span class="enFont">{{ olympicTotal2_rated }}</span></small>
         </div>
         <div class="col-3 text-end border border-white" [ngStyle] = "{
           'color' : lasvegasTotal2 >= 0 ? 'blue' : 'red'
         }">
-          <small>{{ lasvegasTotal2 }}</small>
+          <small><span class="enFont">{{ lasvegasTotal2 }}</span></small>
         </div>
         <div class="visually-hidden">
-          <small>{{ lasvegasTotal2_rated }}</small>
+          <small><span class="enFont">{{ lasvegasTotal2_rated }}</span></small>
         </div>
         <div class="col-3 text-end border border-white" [ngStyle] = "{
           'color' : olympicTotal2 + lasvegasTotal2 >= 0 ? 'blue' : 'red'
         }">
-          <small>{{ olympicTotal2 + lasvegasTotal2 }}</small>
+          <small><span class="enFont">{{ olympicTotal2 + lasvegasTotal2 }}</span></small>
         </div>
       </div>
       <div class="row">
@@ -298,23 +211,23 @@
         <div class="col-3 text-end border border-white" [ngStyle] = "{
           'color' : olympicTotal3 >= 0 ? 'blue' : 'red'
         }">
-          <small>{{ olympicTotal3 }}</small>
+          <small><span class="enFont">{{ olympicTotal3 }}</span></small>
         </div>
         <div class="visually-hidden">
-          <small>{{ olympicTotal3_rated }}</small>
+          <small><span class="enFont">{{ olympicTotal3_rated }}</span></small>
         </div>
         <div class="col-3 text-end border border-white" [ngStyle] = "{
           'color' : lasvegasTotal3 >= 0 ? 'blue' : 'red'
         }">
-          <small>{{ lasvegasTotal3 }}</small>
+          <small><span class="enFont">{{ lasvegasTotal3 }}</span></small>
         </div>
         <div class="visually-hidden">
-          <small>{{ lasvegasTotal3_rated }}</small>
+          <small><span class="enFont">{{ lasvegasTotal3_rated }}</span></small>
         </div>
         <div class="col-3 text-end border border-white" [ngStyle] = "{
           'color' : olympicTotal3 + lasvegasTotal3 >= 0 ? 'blue' : 'red'
         }">
-          <small>{{ olympicTotal3 + lasvegasTotal3 }}</small>
+          <small><span class="enFont">{{ olympicTotal3 + lasvegasTotal3 }}</span></small>
         </div>
       </div>
       <div class="row">
@@ -324,23 +237,23 @@
         <div class="col-3 text-end border border-white" [ngStyle] = "{
           'color' : olympicTotal4 >= 0 ? 'blue' : 'red'
         }">
-          <small>{{ olympicTotal4 }}</small>
+          <small><span class="enFont">{{ olympicTotal4 }}</span></small>
         </div>
         <div class="visually-hidden">
-          <small>{{ olympicTotal4_rated }}</small>
+          <small><span class="enFont">{{ olympicTotal4_rated }}</span></small>
         </div>
         <div class="col-3 text-end border border-white" [ngStyle] = "{
           'color' : lasvegasTotal4 >= 0 ? 'blue' : 'red'
         }">
-          <small>{{ lasvegasTotal4 }}</small>
+          <small><span class="enFont">{{ lasvegasTotal4 }}</span></small>
         </div>
         <div class="visually-hidden">
-          <small>{{ lasvegasTotal4_rated }}</small>
+          <small><span class="enFont">{{ lasvegasTotal4_rated }}</span></small>
         </div>
         <div class="col-3 text-end border border-white" [ngStyle] = "{
           'color' : olympicTotal4 + lasvegasTotal4 >= 0 ? 'blue' : 'red'
         }">
-          <small>{{ olympicTotal4 + lasvegasTotal4 }}</small>
+          <small><span class="enFont">{{ olympicTotal4 + lasvegasTotal4 }}</span></small>
         </div>
       </div>
       <div class="row mt-1 mb-1">
@@ -369,21 +282,21 @@
       </div>
       <div class="row">
         <div class="col-12 text-center bg-secondary text-white">
-          <small>RESULT (After Rate)</small>
+          <small><span class="enFont">RESULT (After Rate)</span></small>
         </div>
       </div>
       <div class="row">
         <div class="col-3 text-center bg-secondary text-white ">
-          <small>#</small>
+          <small><span class="enFont">#</span></small>
         </div>
         <div class="col-3 text-center bg-secondary text-white">
-          <small><span class="badge bg-danger">A</span><br>OLYMPIC</small>
+          <small><span class="badge bg-danger enFont">A</span><br><span class="enFont">OLYMPIC</span></small>
         </div>
         <div class="col-3 text-center bg-secondary text-white">
-          <small><span class="badge bg-primary">B</span><br>LASVEGAS</small>
+          <small><span class="badge bg-primary enFont">B</span><br><span class="enFont">LASVEGAS</span></small>
         </div>
         <div class="col-3 text-center bg-secondary text-white">
-          <small><span class="badge bg-danger">A</span>+<span class="badge bg-primary">B</span><br>TOTAL</small>
+          <small><span class="badge bg-danger enFont">A</span><span class="enFont">+</span><span class="badge bg-primary enFont">B</span><br><span class="enFont">TOTAL</span></small>
         </div>
       </div>
       <div class="row">
@@ -393,17 +306,17 @@
         <div class="col-3 text-end border border-white" [ngStyle] = "{
           'color' : olympicTotal1_rated >= 0 ? 'blue' : 'red'
         }">
-          <small>{{ olympicTotal1_rated }}</small>
+          <small><span class="enFont">{{ olympicTotal1_rated }}</span></small>
         </div>
         <div class="col-3 text-end border border-white" [ngStyle] = "{
           'color' : lasvegasTotal1_rated >= 0 ? 'blue' : 'red'
         }">
-          <small>{{ lasvegasTotal1_rated }}</small>
+          <small><span class="enFont">{{ lasvegasTotal1_rated }}</span></small>
         </div>
         <div class="col-3 text-end border border-white" [ngStyle] = "{
           'color' : olympicTotal1_rated + lasvegasTotal1_rated >= 0 ? 'blue' : 'red'
         }">
-          <small>{{ olympicTotal1_rated + lasvegasTotal1_rated }}</small>
+          <small><span class="enFont">{{ olympicTotal1_rated + lasvegasTotal1_rated }}</span></small>
         </div>
       </div>
       <div class="row">
@@ -413,17 +326,17 @@
         <div class="col-3 text-end border border-white" [ngStyle] = "{
           'color' : olympicTotal2_rated >= 0 ? 'blue' : 'red'
         }">
-          <small>{{ olympicTotal2_rated }}</small>
+          <small><span class="enFont">{{ olympicTotal2_rated }}</span></small>
         </div>
         <div class="col-3 text-end border border-white" [ngStyle] = "{
           'color' : lasvegasTotal2_rated >= 0 ? 'blue' : 'red'
         }">
-          <small>{{ lasvegasTotal2_rated }}</small>
+          <small><span class="enFont">{{ lasvegasTotal2_rated }}</span></small>
         </div>
         <div class="col-3 text-end border border-white" [ngStyle] = "{
           'color' : olympicTotal2_rated + lasvegasTotal2_rated >= 0 ? 'blue' : 'red'
         }">
-          <small>{{ olympicTotal2_rated + lasvegasTotal2_rated }}</small>
+          <small><span class="enFont">{{ olympicTotal2_rated + lasvegasTotal2_rated }}</span></small>
         </div>
       </div>
       <div class="row">
@@ -433,17 +346,17 @@
         <div class="col-3 text-end border border-white" [ngStyle] = "{
           'color' : olympicTotal3_rated >= 0 ? 'blue' : 'red'
         }">
-          <small>{{ olympicTotal3_rated }}</small>
+          <small><span class="enFont">{{ olympicTotal3_rated }}</span></small>
         </div>
         <div class="col-3 text-end border border-white" [ngStyle] = "{
           'color' : lasvegasTotal3_rated >= 0 ? 'blue' : 'red'
         }">
-          <small>{{ lasvegasTotal3_rated }}</small>
+          <small><span class="enFont">{{ lasvegasTotal3_rated }}</span></small>
         </div>
         <div class="col-3 text-end border border-white" [ngStyle] = "{
           'color' : olympicTotal3_rated + lasvegasTotal3_rated >= 0 ? 'blue' : 'red'
         }">
-          <small>{{ olympicTotal3_rated + lasvegasTotal3_rated }}</small>
+          <small><span class="enFont">{{ olympicTotal3_rated + lasvegasTotal3_rated }}</span></small>
         </div>
       </div>
       <div class="row mb-5">
@@ -453,17 +366,17 @@
         <div class="col-3 text-end border border-white" [ngStyle] = "{
           'color' : olympicTotal4_rated >= 0 ? 'blue' : 'red'
         }">
-          <small>{{ olympicTotal4_rated }}</small>
+          <small><span class="enFont">{{ olympicTotal4_rated }}</span></small>
         </div>
         <div class="col-3 text-end border border-white" [ngStyle] = "{
           'color' : lasvegasTotal4_rated >= 0 ? 'blue' : 'red'
         }">
-          <small>{{ lasvegasTotal4_rated }}</small>
+          <small><span class="enFont">{{ lasvegasTotal4_rated }}</span></small>
         </div>
         <div class="col-3 text-end border border-white" [ngStyle] = "{
           'color' : olympicTotal4_rated + lasvegasTotal4_rated >= 0 ? 'blue' : 'red'
         }">
-          <small>{{ olympicTotal4_rated + lasvegasTotal4_rated }}</small>
+          <small><span class="enFont">{{ olympicTotal4_rated + lasvegasTotal4_rated }}</span></small>
         </div>
       </div>
       <br>
