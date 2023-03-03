@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Subscription } from 'rxjs';
 import { getAuth } from '@angular/fire/auth';
+import { NgForm } from '@angular/forms';
+import { Input } from '../input';
 
 @Component({
   selector: 'app-scorelist3pt',
@@ -10,6 +12,9 @@ import { getAuth } from '@angular/fire/auth';
   styleUrls: ['./scorelist3pt.component.scss']
 })
 export class Scorelist3ptComponent implements OnInit {
+
+  //NgFormの作成
+  form!: NgForm;
 
   //DBから取得した値のかたまり(ドキュメント)
   score: any
@@ -29,6 +34,9 @@ export class Scorelist3ptComponent implements OnInit {
 
   //人数(ドキュメント)
   player: any
+
+  //レート
+  txtRate: any
 
   //プレーヤー識別用のインデックス
   _index_name1 = 0
@@ -106,6 +114,8 @@ export class Scorelist3ptComponent implements OnInit {
   // 購読設定停止用
   private subscriptions = new Subscription();
 
+  input: Input = { rate: ""}
+
   //ドキュメントID
   _id: any
 
@@ -151,6 +161,7 @@ export class Scorelist3ptComponent implements OnInit {
     this.no = data.no
     this.order1st = data.order1st
     this.playerArray.push(this._index_name1, this._index_name2, this._index_name3)
+    this.input.rate = data.rate
 
     this.save()
   }
@@ -333,7 +344,7 @@ export class Scorelist3ptComponent implements OnInit {
 
     this.setBadgeOrder()
     this.setOlympicTotal()
-    this.setOlympicAndLasvegasAfterRate()
+    this.setOlympicAndLasvegasAfterRate(this.input.rate)
   }
 
   /**
@@ -468,17 +479,17 @@ export class Scorelist3ptComponent implements OnInit {
    * @param val 入力したレート
    */
   olympicAndLasvegasRateChange(val: any) {
-    this.rateValue = val
-    this.setOlympicAndLasvegasAfterRate()
+    //this.rateValue = val
+    this.setOlympicAndLasvegasAfterRate(val)
   }
 
   /**
    * オリンピックとラスベガスの再描画
    */
-  setOlympicAndLasvegasAfterRate() {
-    this.olympicTotal1_rated = this.olympicTotal1 * this.rateValue
-    this.olympicTotal2_rated = this.olympicTotal2 * this.rateValue
-    this.olympicTotal3_rated = this.olympicTotal3 * this.rateValue
+  setOlympicAndLasvegasAfterRate(val: any) {
+    this.olympicTotal1_rated = this.olympicTotal1 * val
+    this.olympicTotal2_rated = this.olympicTotal2 * val
+    this.olympicTotal3_rated = this.olympicTotal3 * val
   }
 
   /**
@@ -634,7 +645,7 @@ export class Scorelist3ptComponent implements OnInit {
    * 入力内容をFirestoreに上書きする
    * Subscribeできないため、try-catchでエラーをハンドリングする
    */
-  onSubmit() {
+  onSubmit(form: any) {
 
     // リクエスト送信用にJSON作成
     this.checkoutForm = ({
@@ -646,7 +657,7 @@ export class Scorelist3ptComponent implements OnInit {
       olympic1: this.olympic1,
       olympic2: this.olympic2,
       olympic3: this.olympic3,
-
+      rate: form.value.txtRate
     });
 
     this.saving = true

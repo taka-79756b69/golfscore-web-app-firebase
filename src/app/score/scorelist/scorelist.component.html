@@ -1,5 +1,5 @@
 <div *ngIf="score">
-  <form (ngSubmit)="onSubmit()">
+  <form #form=ngForm (ngSubmit)="onSubmit(form)">
     <table class="table table-sm">
       <thead class="sticky-top table-secondary">
         <tr class="table-primary">
@@ -263,10 +263,10 @@
           <small>レート</small>
         </div>
         <div class="col-3 text-end">
-          <span>
-            <input #box1 type="number" class="form-control form-control-sm" placeholder="レート"
+          <span class="enFont">
+            <input #box1 [ngModel]="input.rate" type="number" name="txtRate" class="form-control form-control-sm" placeholder="レート"
               aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
-              (blur)="olympicAndLasvegasRateChange(box1.value)">
+              (ngModelChange)="olympicAndLasvegasRateChange($event)">
           </span>
           <div class="visually-hidden">
             <small>{{ rateValue }}</small>

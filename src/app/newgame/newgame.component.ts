@@ -49,9 +49,6 @@ export class NewgameComponent {
   //作成後のドキュメントID
   createdDocId: any
 
-  // 購読設定停止用
-  private subscriptions = new Subscription();
-
   /**
    * firestoreからドキュメントを取得
    * ドキュメント内でユーザーID毎にドキュメントIDを割り当てて
@@ -120,6 +117,7 @@ export class NewgameComponent {
       olympic2: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
       olympic3: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
       olympic4: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      rate: 100,
       timestamp: serverTimestamp()
     });
 
