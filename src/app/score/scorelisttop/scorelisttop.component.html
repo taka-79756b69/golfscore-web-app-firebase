@@ -20,9 +20,6 @@
                   <span>
                     {{ tmp.courseName }}
                   </span>
-                  <span class="float-end">
-                    ({{ tmp.playDate | customDate }})
-                  </span>
                 </div>
               </h3>
               <div class="card-text">
@@ -41,6 +38,13 @@
                     </div>
                     <div class="col-6">
                       <small>{{ tmp.name4 }}</small>
+                    </div>
+                  </div>
+                  <div class="row mt-1">
+                    <div class="col">
+                      <span class="float-end">
+                        {{ tmp.playDate | customDate }}
+                      </span>
                     </div>
                   </div>
                 </div>
