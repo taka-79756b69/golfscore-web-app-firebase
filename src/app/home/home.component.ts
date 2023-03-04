@@ -13,14 +13,21 @@ export class HomeComponent implements OnInit{
     private authServie: AuthService,
   ){}
 
+  //登録しているメールアドレス
   accountEmail: any
 
+  /**
+   * 初期処理
+   */
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
     this.accountEmail = this.authServie.getAccountEmail()
   }
 
+  /**
+   * アカウント削除
+   */
   acountDelete() {
     console.log("LOG DELETE USER ACCOUNT: "+getAuth().currentUser?.uid);
     this.authServie.deleteUser()

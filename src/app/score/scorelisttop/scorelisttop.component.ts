@@ -64,12 +64,12 @@ export class ScorelisttopComponent {
    * @param subcollectionName サブコレクション名
    * @returns 取得したサブコレクションの一覧
    */
-    getSubcollectionDel(parentDocId: string, subcollectionName: string) {
-      return this.firestore
-        .collection('members')
-        .doc(parentDocId)
-        .collection(subcollectionName)
-    }
+  getSubcollectionDel(parentDocId: string, subcollectionName: string) {
+    return this.firestore
+      .collection('members')
+      .doc(parentDocId)
+      .collection(subcollectionName)
+  }
 
   /**
    * コレクションをFirestoreから取得する
