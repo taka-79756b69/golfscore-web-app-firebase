@@ -1,6 +1,6 @@
 <div *ngIf="score">
   <form #form=ngForm (ngSubmit)="onSubmit(form)">
-    <table class="table table-sm">
+    <table class="table table-borderless table-sm">
       <thead class="sticky-top table-secondary">
         <tr class="table-primary">
           <td class="text-center" style="width: 20%;"><span class="enFont">#</span></td>
@@ -18,7 +18,7 @@
       <tbody>
         <ng-container *ngFor="let _score1 of score1; let i = index">
           <tr>
-            <th scope="row" class="d-grid gap-2 mt-2">
+            <th scope="row" class="d-grid gap-2 mt-3">
               <button type="button" mat-raised-button color="primary" data-bs-toggle="modal" data-bs-target="#course1Modal" data-bs-whatever="0" (click)="setDialogIndex(i)">
                 <span class="enFont">{{ no[i] }}</span>
               </button>
@@ -67,6 +67,10 @@
                         <ng-container *ngSwitchDefault>
                         </ng-container>
                       </ng-container>
+                      <span class="position-absolute top-100 start-100 translate-middle badge rounded-pill text-bg-success">
+                        <span class="enFontSmall">{{ putscore1[i] }}</span>
+                        <span class="visually-hidden">unread messages</span>
+                      </span>
                     </button>
                   </ng-container>
                   <ng-container *ngIf="p == 1">
@@ -110,6 +114,10 @@
                         <ng-container *ngSwitchDefault>
                         </ng-container>
                       </ng-container>
+                      <span class="position-absolute top-100 start-100 translate-middle badge rounded-pill text-bg-success">
+                        <span class="enFontSmall">{{ putscore2[i] }}</span>
+                        <span class="visually-hidden">unread messages</span>
+                      </span>
                     </button>
                   </ng-container>
                   <ng-container *ngIf="p == 2">
@@ -153,6 +161,10 @@
                         <ng-container *ngSwitchDefault>
                         </ng-container>
                       </ng-container>
+                      <span class="position-absolute top-100 start-100 translate-middle badge rounded-pill text-bg-success">
+                        <span class="enFontSmall">{{ putscore3[i] }}</span>
+                        <span class="visually-hidden">unread messages</span>
+                      </span>
                     </button>
                   </ng-container>
                   <ng-container *ngIf="p == 3">
@@ -196,6 +208,10 @@
                           </ng-container>
                         </ng-container>
                       </div>
+                      <span class="position-absolute top-100 start-100 translate-middle badge rounded-pill text-bg-success">
+                        <span class="enFontSmall">{{ putscore4[i] }}</span>
+                        <span class="visually-hidden">unread messages</span>
+                      </span>
                     </button>
                   </ng-container>
                 </div>
@@ -203,6 +219,9 @@
             </ng-container>
           </tr>
           <ng-container *ngIf="i == 8">
+            <tr>
+              <td></td>
+            </tr>
             <tr class="table-secondary">
               <td>
                 <ng-container *ngIf="no[i] == '9th'">
@@ -219,10 +238,13 @@
             </tr>
           </ng-container>
           <ng-container *ngIf="i == 17">
+            <tr>
+              <td></td>
+            </tr>
             <tr class="table-secondary">
               <td>
                 <ng-container *ngIf="no[i] == '9th'">
-                  <div class="text-center"><span class="enFont">OUT</span></div>
+                  <div class="text-center mt-4"><span class="enFont">OUT</span></div>
                 </ng-container>
                 <ng-container *ngIf="no[i] == '18th'">
                   <div class="text-center"><span class="enFont">IN</span></div>
@@ -543,450 +565,619 @@
           </div>
         </nav>
         <div class="modal-body">
-          <div class="container">
-            <!--プレーヤー1-->
-            <div class="row">
-              <div class="col-3">
-              </div>
-              <div class="col-6 d-flex justify-content-center" style="font-weight: bold;">
-                <p class="align-bottom">{{ score.name1 }}</p>
-              </div>
-              <div class="col-3">
-              </div>
-            </div>
-            <div class="row justify-content-center">
-              <div class="col-2">
-                <div class="d-grid">
-                  <button mat-mini-fab color="accent" (click)="setScoreCounter5Down(courseIndex, _index_name1)">
-                    <i class="material-icons">keyboard_double_arrow_down</i>
-                  </button>
-                </div>
-              </div>
-              <div class="col-2">
-                <div class="d-grid">
-                  <button mat-mini-fab color="accent" (click)="setScoreCounter1Down(courseIndex, _index_name1)">
-                    <i class="material-icons">keyboard_arrow_down</i>
-                  </button>
-                </div>
-              </div>
-              <div class="col-2">
-                <h2 class="text-center align-items-center">{{ score1[courseIndex] }}</h2>
-              </div>
-              <div class="col-2">
-                <div class="d-grid">
-                  <button mat-mini-fab color="accent" (click)="setScoreCounter1Up(courseIndex, _index_name1)">
-                    <i class="material-icons">keyboard_arrow_up</i>
-                  </button>
-                </div>
-              </div>
-              <div class="col-2">
-                <div class="d-grid">
-                  <button mat-mini-fab color="accent" (click)="setScoreCounter5Up(courseIndex, _index_name1)">
-                    <i class="material-icons">keyboard_double_arrow_up</i>
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div class="row justify-content-center" style="border-bottom: 1px solid #dee2e6">
-              <div class="col-auto">
-                <mat-chip-listbox aria-label="olympic selection">
-                  <span [ngSwitch]="olympic1[courseIndex]">
-                    <p *ngSwitchCase=5>
-                      <mat-chip-option selected #olympic1 value=5 (selectionChange)="olympicSelect1(courseIndex, 5)">ダイヤ</mat-chip-option>
-                      <mat-chip-option #olympic1 value=4 (selectionChange)="olympicSelect1(courseIndex, 4)">金</mat-chip-option>
-                      <mat-chip-option #olympic1 value=3 (selectionChange)="olympicSelect1(courseIndex, 3)">銀</mat-chip-option>
-                      <mat-chip-option #olympic1 value=2 (selectionChange)="olympicSelect1(courseIndex, 2)">銅</mat-chip-option>
-                      <mat-chip-option #olympic1 value=1 (selectionChange)="olympicSelect1(courseIndex, 1)">鉄</mat-chip-option>
-                    </p>
-                    <p *ngSwitchCase=4>
-                      <mat-chip-option #olympic1 value=5 (selectionChange)="olympicSelect1(courseIndex, 5)">ダイヤ</mat-chip-option>
-                      <mat-chip-option selected #olympic1 value=4 (selectionChange)="olympicSelect1(courseIndex, 4)">金</mat-chip-option>
-                      <mat-chip-option #olympic1 value=3 (selectionChange)="olympicSelect1(courseIndex, 3)">銀</mat-chip-option>
-                      <mat-chip-option #olympic1 value=2 (selectionChange)="olympicSelect1(courseIndex, 2)">銅</mat-chip-option>
-                      <mat-chip-option #olympic1 value=1 (selectionChange)="olympicSelect1(courseIndex, 1)">鉄</mat-chip-option>
-                    </p>
-                    <p *ngSwitchCase=3>
-                      <mat-chip-option #olympic1 value=5 (selectionChange)="olympicSelect1(courseIndex, 5)">ダイヤ</mat-chip-option>
-                      <mat-chip-option #olympic1 value=4 (selectionChange)="olympicSelect1(courseIndex, 4)">金</mat-chip-option>
-                      <mat-chip-option selected #olympic1 value=3 (selectionChange)="olympicSelect1(courseIndex, 3)">銀</mat-chip-option>
-                      <mat-chip-option #olympic1 value=2 (selectionChange)="olympicSelect1(courseIndex, 2)">銅</mat-chip-option>
-                      <mat-chip-option #olympic1 value=1 (selectionChange)="olympicSelect1(courseIndex, 1)">鉄</mat-chip-option>
-                    </p>
-                    <p *ngSwitchCase=2>
-                      <mat-chip-option #olympic1 value=5 (selectionChange)="olympicSelect1(courseIndex, 5)">ダイヤ</mat-chip-option>
-                      <mat-chip-option #olympic1 value=4 (selectionChange)="olympicSelect1(courseIndex, 4)">金</mat-chip-option>
-                      <mat-chip-option #olympic1 value=3 (selectionChange)="olympicSelect1(courseIndex, 3)">銀</mat-chip-option>
-                      <mat-chip-option selected #olympic1 value=2 (selectionChange)="olympicSelect1(courseIndex, 2)">銅</mat-chip-option>
-                      <mat-chip-option #olympic1 value=1 (selectionChange)="olympicSelect1(courseIndex, 1)">鉄</mat-chip-option>
-                    </p>
-                    <p *ngSwitchCase=1>
-                      <mat-chip-option #olympic1 value=5 (selectionChange)="olympicSelect1(courseIndex, 5)">ダイヤ</mat-chip-option>
-                      <mat-chip-option #olympic1 value=4 (selectionChange)="olympicSelect1(courseIndex, 4)">金</mat-chip-option>
-                      <mat-chip-option #olympic1 value=3 (selectionChange)="olympicSelect1(courseIndex, 3)">銀</mat-chip-option>
-                      <mat-chip-option #olympic1 value=2 (selectionChange)="olympicSelect1(courseIndex, 2)">銅</mat-chip-option>
-                      <mat-chip-option selected #olympic1 value=1 (selectionChange)="olympicSelect1(courseIndex, 1)">鉄</mat-chip-option>
-                    </p>
-                    <p *ngSwitchDefault>
-                      <mat-chip-option #olympic1 value=5 (selectionChange)="olympicSelect1(courseIndex, 5)">ダイヤ</mat-chip-option>
-                      <mat-chip-option #olympic1 value=4 (selectionChange)="olympicSelect1(courseIndex, 4)">金</mat-chip-option>
-                      <mat-chip-option #olympic1 value=3 (selectionChange)="olympicSelect1(courseIndex, 3)">銀</mat-chip-option>
-                      <mat-chip-option #olympic1 value=2 (selectionChange)="olympicSelect1(courseIndex, 2)">銅</mat-chip-option>
-                      <mat-chip-option #olympic1 value=1 (selectionChange)="olympicSelect1(courseIndex, 1)">鉄</mat-chip-option>
-                    </p>
-                  </span>
-                </mat-chip-listbox>
-              </div>
-            </div>
-            <!--プレーヤー2-->
-            <div class="row">
-              <div class="col-3">
-              </div>
-              <div class="col-6 d-flex justify-content-center" style="font-weight: bold;">
-                <p>{{ score.name2 }}</p>
-              </div>
-              <div class="col-3">
-              </div>
-            </div>
-            <div class="row justify-content-center">
-              <div class="col-2">
-                <div class="d-grid">
-                  <button mat-mini-fab color="accent" (click)="setScoreCounter5Down(courseIndex, _index_name2)">
-                    <i class="material-icons">keyboard_double_arrow_down</i>
-                  </button>
-                </div>
-              </div>
-              <div class="col-2">
-                <div class="d-grid">
-                  <button mat-mini-fab color="accent" (click)="setScoreCounter1Down(courseIndex, _index_name2)">
-                    <i class="material-icons">keyboard_arrow_down</i>
-                  </button>
-                </div>
-              </div>
-              <div class="col-2">
-                <h2 class="text-center align-items-center">{{ score2[courseIndex] }}</h2>
-              </div>
-              <div class="col-2">
-                <div class="d-grid">
-                  <button mat-mini-fab color="accent" (click)="setScoreCounter1Up(courseIndex, _index_name2)">
-                    <i class="material-icons">keyboard_arrow_up</i>
-                  </button>
-                </div>
-              </div>
-              <div class="col-2">
-                <div class="d-grid">
-                  <button mat-mini-fab color="accent" (click)="setScoreCounter5Up(courseIndex, _index_name2)">
-                    <i class="material-icons">keyboard_double_arrow_up</i>
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div class="row justify-content-center" style="border-bottom: 1px solid #dee2e6">
-              <div class="col-auto">
-                <mat-chip-listbox aria-label="olympic selection">
-                  <span [ngSwitch]="olympic2[courseIndex]">
-                    <p *ngSwitchCase=5>
-                      <mat-chip-option selected #olympic2 value=5 (selectionChange)="olympicSelect2(courseIndex, 5)">ダイヤ</mat-chip-option>
-                      <mat-chip-option #olympic2 value=4 (selectionChange)="olympicSelect2(courseIndex, 4)">金</mat-chip-option>
-                      <mat-chip-option #olympic2 value=3 (selectionChange)="olympicSelect2(courseIndex, 3)">銀</mat-chip-option>
-                      <mat-chip-option #olympic2 value=2 (selectionChange)="olympicSelect2(courseIndex, 2)">銅</mat-chip-option>
-                      <mat-chip-option #olympic2 value=1 (selectionChange)="olympicSelect2(courseIndex, 1)">鉄</mat-chip-option>
-                    </p>
-                    <p *ngSwitchCase=4>
-                      <mat-chip-option #olympic2 value=5 (selectionChange)="olympicSelect2(courseIndex, 5)">ダイヤ</mat-chip-option>
-                      <mat-chip-option selected #olympic1 value=4 (selectionChange)="olympicSelect2(courseIndex, 4)">金</mat-chip-option>
-                      <mat-chip-option #olympic2 value=3 (selectionChange)="olympicSelect2(courseIndex, 3)">銀</mat-chip-option>
-                      <mat-chip-option #olympic2 value=2 (selectionChange)="olympicSelect2(courseIndex, 2)">銅</mat-chip-option>
-                      <mat-chip-option #olympic2 value=1 (selectionChange)="olympicSelect1(courseIndex, 1)">鉄</mat-chip-option>
-                    </p>
-                    <p *ngSwitchCase=3>
-                      <mat-chip-option #olympic2 value=5 (selectionChange)="olympicSelect2(courseIndex, 5)">ダイヤ</mat-chip-option>
-                      <mat-chip-option #olympic2 value=4 (selectionChange)="olympicSelect2(courseIndex, 4)">金</mat-chip-option>
-                      <mat-chip-option selected #olympic2 value=3 (selectionChange)="olympicSelect2(courseIndex, 3)">銀</mat-chip-option>
-                      <mat-chip-option #olympic2 value=2 (selectionChange)="olympicSelect2(courseIndex, 2)">銅</mat-chip-option>
-                      <mat-chip-option #olympic2 value=1 (selectionChange)="olympicSelect2(courseIndex, 1)">鉄</mat-chip-option>
-                    </p>
-                    <p *ngSwitchCase=2>
-                      <mat-chip-option #olympic2 value=5 (selectionChange)="olympicSelect2(courseIndex, 5)">ダイヤ</mat-chip-option>
-                      <mat-chip-option #olympic2 value=4 (selectionChange)="olympicSelect2(courseIndex, 4)">金</mat-chip-option>
-                      <mat-chip-option #olympic2 value=3 (selectionChange)="olympicSelect2(courseIndex, 3)">銀</mat-chip-option>
-                      <mat-chip-option selected #olympic1 value=2 (selectionChange)="olympicSelect2(courseIndex, 2)">銅</mat-chip-option>
-                      <mat-chip-option #olympic2 value=1 (selectionChange)="olympicSelect2(courseIndex, 1)">鉄</mat-chip-option>
-                    </p>
-                    <p *ngSwitchCase=1>
-                      <mat-chip-option #olympic2 value=5 (selectionChange)="olympicSelect2(courseIndex, 5)">ダイヤ</mat-chip-option>
-                      <mat-chip-option #olympic2 value=4 (selectionChange)="olympicSelect2(courseIndex, 4)">金</mat-chip-option>
-                      <mat-chip-option #olympic2 value=3 (selectionChange)="olympicSelect2(courseIndex, 3)">銀</mat-chip-option>
-                      <mat-chip-option #olympic2 value=2 (selectionChange)="olympicSelect2(courseIndex, 2)">銅</mat-chip-option>
-                      <mat-chip-option selected #olympic2 value=1 (selectionChange)="olympicSelect2(courseIndex, 1)">鉄</mat-chip-option>
-                    </p>
-                    <p *ngSwitchDefault>
-                      <mat-chip-option #olympic2 value=5 (selectionChange)="olympicSelect2(courseIndex, 5)">ダイヤ</mat-chip-option>
-                      <mat-chip-option #olympic2 value=4 (selectionChange)="olympicSelect2(courseIndex, 4)">金</mat-chip-option>
-                      <mat-chip-option #olympic2 value=3 (selectionChange)="olympicSelect2(courseIndex, 3)">銀</mat-chip-option>
-                      <mat-chip-option #olympic2 value=2 (selectionChange)="olympicSelect2(courseIndex, 2)">銅</mat-chip-option>
-                      <mat-chip-option #olympic2 value=1 (selectionChange)="olympicSelect2(courseIndex, 1)">鉄</mat-chip-option>
-                    </p>
-                  </span>
-                </mat-chip-listbox>
-              </div>
-            </div>
-            <!--プレーヤー3-->
-            <div class="row">
-              <div class="col-3">
-              </div>
-              <div class="col-6 d-flex justify-content-center" style="font-weight: bold;">
-                <p>{{ score.name3 }}</p>
-              </div>
-              <div class="col-2">
-              </div>
-            </div>
-            <div class="row justify-content-center">
-              <div class="col-2">
-                <div class="d-grid">
-                  <button mat-mini-fab color="accent" (click)="setScoreCounter5Down(courseIndex, _index_name3)">
-                    <i class="material-icons">keyboard_double_arrow_down</i>
-                  </button>
-                </div>
-              </div>
-              <div class="col-2">
-                <div class="d-grid">
-                  <button mat-mini-fab color="accent" (click)="setScoreCounter1Down(courseIndex, _index_name3)">
-                    <i class="material-icons">keyboard_arrow_down</i>
-                  </button>
-                </div>
-              </div>
-              <div class="col-2">
-                <h2 class="text-center align-items-center">{{ score3[courseIndex] }}</h2>
-              </div>
-              <div class="col-2">
-                <div class="d-grid">
-                  <button mat-mini-fab color="accent" (click)="setScoreCounter1Up(courseIndex, _index_name3)">
-                    <i class="material-icons">keyboard_arrow_up</i>
-                  </button>
-                </div>
-              </div>
-              <div class="col-2">
-                <div class="d-grid">
-                  <button mat-mini-fab color="accent" (click)="setScoreCounter5Up(courseIndex, _index_name3)">
-                    <i class="material-icons">keyboard_double_arrow_up</i>
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div class="row justify-content-center" style="border-bottom: 1px solid #dee2e6">
-              <div class="col-auto">
-                <mat-chip-listbox aria-label="olympic selection">
-                  <span [ngSwitch]="olympic3[courseIndex]">
-                    <p *ngSwitchCase=5>
-                      <mat-chip-option selected #olympic3 value=5 (selectionChange)="olympicSelect3(courseIndex, 5)">ダイヤ</mat-chip-option>
-                      <mat-chip-option #olympic3 value=4 (selectionChange)="olympicSelect3(courseIndex, 4)">金</mat-chip-option>
-                      <mat-chip-option #olympic3 value=3 (selectionChange)="olympicSelect3(courseIndex, 3)">銀</mat-chip-option>
-                      <mat-chip-option #olympic3 value=2 (selectionChange)="olympicSelect3(courseIndex, 2)">銅</mat-chip-option>
-                      <mat-chip-option #olympic3 value=1 (selectionChange)="olympicSelect3(courseIndex, 1)">鉄</mat-chip-option>
-                    </p>
-                    <p *ngSwitchCase=4>
-                      <mat-chip-option #olympic3 value=5 (selectionChange)="olympicSelect3(courseIndex, 5)">ダイヤ</mat-chip-option>
-                      <mat-chip-option selected #olympic3 value=4 (selectionChange)="olympicSelect3(courseIndex, 4)">金</mat-chip-option>
-                      <mat-chip-option #olympic3 value=3 (selectionChange)="olympicSelect3(courseIndex, 3)">銀</mat-chip-option>
-                      <mat-chip-option #olympic3 value=2 (selectionChange)="olympicSelect3(courseIndex, 2)">銅</mat-chip-option>
-                      <mat-chip-option #olympic3 value=1 (selectionChange)="olympicSelect3(courseIndex, 1)">鉄</mat-chip-option>
-                    </p>
-                    <p *ngSwitchCase=3>
-                      <mat-chip-option #olympic3 value=5 (selectionChange)="olympicSelect3(courseIndex, 5)">ダイヤ</mat-chip-option>
-                      <mat-chip-option #olympic3 value=4 (selectionChange)="olympicSelect3(courseIndex, 4)">金</mat-chip-option>
-                      <mat-chip-option selected #olympic3 value=3 (selectionChange)="olympicSelect3(courseIndex, 3)">銀</mat-chip-option>
-                      <mat-chip-option #olympic3 value=2 (selectionChange)="olympicSelect3(courseIndex, 2)">銅</mat-chip-option>
-                      <mat-chip-option #olympic3 value=1 (selectionChange)="olympicSelect3(courseIndex, 1)">鉄</mat-chip-option>
-                    </p>
-                    <p *ngSwitchCase=2>
-                      <mat-chip-option #olympic3 value=5 (selectionChange)="olympicSelect3(courseIndex, 5)">ダイヤ</mat-chip-option>
-                      <mat-chip-option #olympic3 value=4 (selectionChange)="olympicSelect3(courseIndex, 4)">金</mat-chip-option>
-                      <mat-chip-option #olympic3 value=3 (selectionChange)="olympicSelect3(courseIndex, 3)">銀</mat-chip-option>
-                      <mat-chip-option selected #olympic3 value=2 (selectionChange)="olympicSelect3(courseIndex, 2)">銅</mat-chip-option>
-                      <mat-chip-option #olympic3 value=1 (selectionChange)="olympicSelect3(courseIndex, 1)">鉄</mat-chip-option>
-                    </p>
-                    <p *ngSwitchCase=1>
-                      <mat-chip-option #olympic3 value=5 (selectionChange)="olympicSelect3(courseIndex, 5)">ダイヤ</mat-chip-option>
-                      <mat-chip-option #olympic3 value=4 (selectionChange)="olympicSelect3(courseIndex, 4)">金</mat-chip-option>
-                      <mat-chip-option #olympic3 value=3 (selectionChange)="olympicSelect3(courseIndex, 3)">銀</mat-chip-option>
-                      <mat-chip-option #olympic3 value=2 (selectionChange)="olympicSelect3(courseIndex, 2)">銅</mat-chip-option>
-                      <mat-chip-option selected #olympic3 value=1 (selectionChange)="olympicSelect3(courseIndex, 1)">鉄</mat-chip-option>
-                    </p>
-                    <p *ngSwitchDefault>
-                      <mat-chip-option #olympic3 value=5 (selectionChange)="olympicSelect3(courseIndex, 5)">ダイヤ</mat-chip-option>
-                      <mat-chip-option #olympic3 value=4 (selectionChange)="olympicSelect3(courseIndex, 4)">金</mat-chip-option>
-                      <mat-chip-option #olympic3 value=3 (selectionChange)="olympicSelect3(courseIndex, 3)">銀</mat-chip-option>
-                      <mat-chip-option #olympic3 value=2 (selectionChange)="olympicSelect3(courseIndex, 2)">銅</mat-chip-option>
-                      <mat-chip-option #olympic3 value=1 (selectionChange)="olympicSelect3(courseIndex, 1)">鉄</mat-chip-option>
-                    </p>
-                  </span>
-                </mat-chip-listbox>
-              </div>
-            </div>
-            <!--プレーヤー4-->
-            <div class="row">
-              <div class="col-3">
-              </div>
-              <div class="col-6 d-flex justify-content-center" style="font-weight: bold;">
-                <p>{{ score.name4 }}</p>
-              </div>
-              <div class="col-3">
-              </div>
-            </div>
-            <div class="row justify-content-center">
-              <div class="col-2">
-                <div class="d-grid">
-                  <button mat-mini-fab color="accent" (click)="setScoreCounter5Down(courseIndex, _index_name4)">
-                    <i class="material-icons">keyboard_double_arrow_down</i>
-                  </button>
-                </div>
-              </div>
-              <div class="col-2">
-                <div class="d-grid">
-                  <button mat-mini-fab color="accent" (click)="setScoreCounter1Down(courseIndex, _index_name4)">
-                    <i class="material-icons">keyboard_arrow_down</i>
-                  </button>
-                </div>
-              </div>
-              <div class="col-2">
-                <h2 class="text-center align-items-center">{{ score4[courseIndex] }}</h2>
-              </div>
-              <div class="col-2">
-                <div class="d-grid">
-                  <button mat-mini-fab color="accent" (click)="setScoreCounter1Up(courseIndex, _index_name4)">
-                    <i class="material-icons">keyboard_arrow_up</i>
-                  </button>
-                </div>
-              </div>
-              <div class="col-2">
-                <div class="d-grid">
-                  <button mat-mini-fab color="accent" (click)="setScoreCounter5Up(courseIndex, _index_name4)">
-                    <i class="material-icons">keyboard_double_arrow_up</i>
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div class="row justify-content-center">
-              <div class="col-auto">
-                <mat-chip-listbox aria-label="olympic selection">
-                  <span [ngSwitch]="olympic4[courseIndex]">
-                    <p *ngSwitchCase=5>
-                      <mat-chip-option selected #olympic4 value=5 (selectionChange)="olympicSelect4(courseIndex, 5)">ダイヤ</mat-chip-option>
-                      <mat-chip-option #olympic4 value=4 (selectionChange)="olympicSelect4(courseIndex, 4)">金</mat-chip-option>
-                      <mat-chip-option #olympic4 value=3 (selectionChange)="olympicSelect4(courseIndex, 3)">銀</mat-chip-option>
-                      <mat-chip-option #olympic4 value=2 (selectionChange)="olympicSelect4(courseIndex, 2)">銅</mat-chip-option>
-                      <mat-chip-option #olympic4 value=1 (selectionChange)="olympicSelect4(courseIndex, 1)">鉄</mat-chip-option>
-                    </p>
-                    <p *ngSwitchCase=4>
-                      <mat-chip-option #olympic4 value=5 (selectionChange)="olympicSelect4(courseIndex, 5)">ダイヤ</mat-chip-option>
-                      <mat-chip-option selected #olympic4 value=4 (selectionChange)="olympicSelect4(courseIndex, 4)">金</mat-chip-option>
-                      <mat-chip-option #olympic4 value=3 (selectionChange)="olympicSelect4(courseIndex, 3)">銀</mat-chip-option>
-                      <mat-chip-option #olympic4 value=2 (selectionChange)="olympicSelect4(courseIndex, 2)">銅</mat-chip-option>
-                      <mat-chip-option #olympic4 value=1 (selectionChange)="olympicSelect4(courseIndex, 1)">鉄</mat-chip-option>
-                    </p>
-                    <p *ngSwitchCase=3>
-                      <mat-chip-option #olympic4 value=5 (selectionChange)="olympicSelect4(courseIndex, 5)">ダイヤ</mat-chip-option>
-                      <mat-chip-option #olympic4 value=4 (selectionChange)="olympicSelect4(courseIndex, 4)">金</mat-chip-option>
-                      <mat-chip-option selected #olympic4 value=3 (selectionChange)="olympicSelect4(courseIndex, 3)">銀</mat-chip-option>
-                      <mat-chip-option #olympic4 value=2 (selectionChange)="olympicSelect4(courseIndex, 2)">銅</mat-chip-option>
-                      <mat-chip-option #olympic4 value=1 (selectionChange)="olympicSelect4(courseIndex, 1)">鉄</mat-chip-option>
-                    </p>
-                    <p *ngSwitchCase=2>
-                      <mat-chip-option #olympic4 value=5 (selectionChange)="olympicSelect4(courseIndex, 5)">ダイヤ</mat-chip-option>
-                      <mat-chip-option #olympic4 value=4 (selectionChange)="olympicSelect4(courseIndex, 4)">金</mat-chip-option>
-                      <mat-chip-option #olympic4 value=3 (selectionChange)="olympicSelect4(courseIndex, 3)">銀</mat-chip-option>
-                      <mat-chip-option selected #olympic4 value=2 (selectionChange)="olympicSelect4(courseIndex, 2)">銅</mat-chip-option>
-                      <mat-chip-option #olympic4 value=1 (selectionChange)="olympicSelect4(courseIndex, 1)">鉄</mat-chip-option>
-                    </p>
-                    <p *ngSwitchCase=1>
-                      <mat-chip-option #olympic4 value=5 (selectionChange)="olympicSelect4(courseIndex, 5)">ダイヤ</mat-chip-option>
-                      <mat-chip-option #olympic4 value=4 (selectionChange)="olympicSelect4(courseIndex, 4)">金</mat-chip-option>
-                      <mat-chip-option #olympic4 value=3 (selectionChange)="olympicSelect4(courseIndex, 3)">銀</mat-chip-option>
-                      <mat-chip-option #olympic4 value=2 (selectionChange)="olympicSelect4(courseIndex, 2)">銅</mat-chip-option>
-                      <mat-chip-option selected #olympic4 value=1 (selectionChange)="olympicSelect4(courseIndex, 1)">鉄</mat-chip-option>
-                    </p>
-                    <p *ngSwitchDefault>
-                      <mat-chip-option #olympic4 value=5 (selectionChange)="olympicSelect4(courseIndex, 5)">ダイヤ</mat-chip-option>
-                      <mat-chip-option #olympic4 value=4 (selectionChange)="olympicSelect4(courseIndex, 4)">金</mat-chip-option>
-                      <mat-chip-option #olympic4 value=3 (selectionChange)="olympicSelect4(courseIndex, 3)">銀</mat-chip-option>
-                      <mat-chip-option #olympic4 value=2 (selectionChange)="olympicSelect4(courseIndex, 2)">銅</mat-chip-option>
-                      <mat-chip-option #olympic4 value=1 (selectionChange)="olympicSelect4(courseIndex, 1)">鉄</mat-chip-option>
-                    </p>
-                  </span>
-                </mat-chip-listbox>
-              </div>
-            </div>
+          <mat-accordion>
             <ng-container *ngIf="courseIndex == 0">
-              <div class="row justify-content-center">
-                <div class="col-1"></div>
-                <div class="col-10">
-                  <p class="row justify-content-center">
-                    <a class="btn btn-primary" data-bs-toggle="collapse" href="#order1st" role="button" aria-expanded="false" aria-controls="order1st">
-                      初回の打順を設定
-                    </a>
-                  </p>
+              <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    打順を設定
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="container">
                   <div class="row">
-                    <div class="collapse" id="order1st">
-                      <div class="card card-body">
-                        <table>
-                          <tr style="margin-bottom: 2px;">
-                            <td style="width: 50%;">{{ score.name1 }}</td>
-                            <td style="width: 50%;">
-                              <select class="form-select" [(ngModel)]='order1st[_index_name1]' name="dropdownOption" id="dropdownOption">
-                                <option value=0>打順</option>
-                                <option value=1>No.1</option>
-                                <option value=2>No.2</option>
-                                <option value=3>No.3</option>
-                                <option value=4>No.4</option>
-                              </select>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>{{ score.name2 }}</td>
-                            <td>
-                              <select class="form-select" [(ngModel)]='order1st[_index_name2]' name="dropdownOption" id="dropdownOption">
-                                <option value=0>打順</option>
-                                <option value=1>No.1</option>
-                                <option value=2>No.2</option>
-                                <option value=3>No.3</option>
-                                <option value=4>No.4</option>
-                              </select>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>{{ score.name3 }}</td>
-                            <td>
-                              <select class="form-select" [(ngModel)]='order1st[_index_name3]' name="dropdownOption" id="dropdownOption">
-                                <option value=0>打順</option>
-                                <option value=1>No.1</option>
-                                <option value=2>No.2</option>
-                                <option value=3>No.3</option>
-                                <option value=4>No.4</option>
-                              </select>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>{{ score.name4 }}</td>
-                            <td>
-                              <select class="form-select" [(ngModel)]='order1st[_index_name4]' name="dropdownOption" id="dropdownOption">
-                                <option value=0>打順</option>
-                                <option value=1>No.1</option>
-                                <option value=2>No.2</option>
-                                <option value=3>No.3</option>
-                                <option value=4>No.4</option>
-                              </select>
-                            </td>
-                          </tr>
-                        </table>
-                      </div>
-                      <br>
+                    <div class="col-1">
+                    </div>
+                    <div class="col-5" style="margin-top: 7px;">
+                      {{ score.name1 }}
+                    </div>
+                    <div class="col-5">
+                      <select class="form-select" [(ngModel)]='order1st[_index_name1]' name="dropdownOption" id="dropdownOption">
+                        <option value=0>打順</option>
+                        <option value=1>No.1</option>
+                        <option value=2>No.2</option>
+                        <option value=3>No.3</option>
+                        <option value=4>No.4</option>
+                      </select>
+                    </div>
+                    <div class="col-1">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-1">
+                    </div>
+                    <div class="col-5" style="margin-top: 7px;">
+                      {{ score.name2 }}
+                    </div>
+                    <div class="col-5">
+                      <select class="form-select" [(ngModel)]='order1st[_index_name2]' name="dropdownOption" id="dropdownOption">
+                        <option value=0>打順</option>
+                        <option value=1>No.1</option>
+                        <option value=2>No.2</option>
+                        <option value=3>No.3</option>
+                        <option value=4>No.4</option>
+                      </select>
+                    </div>
+                    <div class="col-1">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-1">
+                    </div>
+                    <div class="col-5" style="margin-top: 7px;">
+                      {{ score.name3 }}
+                    </div>
+                    <div class="col-5">
+                      <select class="form-select" [(ngModel)]='order1st[_index_name3]' name="dropdownOption" id="dropdownOption">
+                        <option value=0>打順</option>
+                        <option value=1>No.1</option>
+                        <option value=2>No.2</option>
+                        <option value=3>No.3</option>
+                        <option value=4>No.4</option>
+                      </select>
+                    </div>
+                    <div class="col-1">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-1">
+                    </div>
+                    <div class="col-5" style="margin-top: 7px;">
+                      {{ score.name4 }}
+                    </div>
+                    <div class="col-5">
+                      <select class="form-select" [(ngModel)]='order1st[_index_name4]' name="dropdownOption" id="dropdownOption">
+                        <option value=0>打順</option>
+                        <option value=1>No.1</option>
+                        <option value=2>No.2</option>
+                        <option value=3>No.3</option>
+                        <option value=4>No.4</option>
+                      </select>
+                    </div>
+                    <div class="col-1">
                     </div>
                   </div>
                 </div>
-                <div class="col-1"></div>
-              </div>
+              </mat-expansion-panel>
             </ng-container>
-          </div>
+            <mat-expansion-panel class="remove-mat-expansion-panel-padding" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  {{ score.name1 }}
+                </mat-panel-title>
+                <mat-panel-description>
+                  スコア:{{ score1[courseIndex] }} パット:{{ putscore1[courseIndex] }}
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <div class="container">
+                <div class="row justify-content-center">
+                  <div class="col text-center">
+                    <small>スコア</small>
+                  </div>
+                </div>
+                <div class="row justify-content-center mb-1">
+                  <div class="col-2">
+                    <button mat-mini-fab color="accent" (click)="setScoreCounter5Down(courseIndex, _index_name1)">
+                      <i class="material-icons">keyboard_double_arrow_down</i>
+                    </button>
+                  </div>
+                  <div class="col-2">
+                    <button mat-mini-fab color="accent" (click)="setScoreCounter1Down(courseIndex, _index_name1)">
+                      <i class="material-icons">keyboard_arrow_down</i>
+                    </button>
+                  </div>
+                  <div class="col-2">
+                    <h2 class="text-center align-items-center">{{ score1[courseIndex] }}</h2>
+                  </div>
+                  <div class="col-2">
+                    <button mat-mini-fab color="accent" (click)="setScoreCounter1Up(courseIndex, _index_name1)">
+                      <i class="material-icons">keyboard_arrow_up</i>
+                    </button>
+                  </div>
+                  <div class="col-2">
+                    <button mat-mini-fab color="accent" (click)="setScoreCounter5Up(courseIndex, _index_name1)">
+                      <i class="material-icons">keyboard_double_arrow_up</i>
+                    </button>
+                  </div>
+                </div>
+                <div class="row justify-content-center">
+                  <div class="row justify-content-center">
+                    <div class="col text-center">
+                      <small>パット</small>
+                    </div>
+                  </div>
+                  <div class="col-2">
+                  </div>
+                  <div class="col-2">
+                    <button mat-mini-fab color="basic" (click)="setPutscoreCounter1Down(courseIndex, _index_name1)">
+                      <i class="material-icons">keyboard_arrow_down</i>
+                    </button>
+                  </div>
+                  <div class="col-2">
+                    <h2 class="text-center align-items-center">{{ putscore1[courseIndex] }}</h2>
+                  </div>
+                  <div class="col-2">
+                    <button mat-mini-fab color="basic" (click)="setPutscoreCounter1Up(courseIndex, _index_name1)">
+                      <i class="material-icons">keyboard_arrow_up</i>
+                    </button>
+                  </div>
+                  <div class="col-2">
+                  </div>
+                </div>
+                <div class="row justify-content-center" style="border-bottom: 1px solid #dee2e6">
+                  <div class="col-auto">
+                    <mat-chip-listbox aria-label="olympic selection">
+                      <span [ngSwitch]="olympic1[courseIndex]">
+                        <p *ngSwitchCase=5>
+                          <mat-chip-option selected #olympic1 value=5 (selectionChange)="olympicSelect1(courseIndex, 5)">ダイヤ</mat-chip-option>
+                          <mat-chip-option #olympic1 value=4 (selectionChange)="olympicSelect1(courseIndex, 4)">金</mat-chip-option>
+                          <mat-chip-option #olympic1 value=3 (selectionChange)="olympicSelect1(courseIndex, 3)">銀</mat-chip-option>
+                          <mat-chip-option #olympic1 value=2 (selectionChange)="olympicSelect1(courseIndex, 2)">銅</mat-chip-option>
+                          <mat-chip-option #olympic1 value=1 (selectionChange)="olympicSelect1(courseIndex, 1)">鉄</mat-chip-option>
+                        </p>
+                        <p *ngSwitchCase=4>
+                          <mat-chip-option #olympic1 value=5 (selectionChange)="olympicSelect1(courseIndex, 5)">ダイヤ</mat-chip-option>
+                          <mat-chip-option selected #olympic1 value=4 (selectionChange)="olympicSelect1(courseIndex, 4)">金</mat-chip-option>
+                          <mat-chip-option #olympic1 value=3 (selectionChange)="olympicSelect1(courseIndex, 3)">銀</mat-chip-option>
+                          <mat-chip-option #olympic1 value=2 (selectionChange)="olympicSelect1(courseIndex, 2)">銅</mat-chip-option>
+                          <mat-chip-option #olympic1 value=1 (selectionChange)="olympicSelect1(courseIndex, 1)">鉄</mat-chip-option>
+                        </p>
+                        <p *ngSwitchCase=3>
+                          <mat-chip-option #olympic1 value=5 (selectionChange)="olympicSelect1(courseIndex, 5)">ダイヤ</mat-chip-option>
+                          <mat-chip-option #olympic1 value=4 (selectionChange)="olympicSelect1(courseIndex, 4)">金</mat-chip-option>
+                          <mat-chip-option selected #olympic1 value=3 (selectionChange)="olympicSelect1(courseIndex, 3)">銀</mat-chip-option>
+                          <mat-chip-option #olympic1 value=2 (selectionChange)="olympicSelect1(courseIndex, 2)">銅</mat-chip-option>
+                          <mat-chip-option #olympic1 value=1 (selectionChange)="olympicSelect1(courseIndex, 1)">鉄</mat-chip-option>
+                        </p>
+                        <p *ngSwitchCase=2>
+                          <mat-chip-option #olympic1 value=5 (selectionChange)="olympicSelect1(courseIndex, 5)">ダイヤ</mat-chip-option>
+                          <mat-chip-option #olympic1 value=4 (selectionChange)="olympicSelect1(courseIndex, 4)">金</mat-chip-option>
+                          <mat-chip-option #olympic1 value=3 (selectionChange)="olympicSelect1(courseIndex, 3)">銀</mat-chip-option>
+                          <mat-chip-option selected #olympic1 value=2 (selectionChange)="olympicSelect1(courseIndex, 2)">銅</mat-chip-option>
+                          <mat-chip-option #olympic1 value=1 (selectionChange)="olympicSelect1(courseIndex, 1)">鉄</mat-chip-option>
+                        </p>
+                        <p *ngSwitchCase=1>
+                          <mat-chip-option #olympic1 value=5 (selectionChange)="olympicSelect1(courseIndex, 5)">ダイヤ</mat-chip-option>
+                          <mat-chip-option #olympic1 value=4 (selectionChange)="olympicSelect1(courseIndex, 4)">金</mat-chip-option>
+                          <mat-chip-option #olympic1 value=3 (selectionChange)="olympicSelect1(courseIndex, 3)">銀</mat-chip-option>
+                          <mat-chip-option #olympic1 value=2 (selectionChange)="olympicSelect1(courseIndex, 2)">銅</mat-chip-option>
+                          <mat-chip-option selected #olympic1 value=1 (selectionChange)="olympicSelect1(courseIndex, 1)">鉄</mat-chip-option>
+                        </p>
+                        <p *ngSwitchDefault>
+                          <mat-chip-option #olympic1 value=5 (selectionChange)="olympicSelect1(courseIndex, 5)">ダイヤ</mat-chip-option>
+                          <mat-chip-option #olympic1 value=4 (selectionChange)="olympicSelect1(courseIndex, 4)">金</mat-chip-option>
+                          <mat-chip-option #olympic1 value=3 (selectionChange)="olympicSelect1(courseIndex, 3)">銀</mat-chip-option>
+                          <mat-chip-option #olympic1 value=2 (selectionChange)="olympicSelect1(courseIndex, 2)">銅</mat-chip-option>
+                          <mat-chip-option #olympic1 value=1 (selectionChange)="olympicSelect1(courseIndex, 1)">鉄</mat-chip-option>
+                        </p>
+                      </span>
+                    </mat-chip-listbox>
+                  </div>
+                </div>
+              </div>
+            </mat-expansion-panel>
+            <mat-expansion-panel class="remove-mat-expansion-panel-padding" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  {{ score.name2 }}
+                </mat-panel-title>
+                <mat-panel-description>
+                  スコア:{{ score2[courseIndex] }} パット:{{ putscore2[courseIndex] }}
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <div class="container">
+                <div class="row">
+                  <div class="col-3">
+                  </div>
+                  <div class="col-6 d-flex justify-content-center" style="font-weight: bold;">
+                    <p>{{ score.name2 }}</p>
+                  </div>
+                  <div class="col-3">
+                  </div>
+                </div>
+                <div class="row justify-content-center">
+                  <div class="col text-center">
+                    <small>スコア</small>
+                  </div>
+                </div>
+                <div class="row justify-content-center mb-1">
+                  <div class="col-2">
+                    <div class="d-grid">
+                      <button mat-mini-fab color="accent" (click)="setScoreCounter5Down(courseIndex, _index_name2)">
+                        <i class="material-icons">keyboard_double_arrow_down</i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="col-2">
+                    <div class="d-grid">
+                      <button mat-mini-fab color="accent" (click)="setScoreCounter1Down(courseIndex, _index_name2)">
+                        <i class="material-icons">keyboard_arrow_down</i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="col-2">
+                    <h2 class="text-center align-items-center">{{ score2[courseIndex] }}</h2>
+                  </div>
+                  <div class="col-2">
+                    <div class="d-grid">
+                      <button mat-mini-fab color="accent" (click)="setScoreCounter1Up(courseIndex, _index_name2)">
+                        <i class="material-icons">keyboard_arrow_up</i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="col-2">
+                    <div class="d-grid">
+                      <button mat-mini-fab color="accent" (click)="setScoreCounter5Up(courseIndex, _index_name2)">
+                        <i class="material-icons">keyboard_double_arrow_up</i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="row justify-content-center">
+                  <div class="row justify-content-center">
+                    <div class="col text-center">
+                      <small>パット</small>
+                    </div>
+                  </div>
+                  <div class="col-2">
+                  </div>
+                  <div class="col-2">
+                    <div class="d-grid">
+                      <button mat-mini-fab color="basic" (click)="setPutscoreCounter1Down(courseIndex, _index_name2)">
+                        <i class="material-icons">keyboard_arrow_down</i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="col-2">
+                    <h2 class="text-center align-items-center">{{ putscore2[courseIndex] }}</h2>
+                  </div>
+                  <div class="col-2">
+                    <div class="d-grid">
+                      <button mat-mini-fab color="basic" (click)="setPutscoreCounter1Up(courseIndex, _index_name2)">
+                        <i class="material-icons">keyboard_arrow_up</i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="col-2">
+                  </div>
+                </div>
+                <div class="row justify-content-center" style="border-bottom: 1px solid #dee2e6">
+                  <div class="col-auto">
+                    <mat-chip-listbox aria-label="olympic selection">
+                      <span [ngSwitch]="olympic2[courseIndex]">
+                        <p *ngSwitchCase=5>
+                          <mat-chip-option selected #olympic2 value=5 (selectionChange)="olympicSelect2(courseIndex, 5)">ダイヤ</mat-chip-option>
+                          <mat-chip-option #olympic2 value=4 (selectionChange)="olympicSelect2(courseIndex, 4)">金</mat-chip-option>
+                          <mat-chip-option #olympic2 value=3 (selectionChange)="olympicSelect2(courseIndex, 3)">銀</mat-chip-option>
+                          <mat-chip-option #olympic2 value=2 (selectionChange)="olympicSelect2(courseIndex, 2)">銅</mat-chip-option>
+                          <mat-chip-option #olympic2 value=1 (selectionChange)="olympicSelect2(courseIndex, 1)">鉄</mat-chip-option>
+                        </p>
+                        <p *ngSwitchCase=4>
+                          <mat-chip-option #olympic2 value=5 (selectionChange)="olympicSelect2(courseIndex, 5)">ダイヤ</mat-chip-option>
+                          <mat-chip-option selected #olympic1 value=4 (selectionChange)="olympicSelect2(courseIndex, 4)">金</mat-chip-option>
+                          <mat-chip-option #olympic2 value=3 (selectionChange)="olympicSelect2(courseIndex, 3)">銀</mat-chip-option>
+                          <mat-chip-option #olympic2 value=2 (selectionChange)="olympicSelect2(courseIndex, 2)">銅</mat-chip-option>
+                          <mat-chip-option #olympic2 value=1 (selectionChange)="olympicSelect1(courseIndex, 1)">鉄</mat-chip-option>
+                        </p>
+                        <p *ngSwitchCase=3>
+                          <mat-chip-option #olympic2 value=5 (selectionChange)="olympicSelect2(courseIndex, 5)">ダイヤ</mat-chip-option>
+                          <mat-chip-option #olympic2 value=4 (selectionChange)="olympicSelect2(courseIndex, 4)">金</mat-chip-option>
+                          <mat-chip-option selected #olympic2 value=3 (selectionChange)="olympicSelect2(courseIndex, 3)">銀</mat-chip-option>
+                          <mat-chip-option #olympic2 value=2 (selectionChange)="olympicSelect2(courseIndex, 2)">銅</mat-chip-option>
+                          <mat-chip-option #olympic2 value=1 (selectionChange)="olympicSelect2(courseIndex, 1)">鉄</mat-chip-option>
+                        </p>
+                        <p *ngSwitchCase=2>
+                          <mat-chip-option #olympic2 value=5 (selectionChange)="olympicSelect2(courseIndex, 5)">ダイヤ</mat-chip-option>
+                          <mat-chip-option #olympic2 value=4 (selectionChange)="olympicSelect2(courseIndex, 4)">金</mat-chip-option>
+                          <mat-chip-option #olympic2 value=3 (selectionChange)="olympicSelect2(courseIndex, 3)">銀</mat-chip-option>
+                          <mat-chip-option selected #olympic1 value=2 (selectionChange)="olympicSelect2(courseIndex, 2)">銅</mat-chip-option>
+                          <mat-chip-option #olympic2 value=1 (selectionChange)="olympicSelect2(courseIndex, 1)">鉄</mat-chip-option>
+                        </p>
+                        <p *ngSwitchCase=1>
+                          <mat-chip-option #olympic2 value=5 (selectionChange)="olympicSelect2(courseIndex, 5)">ダイヤ</mat-chip-option>
+                          <mat-chip-option #olympic2 value=4 (selectionChange)="olympicSelect2(courseIndex, 4)">金</mat-chip-option>
+                          <mat-chip-option #olympic2 value=3 (selectionChange)="olympicSelect2(courseIndex, 3)">銀</mat-chip-option>
+                          <mat-chip-option #olympic2 value=2 (selectionChange)="olympicSelect2(courseIndex, 2)">銅</mat-chip-option>
+                          <mat-chip-option selected #olympic2 value=1 (selectionChange)="olympicSelect2(courseIndex, 1)">鉄</mat-chip-option>
+                        </p>
+                        <p *ngSwitchDefault>
+                          <mat-chip-option #olympic2 value=5 (selectionChange)="olympicSelect2(courseIndex, 5)">ダイヤ</mat-chip-option>
+                          <mat-chip-option #olympic2 value=4 (selectionChange)="olympicSelect2(courseIndex, 4)">金</mat-chip-option>
+                          <mat-chip-option #olympic2 value=3 (selectionChange)="olympicSelect2(courseIndex, 3)">銀</mat-chip-option>
+                          <mat-chip-option #olympic2 value=2 (selectionChange)="olympicSelect2(courseIndex, 2)">銅</mat-chip-option>
+                          <mat-chip-option #olympic2 value=1 (selectionChange)="olympicSelect2(courseIndex, 1)">鉄</mat-chip-option>
+                        </p>
+                      </span>
+                    </mat-chip-listbox>
+                  </div>
+                </div>
+              </div>
+            </mat-expansion-panel>
+            <mat-expansion-panel class="remove-mat-expansion-panel-padding" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  {{ score.name3 }}
+                </mat-panel-title>
+                <mat-panel-description>
+                  スコア:{{ score3[courseIndex] }} パット:{{ putscore3[courseIndex] }}
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <div class="container">
+                <div class="row">
+                  <div class="col-3">
+                  </div>
+                  <div class="col-6 d-flex justify-content-center" style="font-weight: bold;">
+                    <p>{{ score.name3 }}</p>
+                  </div>
+                  <div class="col-2">
+                  </div>
+                </div>
+                <div class="row justify-content-center">
+                  <div class="col text-center">
+                    <small>スコア</small>
+                  </div>
+                </div>
+                <div class="row justify-content-center mb-1">
+                  <div class="col-2">
+                    <div class="d-grid">
+                      <button mat-mini-fab color="accent" (click)="setScoreCounter5Down(courseIndex, _index_name3)">
+                        <i class="material-icons">keyboard_double_arrow_down</i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="col-2">
+                    <div class="d-grid">
+                      <button mat-mini-fab color="accent" (click)="setScoreCounter1Down(courseIndex, _index_name3)">
+                        <i class="material-icons">keyboard_arrow_down</i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="col-2">
+                    <h2 class="text-center align-items-center">{{ score3[courseIndex] }}</h2>
+                  </div>
+                  <div class="col-2">
+                    <div class="d-grid">
+                      <button mat-mini-fab color="accent" (click)="setScoreCounter1Up(courseIndex, _index_name3)">
+                        <i class="material-icons">keyboard_arrow_up</i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="col-2">
+                    <div class="d-grid">
+                      <button mat-mini-fab color="accent" (click)="setScoreCounter5Up(courseIndex, _index_name3)">
+                        <i class="material-icons">keyboard_double_arrow_up</i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="row justify-content-center">
+                  <div class="row justify-content-center">
+                    <div class="col text-center">
+                      <small>パット</small>
+                    </div>
+                  </div>
+                  <div class="col-2">
+                  </div>
+                  <div class="col-2">
+                    <div class="d-grid">
+                      <button mat-mini-fab color="basic" (click)="setPutscoreCounter1Down(courseIndex, _index_name3)">
+                        <i class="material-icons">keyboard_arrow_down</i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="col-2">
+                    <h2 class="text-center align-items-center">{{ putscore3[courseIndex] }}</h2>
+                  </div>
+                  <div class="col-2">
+                    <div class="d-grid">
+                      <button mat-mini-fab color="basic" (click)="setPutscoreCounter1Up(courseIndex, _index_name3)">
+                        <i class="material-icons">keyboard_arrow_up</i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="col-2">
+                  </div>
+                </div>
+                <div class="row justify-content-center" style="border-bottom: 1px solid #dee2e6">
+                  <div class="col-auto">
+                    <mat-chip-listbox aria-label="olympic selection">
+                      <span [ngSwitch]="olympic3[courseIndex]">
+                        <p *ngSwitchCase=5>
+                          <mat-chip-option selected #olympic3 value=5 (selectionChange)="olympicSelect3(courseIndex, 5)">ダイヤ</mat-chip-option>
+                          <mat-chip-option #olympic3 value=4 (selectionChange)="olympicSelect3(courseIndex, 4)">金</mat-chip-option>
+                          <mat-chip-option #olympic3 value=3 (selectionChange)="olympicSelect3(courseIndex, 3)">銀</mat-chip-option>
+                          <mat-chip-option #olympic3 value=2 (selectionChange)="olympicSelect3(courseIndex, 2)">銅</mat-chip-option>
+                          <mat-chip-option #olympic3 value=1 (selectionChange)="olympicSelect3(courseIndex, 1)">鉄</mat-chip-option>
+                        </p>
+                        <p *ngSwitchCase=4>
+                          <mat-chip-option #olympic3 value=5 (selectionChange)="olympicSelect3(courseIndex, 5)">ダイヤ</mat-chip-option>
+                          <mat-chip-option selected #olympic3 value=4 (selectionChange)="olympicSelect3(courseIndex, 4)">金</mat-chip-option>
+                          <mat-chip-option #olympic3 value=3 (selectionChange)="olympicSelect3(courseIndex, 3)">銀</mat-chip-option>
+                          <mat-chip-option #olympic3 value=2 (selectionChange)="olympicSelect3(courseIndex, 2)">銅</mat-chip-option>
+                          <mat-chip-option #olympic3 value=1 (selectionChange)="olympicSelect3(courseIndex, 1)">鉄</mat-chip-option>
+                        </p>
+                        <p *ngSwitchCase=3>
+                          <mat-chip-option #olympic3 value=5 (selectionChange)="olympicSelect3(courseIndex, 5)">ダイヤ</mat-chip-option>
+                          <mat-chip-option #olympic3 value=4 (selectionChange)="olympicSelect3(courseIndex, 4)">金</mat-chip-option>
+                          <mat-chip-option selected #olympic3 value=3 (selectionChange)="olympicSelect3(courseIndex, 3)">銀</mat-chip-option>
+                          <mat-chip-option #olympic3 value=2 (selectionChange)="olympicSelect3(courseIndex, 2)">銅</mat-chip-option>
+                          <mat-chip-option #olympic3 value=1 (selectionChange)="olympicSelect3(courseIndex, 1)">鉄</mat-chip-option>
+                        </p>
+                        <p *ngSwitchCase=2>
+                          <mat-chip-option #olympic3 value=5 (selectionChange)="olympicSelect3(courseIndex, 5)">ダイヤ</mat-chip-option>
+                          <mat-chip-option #olympic3 value=4 (selectionChange)="olympicSelect3(courseIndex, 4)">金</mat-chip-option>
+                          <mat-chip-option #olympic3 value=3 (selectionChange)="olympicSelect3(courseIndex, 3)">銀</mat-chip-option>
+                          <mat-chip-option selected #olympic3 value=2 (selectionChange)="olympicSelect3(courseIndex, 2)">銅</mat-chip-option>
+                          <mat-chip-option #olympic3 value=1 (selectionChange)="olympicSelect3(courseIndex, 1)">鉄</mat-chip-option>
+                        </p>
+                        <p *ngSwitchCase=1>
+                          <mat-chip-option #olympic3 value=5 (selectionChange)="olympicSelect3(courseIndex, 5)">ダイヤ</mat-chip-option>
+                          <mat-chip-option #olympic3 value=4 (selectionChange)="olympicSelect3(courseIndex, 4)">金</mat-chip-option>
+                          <mat-chip-option #olympic3 value=3 (selectionChange)="olympicSelect3(courseIndex, 3)">銀</mat-chip-option>
+                          <mat-chip-option #olympic3 value=2 (selectionChange)="olympicSelect3(courseIndex, 2)">銅</mat-chip-option>
+                          <mat-chip-option selected #olympic3 value=1 (selectionChange)="olympicSelect3(courseIndex, 1)">鉄</mat-chip-option>
+                        </p>
+                        <p *ngSwitchDefault>
+                          <mat-chip-option #olympic3 value=5 (selectionChange)="olympicSelect3(courseIndex, 5)">ダイヤ</mat-chip-option>
+                          <mat-chip-option #olympic3 value=4 (selectionChange)="olympicSelect3(courseIndex, 4)">金</mat-chip-option>
+                          <mat-chip-option #olympic3 value=3 (selectionChange)="olympicSelect3(courseIndex, 3)">銀</mat-chip-option>
+                          <mat-chip-option #olympic3 value=2 (selectionChange)="olympicSelect3(courseIndex, 2)">銅</mat-chip-option>
+                          <mat-chip-option #olympic3 value=1 (selectionChange)="olympicSelect3(courseIndex, 1)">鉄</mat-chip-option>
+                        </p>
+                      </span>
+                    </mat-chip-listbox>
+                  </div>
+                </div>
+              </div>
+            </mat-expansion-panel>
+            <mat-expansion-panel class="remove-mat-expansion-panel-padding" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  {{ score.name4 }}
+                </mat-panel-title>
+                <mat-panel-description>
+                  スコア:{{ score4[courseIndex] }} パット:{{ putscore4[courseIndex] }}
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <div class="container">
+                <div class="row">
+                  <div class="col-3">
+                  </div>
+                  <div class="col-6 d-flex justify-content-center" style="font-weight: bold;">
+                    <p>{{ score.name4 }}</p>
+                  </div>
+                  <div class="col-3">
+                  </div>
+                </div>
+                <div class="row justify-content-center">
+                  <div class="col text-center">
+                    <small>スコア</small>
+                  </div>
+                </div>
+                <div class="row justify-content-center mb-1">
+                  <div class="col-2">
+                    <div class="d-grid">
+                      <button mat-mini-fab color="accent" (click)="setScoreCounter5Down(courseIndex, _index_name4)">
+                        <i class="material-icons">keyboard_double_arrow_down</i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="col-2">
+                    <div class="d-grid">
+                      <button mat-mini-fab color="accent" (click)="setScoreCounter1Down(courseIndex, _index_name4)">
+                        <i class="material-icons">keyboard_arrow_down</i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="col-2">
+                    <h2 class="text-center align-items-center">{{ score4[courseIndex] }}</h2>
+                  </div>
+                  <div class="col-2">
+                    <div class="d-grid">
+                      <button mat-mini-fab color="accent" (click)="setScoreCounter1Up(courseIndex, _index_name4)">
+                        <i class="material-icons">keyboard_arrow_up</i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="col-2">
+                    <div class="d-grid">
+                      <button mat-mini-fab color="accent" (click)="setScoreCounter5Up(courseIndex, _index_name4)">
+                        <i class="material-icons">keyboard_double_arrow_up</i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="row justify-content-center">
+                  <div class="row justify-content-center">
+                    <div class="col text-center">
+                      <small>パット</small>
+                    </div>
+                  </div>
+                  <div class="col-2">
+                  </div>
+                  <div class="col-2">
+                    <div class="d-grid">
+                      <button mat-mini-fab color="basic" (click)="setPutscoreCounter1Down(courseIndex, _index_name4)">
+                        <i class="material-icons">keyboard_arrow_down</i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="col-2">
+                    <h2 class="text-center align-items-center">{{ putscore4[courseIndex] }}</h2>
+                  </div>
+                  <div class="col-2">
+                    <div class="d-grid">
+                      <button mat-mini-fab color="basic" (click)="setPutscoreCounter1Up(courseIndex, _index_name4)">
+                        <i class="material-icons">keyboard_arrow_up</i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="col-2">
+                  </div>
+                </div>
+                <div class="row justify-content-center">
+                  <div class="col-auto">
+                    <mat-chip-listbox aria-label="olympic selection">
+                      <span [ngSwitch]="olympic4[courseIndex]">
+                        <p *ngSwitchCase=5>
+                          <mat-chip-option selected #olympic4 value=5 (selectionChange)="olympicSelect4(courseIndex, 5)">ダイヤ</mat-chip-option>
+                          <mat-chip-option #olympic4 value=4 (selectionChange)="olympicSelect4(courseIndex, 4)">金</mat-chip-option>
+                          <mat-chip-option #olympic4 value=3 (selectionChange)="olympicSelect4(courseIndex, 3)">銀</mat-chip-option>
+                          <mat-chip-option #olympic4 value=2 (selectionChange)="olympicSelect4(courseIndex, 2)">銅</mat-chip-option>
+                          <mat-chip-option #olympic4 value=1 (selectionChange)="olympicSelect4(courseIndex, 1)">鉄</mat-chip-option>
+                        </p>
+                        <p *ngSwitchCase=4>
+                          <mat-chip-option #olympic4 value=5 (selectionChange)="olympicSelect4(courseIndex, 5)">ダイヤ</mat-chip-option>
+                          <mat-chip-option selected #olympic4 value=4 (selectionChange)="olympicSelect4(courseIndex, 4)">金</mat-chip-option>
+                          <mat-chip-option #olympic4 value=3 (selectionChange)="olympicSelect4(courseIndex, 3)">銀</mat-chip-option>
+                          <mat-chip-option #olympic4 value=2 (selectionChange)="olympicSelect4(courseIndex, 2)">銅</mat-chip-option>
+                          <mat-chip-option #olympic4 value=1 (selectionChange)="olympicSelect4(courseIndex, 1)">鉄</mat-chip-option>
+                        </p>
+                        <p *ngSwitchCase=3>
+                          <mat-chip-option #olympic4 value=5 (selectionChange)="olympicSelect4(courseIndex, 5)">ダイヤ</mat-chip-option>
+                          <mat-chip-option #olympic4 value=4 (selectionChange)="olympicSelect4(courseIndex, 4)">金</mat-chip-option>
+                          <mat-chip-option selected #olympic4 value=3 (selectionChange)="olympicSelect4(courseIndex, 3)">銀</mat-chip-option>
+                          <mat-chip-option #olympic4 value=2 (selectionChange)="olympicSelect4(courseIndex, 2)">銅</mat-chip-option>
+                          <mat-chip-option #olympic4 value=1 (selectionChange)="olympicSelect4(courseIndex, 1)">鉄</mat-chip-option>
+                        </p>
+                        <p *ngSwitchCase=2>
+                          <mat-chip-option #olympic4 value=5 (selectionChange)="olympicSelect4(courseIndex, 5)">ダイヤ</mat-chip-option>
+                          <mat-chip-option #olympic4 value=4 (selectionChange)="olympicSelect4(courseIndex, 4)">金</mat-chip-option>
+                          <mat-chip-option #olympic4 value=3 (selectionChange)="olympicSelect4(courseIndex, 3)">銀</mat-chip-option>
+                          <mat-chip-option selected #olympic4 value=2 (selectionChange)="olympicSelect4(courseIndex, 2)">銅</mat-chip-option>
+                          <mat-chip-option #olympic4 value=1 (selectionChange)="olympicSelect4(courseIndex, 1)">鉄</mat-chip-option>
+                        </p>
+                        <p *ngSwitchCase=1>
+                          <mat-chip-option #olympic4 value=5 (selectionChange)="olympicSelect4(courseIndex, 5)">ダイヤ</mat-chip-option>
+                          <mat-chip-option #olympic4 value=4 (selectionChange)="olympicSelect4(courseIndex, 4)">金</mat-chip-option>
+                          <mat-chip-option #olympic4 value=3 (selectionChange)="olympicSelect4(courseIndex, 3)">銀</mat-chip-option>
+                          <mat-chip-option #olympic4 value=2 (selectionChange)="olympicSelect4(courseIndex, 2)">銅</mat-chip-option>
+                          <mat-chip-option selected #olympic4 value=1 (selectionChange)="olympicSelect4(courseIndex, 1)">鉄</mat-chip-option>
+                        </p>
+                        <p *ngSwitchDefault>
+                          <mat-chip-option #olympic4 value=5 (selectionChange)="olympicSelect4(courseIndex, 5)">ダイヤ</mat-chip-option>
+                          <mat-chip-option #olympic4 value=4 (selectionChange)="olympicSelect4(courseIndex, 4)">金</mat-chip-option>
+                          <mat-chip-option #olympic4 value=3 (selectionChange)="olympicSelect4(courseIndex, 3)">銀</mat-chip-option>
+                          <mat-chip-option #olympic4 value=2 (selectionChange)="olympicSelect4(courseIndex, 2)">銅</mat-chip-option>
+                          <mat-chip-option #olympic4 value=1 (selectionChange)="olympicSelect4(courseIndex, 1)">鉄</mat-chip-option>
+                        </p>
+                      </span>
+                    </mat-chip-listbox>
+                  </div>
+                </div>
+              </div>
+            </mat-expansion-panel>
+          </mat-accordion>
+          <br>
           <div class="container">
             <div class="row justify-content-center">
               <div class="col-6">
@@ -997,7 +1188,6 @@
             </div>
           </div>
         </div>
-        <br>
       </div>
     </div>
   </div>

@@ -11,6 +11,18 @@ body { margin: 0; font-family: 'Kosugi', sans-serif; font-size: 15px;}
   font-family: 'Roboto', sans-serif;
 }
 
+.enFontSmall{
+  font-family: 'Roboto', sans-serif; font-size: 12px;
+}
+
 .badge{
   font-weight: 500;
+}
+
+.remove-mat-expansion-panel-padding .mat-expansion-panel-content .mat-expansion-panel-body{
+  padding: 0 !important;
+}
+
+.remove-mat-mdc-selectvalue .mat-mdc-select-value-text{
+  font-family: 'Roboto', sans-serif !important;
 }

@@ -15,6 +15,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { AngularFireModule } from '@angular/fire/compat';
 import { environment } from 'src/environments/environment';
 import { AngularFireAnalyticsModule } from '@angular/fire/compat/analytics';
@@ -53,6 +54,7 @@ const routes: Routes = [
     MatButtonModule,
     MatChipsModule,
     MatButtonToggleModule,
+    MatExpansionModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAnalyticsModule,
     AngularFirestoreModule,

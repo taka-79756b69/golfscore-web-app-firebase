@@ -13,6 +13,8 @@ import { NgForm } from '@angular/forms';
 })
 export class ScorelistComponent implements OnInit {
 
+  panelOpenState = false;
+
   //NgFormの作成
   form!: NgForm;
 
@@ -24,6 +26,12 @@ export class ScorelistComponent implements OnInit {
   score2: any
   score3: any
   score4: any
+
+  //各プレーヤーのパットスコア(ドキュメント)
+  putscore1: any
+  putscore2: any
+  putscore3: any
+  putscore4: any
 
   //各プレーヤーのラスベガス(ドキュメント)
   lasvegas1: any
@@ -184,6 +192,10 @@ export class ScorelistComponent implements OnInit {
     this.score2 = data.score2
     this.score3 = data.score3
     this.score4 = data.score4
+    this.putscore1 = data.putscore1
+    this.putscore2 = data.putscore2
+    this.putscore3 = data.putscore3
+    this.putscore4 = data.putscore4
     this.lasvegas1 = data.lasvegas1
     this.lasvegas2 = data.lasvegas2
     this.lasvegas3 = data.lasvegas3
@@ -367,6 +379,64 @@ export class ScorelistComponent implements OnInit {
       case this._index_name4:
         if(this.score4[courseNo] > 0 )
           this.score4[courseNo] = this.score4[courseNo] - 5 < 0 ? 0 : this.score4[courseNo] - 5
+        break
+      default:
+        break
+    }
+  }
+
+  /**
+   * パターのカウントアップ(プラス1)
+   * ダイアログ用イベント
+   * @param courseNo コースNo
+   * @param playerIndex プレイヤー番号
+   */
+  setPutscoreCounter1Up(courseNo: any, playerIndex: any){
+    switch (playerIndex){
+      case this._index_name1:
+        if(this.putscore1[courseNo] < 15 )
+          this.putscore1[courseNo]++
+        break
+      case this._index_name2:
+        if(this.putscore2[courseNo] < 15 )
+          this.putscore2[courseNo]++
+        break
+      case this._index_name3:
+        if(this.putscore3[courseNo] < 15 )
+          this.putscore3[courseNo]++
+        break
+      case this._index_name4:
+        if(this.putscore4[courseNo] < 15 )
+          this.putscore4[courseNo]++
+        break
+      default:
+        break
+    }
+  }
+
+  /**
+   * パターのカウントダウン（マイナス1）
+   * ダイアログ用イベント
+   * @param courseNo コースNo
+   * @param playerIndex プレイヤー番号
+   */
+  setPutscoreCounter1Down(courseNo: any, playerIndex: any){
+    switch (playerIndex){
+      case this._index_name1:
+        if(this.putscore1[courseNo] > 0 )
+          this.putscore1[courseNo]--
+        break
+      case this._index_name2:
+        if(this.putscore2[courseNo] > 0 )
+          this.putscore2[courseNo]--
+        break
+      case this._index_name3:
+        if(this.putscore3[courseNo] > 0 )
+          this.putscore3[courseNo]--
+        break
+      case this._index_name4:
+        if(this.putscore4[courseNo] > 0 )
+          this.putscore4[courseNo]--
         break
       default:
         break
@@ -915,6 +985,10 @@ export class ScorelistComponent implements OnInit {
       score2: this.score2,
       score3: this.score3,
       score4: this.score4,
+      putscore1: this.putscore1,
+      putscore2: this.putscore2,
+      putscore3: this.putscore3,
+      putscore4: this.putscore4,
       lasvegas1: this.lasvegas1,
       lasvegas2: this.lasvegas2,
       lasvegas3: this.lasvegas3,
