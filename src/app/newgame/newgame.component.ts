@@ -1,4 +1,3 @@
-import { Subscription } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { serverTimestamp } from "firebase/firestore"
 import { Component } from '@angular/core';
@@ -61,9 +60,7 @@ export class NewgameComponent {
     return this.firestore
       .collection('members')
       .doc(parentDocId)
-      //.collection(subcollectionName, ref => ref.orderBy('timestamp', 'desc'))
       .collection(subcollectionName)
-      //.snapshotChanges()
   }
 
   /**
@@ -124,12 +121,12 @@ export class NewgameComponent {
     this.saving = true
     try {
       this.getSubcollection(getAuth().currentUser?.uid || '', 'scores').add(this.checkoutForm).then(result =>{
-        console.log('POST Firestore New Document: ID=' + result.id)
+        console.log('[log] POST Firestore New Document: ID=' + result.id)
         this.createdDocId = result.id
       })
     } catch (error) {
       this.saving = false
-      console.log('POST Error: '+error)
+      console.log('[log] POST Error: '+error)
     }
   }
 

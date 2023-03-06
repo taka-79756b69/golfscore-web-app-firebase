@@ -11,10 +11,12 @@ export class AuthService {
     ) {}
 
   login(email: string, password: string) {
+    console.log("[log] login complete");
     return this.afAuth.signInWithEmailAndPassword(email, password);
   }
 
   logout() {
+    console.log("[log] logout complete");
     return this.afAuth.signOut();
   }
 

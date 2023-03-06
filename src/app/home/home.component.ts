@@ -27,9 +27,10 @@ export class HomeComponent implements OnInit{
 
   /**
    * アカウント削除
+   * @TODO GCPのFirebaseの拡張機能でユーザー削除に連動してFirestoreのデータを削除している。
    */
   acountDelete() {
-    console.log("LOG DELETE USER ACCOUNT: "+getAuth().currentUser?.uid);
+    console.log("[log] DELETE USER ACCOUNT: "+getAuth().currentUser?.uid);
     this.authServie.deleteUser()
   }
 }

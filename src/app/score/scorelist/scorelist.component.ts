@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Subscription } from 'rxjs';
 import { getAuth } from '@angular/fire/auth';
@@ -140,10 +140,14 @@ export class ScorelistComponent implements OnInit {
   // 購読設定停止用
   private subscriptions = new Subscription();
 
+  //レートのモデルを定義
   input: Input = { rate: ""}
 
   //ドキュメントID
   _id: any
+
+  //遷移確認
+  moveThisPageConf: any
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -165,7 +169,6 @@ export class ScorelistComponent implements OnInit {
     //ページの更新前に確認メッセージを出す
     window.addEventListener("beforeunload", function (e) {
       let confirmationMessage = "\o/";
-      console.log("log : beforeunload");
       e.returnValue = confirmationMessage;     // Gecko, Trident, Chrome 34+
       return confirmationMessage;              // Gecko, WebKit, Chrome <34
     });
@@ -230,7 +233,7 @@ export class ScorelistComponent implements OnInit {
       this.getSubcollection(getAuth().currentUser?.uid || '', 'scores').doc(_id).valueChanges().subscribe(data => {
         this.score = data
         this.setInitParam(data)
-        console.log('GET Firestore Document: ' + 'ID=' + _id + ' DATA=' + JSON.stringify(data))
+        console.log('[log] GET Firestore Document: ' + 'ID=' + _id + ' DATA=' + JSON.stringify(data))
         // unsubscribe
         this.execUnsubscribe()
       })
@@ -250,7 +253,7 @@ export class ScorelistComponent implements OnInit {
    */
   execUnsubscribe(){
     // 購読を停止する
-    console.log("scorelist.component: unsubscribe")
+    console.log("[log] unsubscribe => (scorelist.component)")
     this.subscriptions.unsubscribe()
   }
 
@@ -289,23 +292,23 @@ export class ScorelistComponent implements OnInit {
    * @param courseNo コースNo
    * @param playerIndex プレイヤー番号
    */
-  setScoreCounter3Up(courseNo: any, playerIndex: any){
+  setScoreCounter5Up(courseNo: any, playerIndex: any){
     switch (playerIndex){
       case this._index_name1:
         if(this.score1[courseNo] < 15 )
-          this.score1[courseNo] = this.score1[courseNo] + 3 > 15 ? 15 : this.score1[courseNo] + 3
+          this.score1[courseNo] = this.score1[courseNo] + 5 > 15 ? 15 : this.score1[courseNo] + 5
         break
       case this._index_name2:
         if(this.score2[courseNo] < 15 )
-          this.score2[courseNo] = this.score2[courseNo] + 3 > 15 ? 15 : this.score2[courseNo] + 3
+          this.score2[courseNo] = this.score2[courseNo] + 5 > 15 ? 15 : this.score2[courseNo] + 5
         break
       case this._index_name3:
         if(this.score3[courseNo] < 15 )
-          this.score3[courseNo] = this.score3[courseNo] + 3 > 15 ? 15 : this.score3[courseNo] + 3
+          this.score3[courseNo] = this.score3[courseNo] + 5 > 15 ? 15 : this.score3[courseNo] + 5
         break
       case this._index_name4:
         if(this.score4[courseNo] < 15 )
-          this.score4[courseNo] = this.score4[courseNo] + 3 > 15 ? 15 : this.score4[courseNo] + 3
+          this.score4[courseNo] = this.score4[courseNo] + 5 > 15 ? 15 : this.score4[courseNo] + 5
         break
       default:
         break
@@ -347,23 +350,23 @@ export class ScorelistComponent implements OnInit {
    * @param courseNo コースNo
    * @param playerIndex プレイヤー番号
    */
-  setScoreCounter3Down(courseNo: any, playerIndex: any){
+  setScoreCounter5Down(courseNo: any, playerIndex: any){
     switch (playerIndex){
       case this._index_name1:
         if(this.score1[courseNo] > 0 )
-          this.score1[courseNo] = this.score1[courseNo] - 3 < 0 ? 0 : this.score1[courseNo] - 3
+          this.score1[courseNo] = this.score1[courseNo] - 5 < 0 ? 0 : this.score1[courseNo] - 5
         break
       case this._index_name2:
         if(this.score2[courseNo] > 0 )
-          this.score2[courseNo] = this.score2[courseNo] - 3 < 0 ? 0 : this.score2[courseNo] - 3
+          this.score2[courseNo] = this.score2[courseNo] - 5 < 0 ? 0 : this.score2[courseNo] - 5
         break
       case this._index_name3:
         if(this.score3[courseNo] > 0 )
-          this.score3[courseNo] = this.score3[courseNo] - 3 < 0 ? 0 : this.score3[courseNo] - 3
+          this.score3[courseNo] = this.score3[courseNo] - 5 < 0 ? 0 : this.score3[courseNo] - 5
         break
       case this._index_name4:
         if(this.score4[courseNo] > 0 )
-          this.score4[courseNo] = this.score4[courseNo] - 3 < 0 ? 0 : this.score4[courseNo] - 3
+          this.score4[courseNo] = this.score4[courseNo] - 5 < 0 ? 0 : this.score4[courseNo] - 5
         break
       default:
         break
@@ -396,6 +399,9 @@ export class ScorelistComponent implements OnInit {
     this.setOlympicTotal()
     this.setLasvegasTotal()
     this.setOlympicAndLasvegasAfterRate(this.input.rate)
+
+    //画面遷移確認フラグをONにする
+    this.moveThisPageConf = true
   }
 
   /**
@@ -902,7 +908,6 @@ export class ScorelistComponent implements OnInit {
    */
   onSubmit(form: any) {
 
-    debugger
     // リクエスト送信用にJSON作成
     this.checkoutForm = ({
       order1st: this.order1st,
@@ -924,10 +929,10 @@ export class ScorelistComponent implements OnInit {
     this.saving = true
     try {
       this.getSubcollection(getAuth().currentUser?.uid || '', 'scores').doc(this._id).update(this.checkoutForm)
-      console.log('POST Firestore Document: '+'scores/'+this._id)
+      console.log('[log] POST Firestore Document: '+'scores/'+this._id)
     } catch (error) {
       this.saving = false
-      console.log('POST Error: '+error)
+      console.log('[log] POST Error: '+error)
     }
   }
 }

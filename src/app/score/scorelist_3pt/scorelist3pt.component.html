@@ -3,7 +3,7 @@
     <table class="table table-sm">
       <thead class="sticky-top table-secondary">
         <tr class="table-primary">
-          <td class="text-center"><span class="enFont">#</span></td>
+          <td class="text-center" style="width: 20%;"><span class="enFont">#</span></td>
           <td class="text-center"><small>{{ score.name1 }}</small></td>
           <td class="text-center"><small>{{ score.name2 }}</small></td>
           <td class="text-center"><small>{{ score.name3 }}</small></td>
@@ -29,33 +29,120 @@
                     <button type="button" class="btn btn-light position-relative">
                       <span class="enFont">{{ score1[i] }}</span>
                       <div *ngIf="order[i][p] != 0">
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                        <span class="position-absolute top-0 start-0 translate-middle badge rounded-pill bg-danger">
                           <span class="enFont">{{ order[i][p] }}</span>
                           <span class="visually-hidden">unread messages</span>
                         </span>
                       </div>
+                      <ng-container [ngSwitch]="olympic1[i]">
+                        <ng-container *ngSwitchCase=5>
+                          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill text-bg-dark">
+                            <span><small>ダ</small></span>
+                          </span>
+                        </ng-container>
+                        <ng-container *ngSwitchCase=4>
+                          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill text-bg-dark">
+                            <span><small>金</small></span>
+                          </span>
+                        </ng-container>
+                        <ng-container *ngSwitchCase=3>
+                          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill text-bg-dark">
+                            <span><small>銀</small></span>
+                          </span>
+                        </ng-container>
+                        <ng-container *ngSwitchCase=2>
+                          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill text-bg-dark">
+                            <span><small>銅</small></span>
+                          </span>
+                        </ng-container>
+                        <ng-container *ngSwitchCase=1>
+                          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill text-bg-dark">
+                            <span><small>鉄</small></span>
+                          </span>
+                        </ng-container>
+                        <ng-container *ngSwitchDefault>
+                        </ng-container>
+                      </ng-container>
                     </button>
                   </ng-container>
                   <ng-container *ngIf="p == 1">
                     <button type="button" class="btn btn-light position-relative">
                       <span class="enFont">{{ score2[i] }}</span>
                       <div *ngIf="order[i][p] != 0">
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                        <span class="position-absolute top-0 start-0 translate-middle badge rounded-pill bg-danger">
                           <span class="enFont">{{ order[i][p] }}</span>
                           <span class="visually-hidden">unread messages</span>
                         </span>
                       </div>
+                      <ng-container [ngSwitch]="olympic2[i]">
+                        <ng-container *ngSwitchCase=5>
+                          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill text-bg-dark">
+                            <span><small>ダ</small></span>
+                          </span>
+                        </ng-container>
+                        <ng-container *ngSwitchCase=4>
+                          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill text-bg-dark">
+                            <span><small>金</small></span>
+                          </span>
+                        </ng-container>
+                        <ng-container *ngSwitchCase=3>
+                          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill text-bg-dark">
+                            <span><small>銀</small></span>
+                          </span>
+                        </ng-container>
+                        <ng-container *ngSwitchCase=2>
+                          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill text-bg-dark">
+                            <span><small>銅</small></span>
+                          </span>
+                        </ng-container>
+                        <ng-container *ngSwitchCase=1>
+                          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill text-bg-dark">
+                            <span><small>鉄</small></span>
+                          </span>
+                        </ng-container>
+                        <ng-container *ngSwitchDefault>
+                        </ng-container>
+                      </ng-container>
                     </button>
                   </ng-container>
                   <ng-container *ngIf="p == 2">
                     <button type="button" class="btn btn-light position-relative">
                       <span class="enFont">{{ score3[i] }}</span>
                       <div *ngIf="order[i][p] != 0">
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                        <span class="position-absolute top-0 start-0 translate-middle badge rounded-pill bg-danger">
                           <span class="enFont">{{ order[i][p] }}</span>
                           <span class="visually-hidden">unread messages</span>
                         </span>
                       </div>
+                      <ng-container [ngSwitch]="olympic3[i]">
+                        <ng-container *ngSwitchCase=5>
+                          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill text-bg-dark">
+                            <span><small>ダ</small></span>
+                          </span>
+                        </ng-container>
+                        <ng-container *ngSwitchCase=4>
+                          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill text-bg-dark">
+                            <span><small>金</small></span>
+                          </span>
+                        </ng-container>
+                        <ng-container *ngSwitchCase=3>
+                          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill text-bg-dark">
+                            <span><small>銀</small></span>
+                          </span>
+                        </ng-container>
+                        <ng-container *ngSwitchCase=2>
+                          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill text-bg-dark">
+                            <span><small>銅</small></span>
+                          </span>
+                        </ng-container>
+                        <ng-container *ngSwitchCase=1>
+                          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill text-bg-dark">
+                            <span><small>鉄</small></span>
+                          </span>
+                        </ng-container>
+                        <ng-container *ngSwitchDefault>
+                        </ng-container>
+                      </ng-container>
                     </button>
                   </ng-container>
                 </div>
@@ -286,7 +373,7 @@
             <div class="row justify-content-center">
               <div class="col-2">
                 <div class="d-grid">
-                  <button mat-mini-fab color="accent" (click)="setScoreCounter3Down(courseIndex, _index_name1)">
+                  <button mat-mini-fab color="accent" (click)="setScoreCounter5Down(courseIndex, _index_name1)">
                     <i class="material-icons">keyboard_double_arrow_down</i>
                   </button>
                 </div>
@@ -310,7 +397,7 @@
               </div>
               <div class="col-2">
                 <div class="d-grid">
-                  <button mat-mini-fab color="accent" (click)="setScoreCounter3Up(courseIndex, _index_name1)">
+                  <button mat-mini-fab color="accent" (click)="setScoreCounter5Up(courseIndex, _index_name1)">
                     <i class="material-icons">keyboard_double_arrow_up</i>
                   </button>
                 </div>
@@ -379,7 +466,7 @@
             <div class="row justify-content-center">
               <div class="col-2">
                 <div class="d-grid">
-                  <button mat-mini-fab color="accent" (click)="setScoreCounter3Down(courseIndex, _index_name2)">
+                  <button mat-mini-fab color="accent" (click)="setScoreCounter5Down(courseIndex, _index_name2)">
                     <i class="material-icons">keyboard_double_arrow_down</i>
                   </button>
                 </div>
@@ -403,7 +490,7 @@
               </div>
               <div class="col-2">
                 <div class="d-grid">
-                  <button mat-mini-fab color="accent" (click)="setScoreCounter3Up(courseIndex, _index_name2)">
+                  <button mat-mini-fab color="accent" (click)="setScoreCounter5Up(courseIndex, _index_name2)">
                     <i class="material-icons">keyboard_double_arrow_up</i>
                   </button>
                 </div>
@@ -472,7 +559,7 @@
             <div class="row justify-content-center">
               <div class="col-2">
                 <div class="d-grid">
-                  <button mat-mini-fab color="accent" (click)="setScoreCounter3Down(courseIndex, _index_name3)">
+                  <button mat-mini-fab color="accent" (click)="setScoreCounter5Down(courseIndex, _index_name3)">
                     <i class="material-icons">keyboard_double_arrow_down</i>
                   </button>
                 </div>
@@ -496,7 +583,7 @@
               </div>
               <div class="col-2">
                 <div class="d-grid">
-                  <button mat-mini-fab color="accent" (click)="setScoreCounter3Up(courseIndex, _index_name3)">
+                  <button mat-mini-fab color="accent" (click)="setScoreCounter5Up(courseIndex, _index_name3)">
                     <i class="material-icons">keyboard_double_arrow_up</i>
                   </button>
                 </div>

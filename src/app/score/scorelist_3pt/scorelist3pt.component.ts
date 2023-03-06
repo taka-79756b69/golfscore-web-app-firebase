@@ -139,7 +139,6 @@ export class Scorelist3ptComponent implements OnInit {
     //ページの更新前に確認メッセージを出す
     window.addEventListener("beforeunload", function (e) {
       let confirmationMessage = "\o/";
-      console.log("log : beforeunload");
       e.returnValue = confirmationMessage;     // Gecko, Trident, Chrome 34+
       return confirmationMessage;              // Gecko, WebKit, Chrome <34
   });
@@ -199,7 +198,7 @@ export class Scorelist3ptComponent implements OnInit {
       this.getSubcollection(getAuth().currentUser?.uid || '', 'scores').doc(_id).valueChanges().subscribe(data => {
         this.score = data
         this.setInitParam(data)
-        console.log('GET Firestore Document: ' + 'ID=' + _id + ' DATA=' + JSON.stringify(data))
+        console.log('[log] GET Firestore Document: ' + 'ID=' + _id + ' DATA=' + JSON.stringify(data))
         // unsubscribe
         this.execUnsubscribe()
       })
@@ -219,7 +218,7 @@ export class Scorelist3ptComponent implements OnInit {
    */
   execUnsubscribe(){
     // 購読を停止する
-    console.log("scorelist.component: unsubscribe")
+    console.log("[log] unsubscribe => (scorelist3pt.component)")
     this.subscriptions.unsubscribe()
   }
 
@@ -254,19 +253,19 @@ export class Scorelist3ptComponent implements OnInit {
    * @param courseNo コースNo
    * @param playerIndex プレイヤー番号
    */
-  setScoreCounter3Up(courseNo: any, playerIndex: any){
+  setScoreCounter5Up(courseNo: any, playerIndex: any){
     switch (playerIndex){
       case this._index_name1:
         if(this.score1[courseNo] < 15 )
-          this.score1[courseNo] = this.score1[courseNo] + 3 > 15 ? 15 : this.score1[courseNo] + 3
+          this.score1[courseNo] = this.score1[courseNo] + 5 > 15 ? 15 : this.score1[courseNo] + 5
         break
       case this._index_name2:
         if(this.score2[courseNo] < 15 )
-          this.score2[courseNo] = this.score2[courseNo] + 3 > 15 ? 15 : this.score2[courseNo] + 3
+          this.score2[courseNo] = this.score2[courseNo] + 5 > 15 ? 15 : this.score2[courseNo] + 5
         break
       case this._index_name3:
         if(this.score3[courseNo] < 15 )
-          this.score3[courseNo] = this.score3[courseNo] + 3 > 15 ? 15 : this.score3[courseNo] + 3
+          this.score3[courseNo] = this.score3[courseNo] + 5 > 15 ? 15 : this.score3[courseNo] + 5
         break
       default:
         break
@@ -304,19 +303,19 @@ export class Scorelist3ptComponent implements OnInit {
    * @param courseNo コースNo
    * @param playerIndex プレイヤー番号
    */
-  setScoreCounter3Down(courseNo: any, playerIndex: any){
+  setScoreCounter5Down(courseNo: any, playerIndex: any){
     switch (playerIndex){
       case this._index_name1:
         if(this.score1[courseNo] > 0 )
-          this.score1[courseNo] = this.score1[courseNo] - 3 < 0 ? 0 : this.score1[courseNo] - 3
+          this.score1[courseNo] = this.score1[courseNo] - 5 < 0 ? 0 : this.score1[courseNo] - 5
         break
       case this._index_name2:
         if(this.score2[courseNo] > 0 )
-          this.score2[courseNo] = this.score2[courseNo] - 3 < 0 ? 0 : this.score2[courseNo] - 3
+          this.score2[courseNo] = this.score2[courseNo] - 5 < 0 ? 0 : this.score2[courseNo] - 5
         break
       case this._index_name3:
         if(this.score3[courseNo] > 0 )
-          this.score3[courseNo] = this.score3[courseNo] - 3 < 0 ? 0 : this.score3[courseNo] - 3
+          this.score3[courseNo] = this.score3[courseNo] - 5 < 0 ? 0 : this.score3[courseNo] - 5
         break
       default:
         break
@@ -663,10 +662,10 @@ export class Scorelist3ptComponent implements OnInit {
     this.saving = true
     try {
       this.getSubcollection(getAuth().currentUser?.uid || '', 'scores').doc(this._id).update(this.checkoutForm)
-      console.log('POST Firestore Document: '+'scores/'+this._id)
+      console.log('[log] POST Firestore Document: '+'scores/'+this._id)
     } catch (error) {
       this.saving = false
-      console.log('POST Error: '+error)
+      console.log('[log] POST Error: '+error)
     }
   }
 }

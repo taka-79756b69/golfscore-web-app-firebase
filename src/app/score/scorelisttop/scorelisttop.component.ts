@@ -82,13 +82,12 @@ export class ScorelisttopComponent {
         colSnap.forEach(snap => {
           let scores: any = snap.payload.doc.data()
           scores.id = snap.payload.doc.id;
-          console.log("COLLECTION: " + JSON.stringify(scores));
+          console.log("[log] COLLECTION: " + JSON.stringify(scores));
           this.scorelist.push(scores)
         })
         if(this.scorelist==0){
           this.scoresEmpty = true
         }
-        console.log("getScoreLists():unsubscribe")
         this.execUnsubscribe()
       })
     )
@@ -98,7 +97,6 @@ export class ScorelisttopComponent {
      * コンポーネントの破棄
      */
   ngOnDestroy() {
-    console.log("ngOnDestroy():unsubscribe")
     this.execUnsubscribe()
   }
 
@@ -107,7 +105,7 @@ export class ScorelisttopComponent {
    */
   execUnsubscribe(){
     // 購読を停止する
-    console.log("scorelisttop.component: unsubscribe")
+    console.log("[log] unsubscribe => (scorelisttop.component)")
     this.subscriptions.unsubscribe()
   }
 
@@ -141,9 +139,9 @@ export class ScorelisttopComponent {
     try {
       //this.firestore.collection('scores').doc(this.delDocId).delete()
       this.getSubcollectionDel(getAuth().currentUser?.uid || '', 'scores').doc(this.delDocId).delete()
-      console.log("Document Delete Complete : ID=" + this.delDocId)
+      console.log("[log] Document Delete Complete : ID=" + this.delDocId)
     } catch (error) {
-      console.log('POST Error: '+error)
+      console.log('[log] POST Error: '+error)
     }
   }
 
