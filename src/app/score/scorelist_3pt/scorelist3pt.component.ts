@@ -13,6 +13,8 @@ import { Input } from '../input';
 })
 export class Scorelist3ptComponent implements OnInit {
 
+  panelOpenState = false;
+
   //NgFormの作成
   form!: NgForm;
 
@@ -23,6 +25,12 @@ export class Scorelist3ptComponent implements OnInit {
   score1: any
   score2: any
   score3: any
+
+  //各プレーヤーのパットスコア(ドキュメント)
+  putscore1: any
+  putscore2: any
+  putscore3: any
+  putscore4: any
 
   //各プレーヤーのオリンピック(ドキュメント)
   olympic1: any
@@ -38,9 +46,17 @@ export class Scorelist3ptComponent implements OnInit {
   //レート
   txtRate: any
 
-  //プレーヤー識別用のインデックス
+  /**
+   * 一人目を意味するインデックス
+   */
   _index_name1 = 0
+  /**
+   * 二人目を意味するインデックス
+   */
   _index_name2 = 1
+  /**
+   * 三人目を意味するインデックス
+   */
   _index_name3 = 2
 
   //プレイヤー識別用のインデックスを格納する配列
@@ -153,6 +169,9 @@ export class Scorelist3ptComponent implements OnInit {
     this.score1 = data.score1
     this.score2 = data.score2
     this.score3 = data.score3
+    this.putscore1 = data.putscore1
+    this.putscore2 = data.putscore2
+    this.putscore3 = data.putscore3
     this.olympic1 = data.olympic1
     this.olympic2 = data.olympic2
     this.olympic3 = data.olympic3
@@ -321,6 +340,56 @@ export class Scorelist3ptComponent implements OnInit {
         break
     }
   }
+
+    /**
+   * パターのカウントアップ(プラス1)
+   * ダイアログ用イベント
+   * @param courseNo コースNo
+   * @param playerIndex プレイヤー番号
+   */
+    setPutscoreCounter1Up(courseNo: any, playerIndex: any){
+      switch (playerIndex){
+        case this._index_name1:
+          if(this.putscore1[courseNo] < 15 )
+            this.putscore1[courseNo]++
+          break
+        case this._index_name2:
+          if(this.putscore2[courseNo] < 15 )
+            this.putscore2[courseNo]++
+          break
+        case this._index_name3:
+          if(this.putscore3[courseNo] < 15 )
+            this.putscore3[courseNo]++
+          break
+        default:
+          break
+      }
+    }
+
+    /**
+     * パターのカウントダウン（マイナス1）
+     * ダイアログ用イベント
+     * @param courseNo コースNo
+     * @param playerIndex プレイヤー番号
+     */
+    setPutscoreCounter1Down(courseNo: any, playerIndex: any){
+      switch (playerIndex){
+        case this._index_name1:
+          if(this.putscore1[courseNo] > 0 )
+            this.putscore1[courseNo]--
+          break
+        case this._index_name2:
+          if(this.putscore2[courseNo] > 0 )
+            this.putscore2[courseNo]--
+          break
+        case this._index_name3:
+          if(this.putscore3[courseNo] > 0 )
+            this.putscore3[courseNo]--
+          break
+        default:
+          break
+      }
+    }
 
   /**
    * ダイアログを閉じるタイミングの処理
@@ -636,6 +705,33 @@ export class Scorelist3ptComponent implements OnInit {
       this.olympic3[courseNo] = 0
     }else{
       this.olympic3[courseNo] = olympic
+    }
+  }
+
+  orderSelect1(order: any){
+
+    if(this.order1st[this._index_name1] == order){
+      this.order1st[this._index_name1] = 0
+    }else{
+      this.order1st[this._index_name1] = order
+    }
+  }
+
+  orderSelect2(order: any){
+
+    if(this.order1st[this._index_name2] == order){
+      this.order1st[this._index_name2] = 0
+    }else{
+      this.order1st[this._index_name2] = order
+    }
+  }
+
+  orderSelect3(order: any){
+
+    if(this.order1st[this._index_name3] == order){
+      this.order1st[this._index_name3] = 0
+    }else{
+      this.order1st[this._index_name3] = order
     }
   }
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Subscription } from 'rxjs';
 import { getAuth } from '@angular/fire/auth';
@@ -164,9 +164,6 @@ export class ScorelistComponent implements OnInit {
 
   //ドキュメントID
   _id: any
-
-  //遷移確認
-  moveThisPageConf: any
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -480,9 +477,6 @@ export class ScorelistComponent implements OnInit {
     this.setOlympicTotal()
     this.setLasvegasTotal()
     this.setOlympicAndLasvegasAfterRate(this.input.rate)
-
-    //画面遷移確認フラグをONにする
-    this.moveThisPageConf = true
   }
 
   /**
