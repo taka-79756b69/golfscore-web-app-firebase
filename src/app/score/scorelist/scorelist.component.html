@@ -567,7 +567,7 @@
         <div class="modal-body">
           <mat-accordion>
             <ng-container *ngIf="courseIndex == 0">
-              <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+              <mat-expansion-panel class="remove-mat-expansion-panel-padding" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                 <mat-expansion-panel-header>
                   <mat-panel-title>
                     打順を設定
@@ -575,75 +575,167 @@
                 </mat-expansion-panel-header>
                 <div class="container">
                   <div class="row">
-                    <div class="col-1">
-                    </div>
-                    <div class="col-5" style="margin-top: 7px;">
+                    <div class="col-4" style="margin-top: 8px; text-align: center;">
                       {{ score.name1 }}
                     </div>
-                    <div class="col-5">
-                      <select class="form-select" [(ngModel)]='order1st[_index_name1]' name="dropdownOption" id="dropdownOption">
-                        <option value=0>打順</option>
-                        <option value=1>No.1</option>
-                        <option value=2>No.2</option>
-                        <option value=3>No.3</option>
-                        <option value=4>No.4</option>
-                      </select>
-                    </div>
-                    <div class="col-1">
+                    <div class="col-8">
+                      <mat-chip-listbox aria-label="olympic selection">
+                        <span [ngSwitch]="order1st[_index_name1]">
+                          <p *ngSwitchCase=4>
+                            <mat-chip-option value=1 (selectionChange)="orderSelect1(1)"><span class="enFont">1</span></mat-chip-option>
+                            <mat-chip-option value=2 (selectionChange)="orderSelect1(2)"><span class="enFont">2</span></mat-chip-option>
+                            <mat-chip-option value=3 (selectionChange)="orderSelect1(3)"><span class="enFont">3</span></mat-chip-option>
+                            <mat-chip-option selected value=4 (selectionChange)="orderSelect1(4)"><span class="enFont">4</span></mat-chip-option>
+                          </p>
+                          <p *ngSwitchCase=3>
+                            <mat-chip-option value=1 (selectionChange)="orderSelect1(1)"><span class="enFont">1</span></mat-chip-option>
+                            <mat-chip-option value=2 (selectionChange)="orderSelect1(2)"><span class="enFont">2</span></mat-chip-option>
+                            <mat-chip-option selected value=3 (selectionChange)="orderSelect1(3)"><span class="enFont">3</span></mat-chip-option>
+                            <mat-chip-option value=4 (selectionChange)="orderSelect1(4)"><span class="enFont">4</span></mat-chip-option>
+                          </p>
+                          <p *ngSwitchCase=2>
+                            <mat-chip-option value=1 (selectionChange)="orderSelect1(1)"><span class="enFont">1</span></mat-chip-option>
+                            <mat-chip-option selected value=2 (selectionChange)="orderSelect1(2)"><span class="enFont">2</span></mat-chip-option>
+                            <mat-chip-option value=3 (selectionChange)="orderSelect1(3)"><span class="enFont">3</span></mat-chip-option>
+                            <mat-chip-option value=4 (selectionChange)="orderSelect1(4)"><span class="enFont">4</span></mat-chip-option>
+                          </p>
+                          <p *ngSwitchCase=1>
+                            <mat-chip-option selected value=1 (selectionChange)="orderSelect1(1)"><span class="enFont">1</span></mat-chip-option>
+                            <mat-chip-option value=2 (selectionChange)="orderSelect1(2)"><span class="enFont">2</span></mat-chip-option>
+                            <mat-chip-option value=3 (selectionChange)="orderSelect1(3)"><span class="enFont">3</span></mat-chip-option>
+                            <mat-chip-option value=4 (selectionChange)="orderSelect1(4)"><span class="enFont">4</span></mat-chip-option>
+                          </p>
+                          <p *ngSwitchDefault>
+                            <mat-chip-option value=1 (selectionChange)="orderSelect1(1)"><span class="enFont">1</span></mat-chip-option>
+                            <mat-chip-option value=2 (selectionChange)="orderSelect1(2)"><span class="enFont">2</span></mat-chip-option>
+                            <mat-chip-option value=3 (selectionChange)="orderSelect1(3)"><span class="enFont">3</span></mat-chip-option>
+                            <mat-chip-option value=4 (selectionChange)="orderSelect1(4)"><span class="enFont">4</span></mat-chip-option>
+                          </p>
+                        </span>
+                      </mat-chip-listbox>
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-1">
-                    </div>
-                    <div class="col-5" style="margin-top: 7px;">
+                    <div class="col-4" style="margin-top: 8px; text-align: center;">
                       {{ score.name2 }}
                     </div>
-                    <div class="col-5">
-                      <select class="form-select" [(ngModel)]='order1st[_index_name2]' name="dropdownOption" id="dropdownOption">
-                        <option value=0>打順</option>
-                        <option value=1>No.1</option>
-                        <option value=2>No.2</option>
-                        <option value=3>No.3</option>
-                        <option value=4>No.4</option>
-                      </select>
-                    </div>
-                    <div class="col-1">
+                    <div class="col-8">
+                      <mat-chip-listbox aria-label="olympic selection">
+                        <span [ngSwitch]="order1st[_index_name2]">
+                          <p *ngSwitchCase=4>
+                            <mat-chip-option value=1 (selectionChange)="orderSelect2(1)"><span class="enFont">1</span></mat-chip-option>
+                            <mat-chip-option value=2 (selectionChange)="orderSelect2(2)"><span class="enFont">2</span></mat-chip-option>
+                            <mat-chip-option value=3 (selectionChange)="orderSelect2(3)"><span class="enFont">3</span></mat-chip-option>
+                            <mat-chip-option selected value=4 (selectionChange)="orderSelect2(4)"><span class="enFont">4</span></mat-chip-option>
+                          </p>
+                          <p *ngSwitchCase=3>
+                            <mat-chip-option value=1 (selectionChange)="orderSelect2(1)"><span class="enFont">1</span></mat-chip-option>
+                            <mat-chip-option value=2 (selectionChange)="orderSelect2(2)"><span class="enFont">2</span></mat-chip-option>
+                            <mat-chip-option selected value=3 (selectionChange)="orderSelect2(3)"><span class="enFont">3</span></mat-chip-option>
+                            <mat-chip-option value=4 (selectionChange)="orderSelect2(4)"><span class="enFont">4</span></mat-chip-option>
+                          </p>
+                          <p *ngSwitchCase=2>
+                            <mat-chip-option value=1 (selectionChange)="orderSelect2(1)"><span class="enFont">1</span></mat-chip-option>
+                            <mat-chip-option selected value=2 (selectionChange)="orderSelect2(2)"><span class="enFont">2</span></mat-chip-option>
+                            <mat-chip-option value=3 (selectionChange)="orderSelect2(3)"><span class="enFont">3</span></mat-chip-option>
+                            <mat-chip-option value=4 (selectionChange)="orderSelect2(4)"><span class="enFont">4</span></mat-chip-option>
+                          </p>
+                          <p *ngSwitchCase=1>
+                            <mat-chip-option selected value=1 (selectionChange)="orderSelect2(1)"><span class="enFont">1</span></mat-chip-option>
+                            <mat-chip-option value=2 (selectionChange)="orderSelect2(2)"><span class="enFont">2</span></mat-chip-option>
+                            <mat-chip-option value=3 (selectionChange)="orderSelect2(3)"><span class="enFont">3</span></mat-chip-option>
+                            <mat-chip-option value=4 (selectionChange)="orderSelect2(4)"><span class="enFont">4</span></mat-chip-option>
+                          </p>
+                          <p *ngSwitchDefault>
+                            <mat-chip-option value=1 (selectionChange)="orderSelect2(1)"><span class="enFont">1</span></mat-chip-option>
+                            <mat-chip-option value=2 (selectionChange)="orderSelect2(2)"><span class="enFont">2</span></mat-chip-option>
+                            <mat-chip-option value=3 (selectionChange)="orderSelect2(3)"><span class="enFont">3</span></mat-chip-option>
+                            <mat-chip-option value=4 (selectionChange)="orderSelect2(4)"><span class="enFont">4</span></mat-chip-option>
+                          </p>
+                        </span>
+                      </mat-chip-listbox>
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-1">
-                    </div>
-                    <div class="col-5" style="margin-top: 7px;">
+                    <div class="col-4" style="margin-top: 8px; text-align: center;">
                       {{ score.name3 }}
                     </div>
-                    <div class="col-5">
-                      <select class="form-select" [(ngModel)]='order1st[_index_name3]' name="dropdownOption" id="dropdownOption">
-                        <option value=0>打順</option>
-                        <option value=1>No.1</option>
-                        <option value=2>No.2</option>
-                        <option value=3>No.3</option>
-                        <option value=4>No.4</option>
-                      </select>
-                    </div>
-                    <div class="col-1">
+                    <div class="col-8">
+                      <mat-chip-listbox aria-label="olympic selection">
+                        <span [ngSwitch]="order1st[_index_name3]">
+                          <p *ngSwitchCase=4>
+                            <mat-chip-option value=1 (selectionChange)="orderSelect3(1)"><span class="enFont">1</span></mat-chip-option>
+                            <mat-chip-option value=2 (selectionChange)="orderSelect3(2)"><span class="enFont">2</span></mat-chip-option>
+                            <mat-chip-option value=3 (selectionChange)="orderSelect3(3)"><span class="enFont">3</span></mat-chip-option>
+                            <mat-chip-option selected value=4 (selectionChange)="orderSelect3(4)"><span class="enFont">4</span></mat-chip-option>
+                          </p>
+                          <p *ngSwitchCase=3>
+                            <mat-chip-option value=1 (selectionChange)="orderSelect3(1)"><span class="enFont">1</span></mat-chip-option>
+                            <mat-chip-option value=2 (selectionChange)="orderSelect3(2)"><span class="enFont">2</span></mat-chip-option>
+                            <mat-chip-option selected value=3 (selectionChange)="orderSelect3(3)"><span class="enFont">3</span></mat-chip-option>
+                            <mat-chip-option value=4 (selectionChange)="orderSelect3(4)"><span class="enFont">4</span></mat-chip-option>
+                          </p>
+                          <p *ngSwitchCase=2>
+                            <mat-chip-option value=1 (selectionChange)="orderSelect3(1)"><span class="enFont">1</span></mat-chip-option>
+                            <mat-chip-option selected value=2 (selectionChange)="orderSelect3(2)"><span class="enFont">2</span></mat-chip-option>
+                            <mat-chip-option value=3 (selectionChange)="orderSelect3(3)"><span class="enFont">3</span></mat-chip-option>
+                            <mat-chip-option value=4 (selectionChange)="orderSelect3(4)"><span class="enFont">4</span></mat-chip-option>
+                          </p>
+                          <p *ngSwitchCase=1>
+                            <mat-chip-option selected value=1 (selectionChange)="orderSelect3(1)"><span class="enFont">1</span></mat-chip-option>
+                            <mat-chip-option value=2 (selectionChange)="orderSelect3(2)"><span class="enFont">2</span></mat-chip-option>
+                            <mat-chip-option value=3 (selectionChange)="orderSelect3(3)"><span class="enFont">3</span></mat-chip-option>
+                            <mat-chip-option value=4 (selectionChange)="orderSelect3(4)"><span class="enFont">4</span></mat-chip-option>
+                          </p>
+                          <p *ngSwitchDefault>
+                            <mat-chip-option value=1 (selectionChange)="orderSelect3(1)"><span class="enFont">1</span></mat-chip-option>
+                            <mat-chip-option value=2 (selectionChange)="orderSelect3(2)"><span class="enFont">2</span></mat-chip-option>
+                            <mat-chip-option value=3 (selectionChange)="orderSelect3(3)"><span class="enFont">3</span></mat-chip-option>
+                            <mat-chip-option value=4 (selectionChange)="orderSelect3(4)"><span class="enFont">4</span></mat-chip-option>
+                          </p>
+                        </span>
+                      </mat-chip-listbox>
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-1">
-                    </div>
-                    <div class="col-5" style="margin-top: 7px;">
+                    <div class="col-4" style="margin-top: 8px; text-align: center;">
                       {{ score.name4 }}
                     </div>
-                    <div class="col-5">
-                      <select class="form-select" [(ngModel)]='order1st[_index_name4]' name="dropdownOption" id="dropdownOption">
-                        <option value=0>打順</option>
-                        <option value=1>No.1</option>
-                        <option value=2>No.2</option>
-                        <option value=3>No.3</option>
-                        <option value=4>No.4</option>
-                      </select>
-                    </div>
-                    <div class="col-1">
+                    <div class="col-8">
+                      <mat-chip-listbox aria-label="olympic selection">
+                        <span [ngSwitch]="order1st[_index_name4]">
+                          <p *ngSwitchCase=4>
+                            <mat-chip-option value=1 (selectionChange)="orderSelect4(1)"><span class="enFont">1</span></mat-chip-option>
+                            <mat-chip-option value=2 (selectionChange)="orderSelect4(2)"><span class="enFont">2</span></mat-chip-option>
+                            <mat-chip-option value=3 (selectionChange)="orderSelect4(3)"><span class="enFont">3</span></mat-chip-option>
+                            <mat-chip-option selected value=4 (selectionChange)="orderSelect4(4)"><span class="enFont">4</span></mat-chip-option>
+                          </p>
+                          <p *ngSwitchCase=3>
+                            <mat-chip-option value=1 (selectionChange)="orderSelect4(1)"><span class="enFont">1</span></mat-chip-option>
+                            <mat-chip-option value=2 (selectionChange)="orderSelect4(2)"><span class="enFont">2</span></mat-chip-option>
+                            <mat-chip-option selected value=3 (selectionChange)="orderSelect4(3)"><span class="enFont">3</span></mat-chip-option>
+                            <mat-chip-option value=4 (selectionChange)="orderSelect4(4)"><span class="enFont">4</span></mat-chip-option>
+                          </p>
+                          <p *ngSwitchCase=2>
+                            <mat-chip-option value=1 (selectionChange)="orderSelect4(1)"><span class="enFont">1</span></mat-chip-option>
+                            <mat-chip-option selected value=2 (selectionChange)="orderSelect4(2)"><span class="enFont">2</span></mat-chip-option>
+                            <mat-chip-option value=3 (selectionChange)="orderSelect4(3)"><span class="enFont">3</span></mat-chip-option>
+                            <mat-chip-option value=4 (selectionChange)="orderSelect4(4)"><span class="enFont">4</span></mat-chip-option>
+                          </p>
+                          <p *ngSwitchCase=1>
+                            <mat-chip-option selected value=1 (selectionChange)="orderSelect4(1)"><span class="enFont">1</span></mat-chip-option>
+                            <mat-chip-option value=2 (selectionChange)="orderSelect4(2)"><span class="enFont">2</span></mat-chip-option>
+                            <mat-chip-option value=3 (selectionChange)="orderSelect4(3)"><span class="enFont">3</span></mat-chip-option>
+                            <mat-chip-option value=4 (selectionChange)="orderSelect4(4)"><span class="enFont">4</span></mat-chip-option>
+                          </p>
+                          <p *ngSwitchDefault>
+                            <mat-chip-option value=1 (selectionChange)="orderSelect4(1)"><span class="enFont">1</span></mat-chip-option>
+                            <mat-chip-option value=2 (selectionChange)="orderSelect4(2)"><span class="enFont">2</span></mat-chip-option>
+                            <mat-chip-option value=3 (selectionChange)="orderSelect4(3)"><span class="enFont">3</span></mat-chip-option>
+                            <mat-chip-option value=4 (selectionChange)="orderSelect4(4)"><span class="enFont">4</span></mat-chip-option>
+                          </p>
+                        </span>
+                      </mat-chip-listbox>
                     </div>
                   </div>
                 </div>

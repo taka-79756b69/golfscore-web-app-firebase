@@ -54,10 +54,21 @@ export class ScorelistComponent implements OnInit {
   //レート
   txtRate: any
 
-  //プレーヤー識別用のインデックス
+  /**
+   * 一人目を意味するインデックス
+   */
   _index_name1 = 0
+  /**
+   * 二人目を意味するインデックス
+   */
   _index_name2 = 1
+  /**
+   * 三人目を意味するインデックス
+   */
   _index_name3 = 2
+  /**
+   * 四人目を意味するインデックス
+   */
   _index_name4 = 3
 
   //プレイヤー識別用のインデックスを格納する配列
@@ -968,6 +979,42 @@ export class ScorelistComponent implements OnInit {
       this.olympic4[courseNo] = 0
     }else{
       this.olympic4[courseNo] = olympic
+    }
+  }
+
+  orderSelect1(order: any){
+
+    if(this.order1st[this._index_name1] == order){
+      this.order1st[this._index_name1] = 0
+    }else{
+      this.order1st[this._index_name1] = order
+    }
+  }
+
+  orderSelect2(order: any){
+
+    if(this.order1st[this._index_name2] == order){
+      this.order1st[this._index_name2] = 0
+    }else{
+      this.order1st[this._index_name2] = order
+    }
+  }
+
+  orderSelect3(order: any){
+
+    if(this.order1st[this._index_name3] == order){
+      this.order1st[this._index_name3] = 0
+    }else{
+      this.order1st[this._index_name3] = order
+    }
+  }
+
+  orderSelect4(order: any){
+
+    if(this.order1st[this._index_name4] == order){
+      this.order1st[this._index_name4] = 0
+    }else{
+      this.order1st[this._index_name4] = order
     }
   }
 
