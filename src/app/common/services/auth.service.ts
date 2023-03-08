@@ -28,8 +28,8 @@ export class AuthService {
     return this.afAuth.createUserWithEmailAndPassword(email, password)
   }
 
-  async deleteUser(){
-    await getAuth().currentUser?.delete()
+  deleteUser(){
+    return getAuth().currentUser?.delete()
   }
 
   getAccountEmail() {
