@@ -9,14 +9,14 @@
       <input ngModel type="password" name="password" class="form-control" placeholder="パスワードを入力" required autofocus>
     </div>
     <ng-container *ngIf="confirm; else elseContent">
-      <button class="btn btn-lg btn-primary" type="submit">確認</button>
+      <button class="btn btn-primary" type="submit">確認</button>
     </ng-container>
     <ng-template #elseContent>
-      <button class="btn btn-lg btn-primary" type="submit" disabled>
+      <button class="btn btn-primary" type="submit" disabled>
         確認済
       </button>
       <br><br>
-      <a class="btn btn-lg btn-danger btn-block" role="button"  data-bs-toggle="modal" data-bs-target="#staticBackdrop">アカウントを削除</a>
+      <a class="btn btn-danger btn-block" role="button"  data-bs-toggle="modal" data-bs-target="#staticBackdrop">アカウントを削除</a>
     </ng-template>
   </form>
   <div class="container fixed-bottom" id="footer">
