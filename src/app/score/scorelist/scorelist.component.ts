@@ -768,14 +768,19 @@ export class ScorelistComponent implements OnInit {
 
     //最初の打順設定が完了していない場合は、エラーフラグを立てる
     //または、打順がかぶっていたりするとエラーフラグを立てる
-    if(this.order1st[this._index_name1] == 0 || this.order1st[this._index_name2] == 0
-        || this.order1st[this._index_name3] == 0 || this.order1st[this._index_name4] == 0) {
+    if(this.order1st[this._index_name1] == undefined || this.order1st[this._index_name2] == undefined
+        || this.order1st[this._index_name3] == undefined || this.order1st[this._index_name4] == undefined) {
         this.orderError = true
     } else if(+this.order1st[this._index_name1] + +this.order1st[this._index_name2]
         + +this.order1st[this._index_name3] + +this.order1st[this._index_name4] != 10){
         this.orderError = true
     } else {
       this.orderError = false
+    }
+
+    //重複除いた配列の長さが4以外はエラーとする
+    if (Array.from(new Set(this.order1st)).length != 4) {
+      this.orderError = true
     }
 
     for (let i=0; i<=17; i++) {
@@ -1018,6 +1023,37 @@ export class ScorelistComponent implements OnInit {
    * Subscribeできないため、try-catchでエラーをハンドリングする
    */
   onSubmit(form: any) {
+
+    //オーダーが未設定の場合undefinedになるため
+    //undifinedの場合は、0に置き換えてから保存する
+    for(let i=0; i<=3; i++) {
+      if (this.order1st[i] == undefined){
+        this.order1st[i] = 0
+      }
+    }
+
+    //オリンピックが未設定の場合undefinedになるため
+    //undifinedの場合は、0に置き換えてから保存する
+    for(let i=0; i<=17; i++) {
+      if (this.olympic1[i] == undefined){
+        this.olympic1[i] = 0
+      }
+    }
+    for(let i=0; i<=17; i++) {
+      if (this.olympic2[i] == undefined){
+        this.olympic2[i] = 0
+      }
+    }
+    for(let i=0; i<=17; i++) {
+      if (this.olympic3[i] == undefined){
+        this.olympic3[i] = 0
+      }
+    }
+    for(let i=0; i<=17; i++) {
+      if (this.olympic4[i] == undefined){
+        this.olympic4[i] = 0
+      }
+    }
 
     // リクエスト送信用にJSON作成
     this.checkoutForm = ({
