@@ -138,6 +138,9 @@ export class ScorelistComponent implements OnInit {
   lasvegasTotal3 = 0
   lasvegasTotal4 = 0
 
+  //LASVEGAS
+  isLas2stories = false
+
   //LASVEGAS（レート反映後）
   lasvegasTotal1_rated = 0
   lasvegasTotal2_rated = 0
