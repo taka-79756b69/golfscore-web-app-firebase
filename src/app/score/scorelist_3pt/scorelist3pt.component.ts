@@ -4,7 +4,6 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Subscription } from 'rxjs';
 import { getAuth } from '@angular/fire/auth';
 import { NgForm } from '@angular/forms';
-import { Input } from '../input';
 
 @Component({
   selector: 'app-scorelist3pt',
@@ -42,9 +41,6 @@ export class Scorelist3ptComponent implements OnInit {
 
   //人数(ドキュメント)
   player: any
-
-  //レート
-  txtRate: any
 
   /**
    * 一人目を意味するインデックス
@@ -115,8 +111,8 @@ export class Scorelist3ptComponent implements OnInit {
   olympicTotal2_rated = 0
   olympicTotal3_rated = 0
 
-  //レート
-  rateValue = 0
+  isOlyNearping = false
+  rate: any
 
   //フォームデータ
   checkoutForm: any
@@ -129,8 +125,6 @@ export class Scorelist3ptComponent implements OnInit {
 
   // 購読設定停止用
   private subscriptions = new Subscription();
-
-  input: Input = { rate: ""}
 
   //ドキュメントID
   _id: any
@@ -179,7 +173,7 @@ export class Scorelist3ptComponent implements OnInit {
     this.no = data.no
     this.order1st = data.order1st
     this.playerArray.push(this._index_name1, this._index_name2, this._index_name3)
-    this.input.rate = data.rate
+    this.rate = data.rate
 
     this.save()
   }
@@ -412,7 +406,7 @@ export class Scorelist3ptComponent implements OnInit {
 
     this.setBadgeOrder()
     this.setOlympicTotal()
-    this.setOlympicAndLasvegasAfterRate(this.input.rate)
+    this.setOlympicAndLasvegasAfterRate(this.rate)
   }
 
   /**
@@ -775,7 +769,6 @@ export class Scorelist3ptComponent implements OnInit {
 
     // リクエスト送信用にJSON作成
     this.checkoutForm = ({
-
       order1st: this.order1st,
       score1: this.score1,
       score2: this.score2,
@@ -783,7 +776,8 @@ export class Scorelist3ptComponent implements OnInit {
       olympic1: this.olympic1,
       olympic2: this.olympic2,
       olympic3: this.olympic3,
-      rate: form.value.txtRate
+      rate: this.rate,
+      isOlyNearping: this.isOlyNearping,
     });
 
     this.saving = true

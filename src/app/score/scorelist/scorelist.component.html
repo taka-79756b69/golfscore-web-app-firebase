@@ -71,6 +71,10 @@
                         <span class="enFontSmall">{{ putscore1[i] }}</span>
                         <span class="visually-hidden">unread messages</span>
                       </span>
+                      <span class="position-absolute top-100 start-0 translate-middle badge rounded-pill text-bg-primary">
+                        <span class="small">ニア</span>
+                        <span class="visually-hidden">unread messages</span>
+                      </span>
                     </button>
                   </ng-container>
                   <ng-container *ngIf="p == 1">
@@ -270,255 +274,252 @@
     </table>
     <!--  -->
     <!--  -->
-    <div class="container">
-      <div class="row">
-        <div class="col-12 text-center bg-secondary text-white">
-          <small><span class="enFont">結果</span></small>
+    <div class="justify-content-center">
+      <ul class="nav nav-tabs mx-2" id="myTab" role="tablist">
+        <li class="col-4 d-grid gap-2 nav-item small" role="presentation">
+          <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#olympic-tab-pane" type="button" role="tab" aria-controls="olympic-tab-pane" aria-selected="true">オリンピック</button>
+        </li>
+        <li class="col-4 d-grid gap-2 nav-item small" role="presentation">
+          <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#lasvegas-tab-pane" type="button" role="tab" aria-controls="lasvegas-tab-pane" aria-selected="false">ラスベガス</button>
+        </li>
+        <li class="col-4 d-grid gap-2 nav-item small" role="presentation">
+          <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#total-tab-pane" type="button" role="tab" aria-controls="total-tab-pane" aria-selected="false">合計</button>
+        </li>
+      </ul>
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="olympic-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+          <table class="table table-sm">
+            <thead>
+              <tr>
+                <td class="enFontSmall text-center table-secondary">#</td>
+                <td class="small text-center table-secondary">
+                  獲得ポイント
+                </td>
+                <td class="small text-center table-secondary">
+                  換算後ポイント
+                </td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <small>{{ score.name1 }}</small>
+                </td>
+                <td>
+                  <div class="text-end" [ngStyle] = "{'color' : olympicTotal1 >= 0 ? 'blue' : 'red'}">
+                    <small><span class="enFont">{{ olympicTotal1 }}</span></small>
+                  </div>
+                </td>
+                <td>
+                  <div class="text-end" [ngStyle] = "{'color' : olympicTotal1 >= 0 ? 'blue' : 'red'}">
+                    <small><span class="enFont">{{ olympicTotal1_rated }}</span></small>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <small>{{ score.name2 }}</small>
+                </td>
+                <td>
+                  <div class="text-end" [ngStyle] = "{'color' : olympicTotal2 >= 0 ? 'blue' : 'red'}">
+                    <small><span class="enFont">{{ olympicTotal2 }}</span></small>
+                  </div>
+                </td>
+                <td>
+                  <div class="text-end" [ngStyle] = "{'color' : olympicTotal2 >= 0 ? 'blue' : 'red'}">
+                    <small><span class="enFont">{{ olympicTotal2_rated }}</span></small>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <small>{{ score.name3 }}</small>
+                </td>
+                <td>
+                  <div class="text-end" [ngStyle] = "{'color' : olympicTotal3 >= 0 ? 'blue' : 'red'}">
+                    <small><span class="enFont">{{ olympicTotal3 }}</span></small>
+                  </div>
+                </td>
+                <td>
+                  <div class="text-end" [ngStyle] = "{'color' : olympicTotal3 >= 0 ? 'blue' : 'red'}">
+                    <small><span class="enFont">{{ olympicTotal3_rated }}</span></small>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <small>{{ score.name4 }}</small>
+                </td>
+                <td>
+                  <div class="text-end" [ngStyle] = "{'color' : olympicTotal4 >= 0 ? 'blue' : 'red'}">
+                    <small><span class="enFont">{{ olympicTotal4 }}</span></small>
+                  </div>
+                </td>
+                <td>
+                  <div class="text-end" [ngStyle] = "{'color' : olympicTotal4 >= 0 ? 'blue' : 'red'}">
+                    <small><span class="enFont">{{ olympicTotal4_rated }}</span></small>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="tab-pane fade" id="lasvegas-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+          <table class="table table-sm">
+            <thead>
+              <tr>
+                <td class="enFontSmall text-center table-secondary">#</td>
+                <td class="small text-center table-secondary">
+                  獲得ポイント
+                </td>
+                <td class="small text-center table-secondary">
+                  換算後ポイント
+                </td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <small>{{ score.name1 }}</small>
+                </td>
+                <td>
+                  <div class="text-end" [ngStyle] = "{'color' : lasvegasTotal1 >= 0 ? 'blue' : 'red'}">
+                    <small><span class="enFont">{{ lasvegasTotal1 }}</span></small>
+                  </div>
+                </td>
+                <td>
+                  <div class="text-end" [ngStyle] = "{'color' : lasvegasTotal1 >= 0 ? 'blue' : 'red'}">
+                    <small><span class="enFont">{{ lasvegasTotal1_rated }}</span></small>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <small>{{ score.name2 }}</small>
+                </td>
+                <td>
+                  <div class="text-end" [ngStyle] = "{'color' : lasvegasTotal2 >= 0 ? 'blue' : 'red'}">
+                    <small><span class="enFont">{{ lasvegasTotal2 }}</span></small>
+                  </div>
+                </td>
+                <td>
+                  <div class="text-end" [ngStyle] = "{'color' : lasvegasTotal2 >= 0 ? 'blue' : 'red'}">
+                    <small><span class="enFont">{{ lasvegasTotal2_rated }}</span></small>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <small>{{ score.name3 }}</small>
+                </td>
+                <td>
+                  <div class="text-end" [ngStyle] = "{'color' : lasvegasTotal3 >= 0 ? 'blue' : 'red'}">
+                    <small><span class="enFont">{{ lasvegasTotal3 }}</span></small>
+                  </div>
+                </td>
+                <td>
+                  <div class="text-end" [ngStyle] = "{'color' : lasvegasTotal3 >= 0 ? 'blue' : 'red'}">
+                    <small><span class="enFont">{{ lasvegasTotal3_rated }}</span></small>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <small>{{ score.name4 }}</small>
+                </td>
+                <td>
+                  <div class="text-end" [ngStyle] = "{'color' : lasvegasTotal4 >= 0 ? 'blue' : 'red'}">
+                    <small><span class="enFont">{{ lasvegasTotal4 }}</span></small>
+                  </div>
+                </td>
+                <td>
+                  <div class="text-end" [ngStyle] = "{'color' : lasvegasTotal4 >= 0 ? 'blue' : 'red'}">
+                    <small><span class="enFont">{{ lasvegasTotal4_rated }}</span></small>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="tab-pane fade" id="total-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
+          <table class="table table-sm">
+            <thead>
+              <tr>
+                <td class="enFontSmall text-center table-secondary">#</td>
+                <td class="small text-center table-secondary">
+                  獲得ポイント
+                </td>
+                <td class="small text-center table-secondary">
+                  換算後ポイント
+                </td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <small>{{ score.name1 }}</small>
+                </td>
+                <td>
+                  <div class="text-end" [ngStyle] = "{'color' : olympicTotal1 + lasvegasTotal1 >= 0 ? 'blue' : 'red'}">
+                    <small><span class="enFont">{{ olympicTotal1 + lasvegasTotal1 }}</span></small>
+                  </div>
+                </td>
+                <td>
+                  <div class="text-end" [ngStyle] = "{'color' : olympicTotal1_rated + lasvegasTotal1_rated >= 0 ? 'blue' : 'red'}">
+                    <small><span class="enFont">{{ olympicTotal1_rated + lasvegasTotal1_rated }}</span></small>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <small>{{ score.name2 }}</small>
+                </td>
+                <td>
+                  <div class="text-end" [ngStyle] = "{'color' : olympicTotal2 + lasvegasTotal2 >= 0 ? 'blue' : 'red'}">
+                    <small><span class="enFont">{{ olympicTotal2 + lasvegasTotal2 }}</span></small>
+                  </div>
+                </td>
+                <td>
+                  <div class="text-end" [ngStyle] = "{'color' : olympicTotal2_rated + lasvegasTotal2_rated >= 0 ? 'blue' : 'red'}">
+                    <small><span class="enFont">{{ olympicTotal2_rated + lasvegasTotal2_rated }}</span></small>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <small>{{ score.name3 }}</small>
+                </td>
+                <td>
+                  <div class="text-end" [ngStyle] = "{'color' : olympicTotal3 + lasvegasTotal3 >= 0 ? 'blue' : 'red'}">
+                    <small><span class="enFont">{{ olympicTotal3 + lasvegasTotal3 }}</span></small>
+                  </div>
+                </td>
+                <td>
+                  <div class="text-end" [ngStyle] = "{'color' : olympicTotal3_rated + lasvegasTotal3_rated >= 0 ? 'blue' : 'red'}">
+                    <small><span class="enFont">{{ olympicTotal3_rated + lasvegasTotal3_rated }}</span></small>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <small>{{ score.name4 }}</small>
+                </td>
+                <td>
+                  <div class="text-end" [ngStyle] = "{'color' : olympicTotal4 + lasvegasTotal4 >= 0 ? 'blue' : 'red'}">
+                    <small><span class="enFont">{{ olympicTotal4 + lasvegasTotal4 }}</span></small>
+                  </div>
+                </td>
+                <td>
+                  <div class="text-end" [ngStyle] = "{'color' : olympicTotal4_rated + lasvegasTotal4_rated >= 0 ? 'blue' : 'red'}">
+                    <small><span class="enFont">{{ olympicTotal4_rated + lasvegasTotal4_rated }}</span></small>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
-      <div class="row">
-        <div class="col-3 text-center bg-secondary text-white ">
-          <small><span class="enFont">#</span></small>
-        </div>
-        <div class="col-3 text-center bg-secondary text-white">
-          <small><span class="badge bg-danger enFont">A</span><br>ｵﾘﾝﾋﾟｯｸ</small>
-        </div>
-        <div class="col-3 text-center bg-secondary text-white">
-          <small><span class="badge bg-primary enFont">B</span><br>ﾗｽﾍﾞｶﾞｽ</small>
-        </div>
-        <div class="col-3 text-center bg-secondary text-white">
-          <small><span class="badge bg-danger enFont">A</span><span class="enFont">+</span><span class="badge bg-primary enFont">B</span><br>合計</small>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-3 text-center bg-secondary text-white">
-          <small>{{ score.name1 }}</small>
-        </div>
-        <div class="col-3 text-end border border-white" [ngStyle] = "{
-          'color' : olympicTotal1 >= 0 ? 'blue' : 'red'
-        }">
-          <small><span class="enFont">{{ olympicTotal1 }}</span></small>
-        </div>
-        <div class="visually-hidden">
-          <small><span class="enFont">{{ olympicTotal1_rated }}</span></small>
-        </div>
-        <div class="col-3 text-end border border-white" [ngStyle] = "{
-          'color' : lasvegasTotal1 >= 0 ? 'blue' : 'red'
-        }">
-          <small><span class="enFont">{{ lasvegasTotal1 }}</span></small>
-        </div>
-        <div class="visually-hidden">
-          <small><span class="enFont">{{ lasvegasTotal1_rated }}</span></small>
-        </div>
-        <div class="col-3 text-end border border-white" [ngStyle] = "{
-          'color' : olympicTotal1 + lasvegasTotal1 >= 0 ? 'blue' : 'red'
-        }">
-          <small><span class="enFont">{{ olympicTotal1 + lasvegasTotal1 }}</span></small>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-3 text-center bg-secondary text-white">
-          <small>{{ score.name2 }}</small>
-        </div>
-        <div class="col-3 text-end border border-white" [ngStyle] = "{
-          'color' : olympicTotal2 >= 0 ? 'blue' : 'red'
-        }">
-          <small><span class="enFont">{{ olympicTotal2 }}</span></small>
-        </div>
-        <div class="visually-hidden">
-          <small><span class="enFont">{{ olympicTotal2_rated }}</span></small>
-        </div>
-        <div class="col-3 text-end border border-white" [ngStyle] = "{
-          'color' : lasvegasTotal2 >= 0 ? 'blue' : 'red'
-        }">
-          <small><span class="enFont">{{ lasvegasTotal2 }}</span></small>
-        </div>
-        <div class="visually-hidden">
-          <small><span class="enFont">{{ lasvegasTotal2_rated }}</span></small>
-        </div>
-        <div class="col-3 text-end border border-white" [ngStyle] = "{
-          'color' : olympicTotal2 + lasvegasTotal2 >= 0 ? 'blue' : 'red'
-        }">
-          <small><span class="enFont">{{ olympicTotal2 + lasvegasTotal2 }}</span></small>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-3 text-center bg-secondary text-white">
-          <small>{{ score.name3 }}</small>
-        </div>
-        <div class="col-3 text-end border border-white" [ngStyle] = "{
-          'color' : olympicTotal3 >= 0 ? 'blue' : 'red'
-        }">
-          <small><span class="enFont">{{ olympicTotal3 }}</span></small>
-        </div>
-        <div class="visually-hidden">
-          <small><span class="enFont">{{ olympicTotal3_rated }}</span></small>
-        </div>
-        <div class="col-3 text-end border border-white" [ngStyle] = "{
-          'color' : lasvegasTotal3 >= 0 ? 'blue' : 'red'
-        }">
-          <small><span class="enFont">{{ lasvegasTotal3 }}</span></small>
-        </div>
-        <div class="visually-hidden">
-          <small><span class="enFont">{{ lasvegasTotal3_rated }}</span></small>
-        </div>
-        <div class="col-3 text-end border border-white" [ngStyle] = "{
-          'color' : olympicTotal3 + lasvegasTotal3 >= 0 ? 'blue' : 'red'
-        }">
-          <small><span class="enFont">{{ olympicTotal3 + lasvegasTotal3 }}</span></small>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-3 text-center bg-secondary text-white">
-          <small>{{ score.name4 }}</small>
-        </div>
-        <div class="col-3 text-end border border-white" [ngStyle] = "{
-          'color' : olympicTotal4 >= 0 ? 'blue' : 'red'
-        }">
-          <small><span class="enFont">{{ olympicTotal4 }}</span></small>
-        </div>
-        <div class="visually-hidden">
-          <small><span class="enFont">{{ olympicTotal4_rated }}</span></small>
-        </div>
-        <div class="col-3 text-end border border-white" [ngStyle] = "{
-          'color' : lasvegasTotal4 >= 0 ? 'blue' : 'red'
-        }">
-          <small><span class="enFont">{{ lasvegasTotal4 }}</span></small>
-        </div>
-        <div class="visually-hidden">
-          <small><span class="enFont">{{ lasvegasTotal4_rated }}</span></small>
-        </div>
-        <div class="col-3 text-end border border-white" [ngStyle] = "{
-          'color' : olympicTotal4 + lasvegasTotal4 >= 0 ? 'blue' : 'red'
-        }">
-          <small><span class="enFont">{{ olympicTotal4 + lasvegasTotal4 }}</span></small>
-        </div>
-      </div>
-      <div class="row mt-1 mb-1">
-        <div class="col">
-        </div>
-        <div class="col-3 text-end mt-1">
-          <small>レート</small>
-        </div>
-        <div class="col-3 text-end">
-          <span class="enFont">
-            <input #box1 [ngModel]="input.rate" type="number" name="txtRate" class="form-control form-control-sm" placeholder="レート"
-              aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
-              (ngModelChange)="olympicAndLasvegasRateChange($event)">
-          </span>
-          <div class="visually-hidden">
-            <small>{{ rateValue }}</small>
-          </div>
-        </div>
-        <div class="col-3">
-        </div>
-        <div class="col">
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-12 text-center">
-          <mat-icon>expand_more</mat-icon>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-12 text-center bg-secondary text-white">
-          <small><span class="enFont">結果 (レート反映後)</span></small>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-3 text-center bg-secondary text-white ">
-          <small><span class="enFont">#</span></small>
-        </div>
-        <div class="col-3 text-center bg-secondary text-white">
-          <small><span class="badge bg-danger enFont">A</span><br>ｵﾘﾝﾋﾟｯｸ</small>
-        </div>
-        <div class="col-3 text-center bg-secondary text-white">
-          <small><span class="badge bg-primary enFont">B</span><br>ﾗｽﾍﾞｶﾞｽ</small>
-        </div>
-        <div class="col-3 text-center bg-secondary text-white">
-          <small><span class="badge bg-danger enFont">A</span><span class="enFont">+</span><span class="badge bg-primary enFont">B</span><br>合計</small>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-3 text-center bg-secondary text-white">
-          <small>{{ score.name1 }}</small>
-        </div>
-        <div class="col-3 text-end border border-white" [ngStyle] = "{
-          'color' : olympicTotal1_rated >= 0 ? 'blue' : 'red'
-        }">
-          <small><span class="enFont">{{ olympicTotal1_rated }}</span></small>
-        </div>
-        <div class="col-3 text-end border border-white" [ngStyle] = "{
-          'color' : lasvegasTotal1_rated >= 0 ? 'blue' : 'red'
-        }">
-          <small><span class="enFont">{{ lasvegasTotal1_rated }}</span></small>
-        </div>
-        <div class="col-3 text-end border border-white" [ngStyle] = "{
-          'color' : olympicTotal1_rated + lasvegasTotal1_rated >= 0 ? 'blue' : 'red'
-        }">
-          <small><span class="enFont">{{ olympicTotal1_rated + lasvegasTotal1_rated }}</span></small>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-3 text-center bg-secondary text-white">
-          <small>{{ score.name2 }}</small>
-        </div>
-        <div class="col-3 text-end border border-white" [ngStyle] = "{
-          'color' : olympicTotal2_rated >= 0 ? 'blue' : 'red'
-        }">
-          <small><span class="enFont">{{ olympicTotal2_rated }}</span></small>
-        </div>
-        <div class="col-3 text-end border border-white" [ngStyle] = "{
-          'color' : lasvegasTotal2_rated >= 0 ? 'blue' : 'red'
-        }">
-          <small><span class="enFont">{{ lasvegasTotal2_rated }}</span></small>
-        </div>
-        <div class="col-3 text-end border border-white" [ngStyle] = "{
-          'color' : olympicTotal2_rated + lasvegasTotal2_rated >= 0 ? 'blue' : 'red'
-        }">
-          <small><span class="enFont">{{ olympicTotal2_rated + lasvegasTotal2_rated }}</span></small>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-3 text-center bg-secondary text-white">
-          <small>{{ score.name3 }}</small>
-        </div>
-        <div class="col-3 text-end border border-white" [ngStyle] = "{
-          'color' : olympicTotal3_rated >= 0 ? 'blue' : 'red'
-        }">
-          <small><span class="enFont">{{ olympicTotal3_rated }}</span></small>
-        </div>
-        <div class="col-3 text-end border border-white" [ngStyle] = "{
-          'color' : lasvegasTotal3_rated >= 0 ? 'blue' : 'red'
-        }">
-          <small><span class="enFont">{{ lasvegasTotal3_rated }}</span></small>
-        </div>
-        <div class="col-3 text-end border border-white" [ngStyle] = "{
-          'color' : olympicTotal3_rated + lasvegasTotal3_rated >= 0 ? 'blue' : 'red'
-        }">
-          <small><span class="enFont">{{ olympicTotal3_rated + lasvegasTotal3_rated }}</span></small>
-        </div>
-      </div>
-      <div class="row mb-5">
-        <div class="col-3 text-center bg-secondary text-white">
-          <small>{{ score.name4 }}</small>
-        </div>
-        <div class="col-3 text-end border border-white" [ngStyle] = "{
-          'color' : olympicTotal4_rated >= 0 ? 'blue' : 'red'
-        }">
-          <small><span class="enFont">{{ olympicTotal4_rated }}</span></small>
-        </div>
-        <div class="col-3 text-end border border-white" [ngStyle] = "{
-          'color' : lasvegasTotal4_rated >= 0 ? 'blue' : 'red'
-        }">
-          <small><span class="enFont">{{ lasvegasTotal4_rated }}</span></small>
-        </div>
-        <div class="col-3 text-end border border-white" [ngStyle] = "{
-          'color' : olympicTotal4_rated + lasvegasTotal4_rated >= 0 ? 'blue' : 'red'
-        }">
-          <small><span class="enFont">{{ olympicTotal4_rated + lasvegasTotal4_rated }}</span></small>
-        </div>
-      </div>
+      <br>
       <br>
       <br>
       <br>
@@ -542,7 +543,7 @@
             </a>
           </div>
           <div class="col text-end">
-            <button class="btn btn-sm btn-secondary mb-3" type="button" data-bs-toggle="modal" data-bs-target="#settingModal" style="width: 35px; height: 35px;">
+            <button class="btn btn-sm btn-secondary mb-3 mr-3" type="button" data-bs-toggle="modal" data-bs-target="#settingModal" style="width: 35px; height: 35px;">
               <i class="material-icons small-size">settings</i>
             </button>
           </div>
@@ -696,7 +697,7 @@
                   <div class="col-2">
                   </div>
                 </div>
-                <div class="row justify-content-center" style="border-bottom: 1px solid #dee2e6">
+                <div class="row justify-content-center">
                   <p class="col-auto">
                     <mat-chip-listbox aria-label="olympic1 selection" [(ngModel)]="olympic1[courseIndex]">
                       <mat-chip-option value=5>ダイヤ</mat-chip-option>
@@ -704,6 +705,13 @@
                       <mat-chip-option value=3>銀</mat-chip-option>
                       <mat-chip-option value=2>銅</mat-chip-option>
                       <mat-chip-option value=1>鉄</mat-chip-option>
+                    </mat-chip-listbox>
+                  </p>
+                </div>
+                <div class="row justify-content-center" style="border-bottom: 1px solid #dee2e6">
+                  <p class="col-auto">
+                    <mat-chip-listbox aria-label="olympic1 selection" [(ngModel)]="olympic1[courseIndex]">
+                      <mat-chip-option value=1 color="warn">ニアピン</mat-chip-option>
                     </mat-chip-listbox>
                   </p>
                 </div>
@@ -1072,7 +1080,7 @@
             </div>
             <div class="row my-3">
               <div class="col">
-                <mat-slide-toggle [(ngModel)]="isLas2stories">組み合わせをローテーション</mat-slide-toggle>
+                <mat-slide-toggle [(ngModel)]="isLasPair">組み合わせをローテーション</mat-slide-toggle>
                 <span><button type="button" class="material-icons small-size help-botton" data-bs-toggle="collapse" data-bs-target="#lasvegasRule2" aria-expanded="false">help</button></span>
               </div>
             </div>
@@ -1095,8 +1103,32 @@
             </div>
             <div class="row my-3">
               <div class="col">
-                <mat-slide-toggle [(ngModel)]="isLas2stories">ニアピン</mat-slide-toggle>
+                <mat-slide-toggle [(ngModel)]="isOlyNearping">ニアピン</mat-slide-toggle>
                 <span><button type="button" class="material-icons small-size help-botton" data-bs-toggle="collapse" data-bs-target="#olympicRule1" aria-expanded="false">help</button></span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="collapse" id="olympicRule1">
+                  <div class="card card-body small">
+                    ニアピンを設定する場合は、選択をONにしてください。
+                    <br><br>
+                    ニアピン:1打目がグリーンに乗った人の中で一番ピンに近い人が、パー以内でホールアウトした場合に得点が入るルール。
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row my-2">
+              <div class="col">
+                <div class="border-bottom">共通設定</div>
+              </div>
+            </div>
+            <div class="row my-3">
+              <div class="col-3 mt-1">
+                レート
+              </div>
+              <div class="col-3">
+                <input [(ngModel)]="rate" type="number" name="rate" class="form-control form-control-sm" placeholder="レート">
               </div>
             </div>
             <div class="row">
@@ -1117,7 +1149,7 @@
             <div class="row justify-content-center">
               <div class="col-6">
                 <div class="d-grid">
-                  <button type="button" class="btn btn-primary" data-bs-dismiss="modal">閉じる</button>
+                  <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="save()">閉じる</button>
                 </div>
               </div>
             </div>
