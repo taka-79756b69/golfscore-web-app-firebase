@@ -71,10 +71,12 @@
                         <span class="enFontSmall">{{ putscore1[i] }}</span>
                         <span class="visually-hidden">unread messages</span>
                       </span>
-                      <span class="position-absolute top-100 start-0 translate-middle badge rounded-pill text-bg-primary">
-                        <span class="small">ニア</span>
-                        <span class="visually-hidden">unread messages</span>
-                      </span>
+                      <ng-container *ngIf="isOlyNearping">
+                        <span class="position-absolute top-100 start-0 translate-middle badge rounded-pill text-bg-primary">
+                          <span class="small">ニア</span>
+                          <span class="visually-hidden">unread messages</span>
+                        </span>
+                      </ng-container>
                     </button>
                   </ng-container>
                   <ng-container *ngIf="p == 1">
