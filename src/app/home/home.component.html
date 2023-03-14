@@ -38,7 +38,7 @@
     <div class="col-3">
     </div>
     <div class="col-6 d-grid gap-2">
-      <a class="btn btn-danger btn-block" role="button"  data-bs-toggle="modal" data-bs-target="#staticBackdrop">アカウントを削除</a>
+      <a class="btn btn-danger btn-block" routerLink="{{ '/account' }}" role="button">アカウントを削除</a>
     </div>
     <div class="col-3">
     </div>
@@ -46,34 +46,3 @@
   <br>
 </div>
 <div class="fixed-bottom text-center bg-info"><small>ログイン中:</small><span class="enFont"><small>{{ accountEmail }}</small></span></div>
-
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-body">
-        <p>
-          アカウントを削除します。よろしいですか？
-        </p>
-        <p class="text-danger">
-          <small>アカウントを削除した場合、スコア一覧も削除されます。</small>
-        </p>
-        <p class="text-danger">
-          <small>削除されたデータは復元できません。</small>
-        </p>
-        <table class="table table-sm">
-          <tbody>
-            <tr>
-              <td class="text-center table-info">E-mail</td>
-              <td>{{ accountEmail }}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">キャンセル</button>
-        &nbsp;
-        <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal" routerLink="{{ '/login' }}" (click)="acountDelete()">アカウント削除</button>
-      </div>
-    </div>
-  </div>
-</div>

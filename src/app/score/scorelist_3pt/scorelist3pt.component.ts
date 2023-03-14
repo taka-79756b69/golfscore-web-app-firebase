@@ -4,7 +4,6 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Subscription } from 'rxjs';
 import { getAuth } from '@angular/fire/auth';
 import { NgForm } from '@angular/forms';
-import { Input } from '../input';
 
 @Component({
   selector: 'app-scorelist3pt',
@@ -12,6 +11,8 @@ import { Input } from '../input';
   styleUrls: ['./scorelist3pt.component.scss']
 })
 export class Scorelist3ptComponent implements OnInit {
+
+  panelOpenState = false;
 
   //NgFormの作成
   form!: NgForm;
@@ -24,6 +25,12 @@ export class Scorelist3ptComponent implements OnInit {
   score2: any
   score3: any
 
+  //各プレーヤーのパットスコア(ドキュメント)
+  putscore1: any
+  putscore2: any
+  putscore3: any
+  putscore4: any
+
   //各プレーヤーのオリンピック(ドキュメント)
   olympic1: any
   olympic2: any
@@ -35,12 +42,17 @@ export class Scorelist3ptComponent implements OnInit {
   //人数(ドキュメント)
   player: any
 
-  //レート
-  txtRate: any
-
-  //プレーヤー識別用のインデックス
+  /**
+   * 一人目を意味するインデックス
+   */
   _index_name1 = 0
+  /**
+   * 二人目を意味するインデックス
+   */
   _index_name2 = 1
+  /**
+   * 三人目を意味するインデックス
+   */
   _index_name3 = 2
 
   //プレイヤー識別用のインデックスを格納する配列
@@ -99,8 +111,8 @@ export class Scorelist3ptComponent implements OnInit {
   olympicTotal2_rated = 0
   olympicTotal3_rated = 0
 
-  //レート
-  rateValue = 0
+  isOlyNearping = false
+  rate: any
 
   //フォームデータ
   checkoutForm: any
@@ -113,8 +125,6 @@ export class Scorelist3ptComponent implements OnInit {
 
   // 購読設定停止用
   private subscriptions = new Subscription();
-
-  input: Input = { rate: ""}
 
   //ドキュメントID
   _id: any
@@ -153,6 +163,9 @@ export class Scorelist3ptComponent implements OnInit {
     this.score1 = data.score1
     this.score2 = data.score2
     this.score3 = data.score3
+    this.putscore1 = data.putscore1
+    this.putscore2 = data.putscore2
+    this.putscore3 = data.putscore3
     this.olympic1 = data.olympic1
     this.olympic2 = data.olympic2
     this.olympic3 = data.olympic3
@@ -160,7 +173,7 @@ export class Scorelist3ptComponent implements OnInit {
     this.no = data.no
     this.order1st = data.order1st
     this.playerArray.push(this._index_name1, this._index_name2, this._index_name3)
-    this.input.rate = data.rate
+    this.rate = data.rate
 
     this.save()
   }
@@ -322,6 +335,56 @@ export class Scorelist3ptComponent implements OnInit {
     }
   }
 
+    /**
+   * パターのカウントアップ(プラス1)
+   * ダイアログ用イベント
+   * @param courseNo コースNo
+   * @param playerIndex プレイヤー番号
+   */
+    setPutscoreCounter1Up(courseNo: any, playerIndex: any){
+      switch (playerIndex){
+        case this._index_name1:
+          if(this.putscore1[courseNo] < 15 )
+            this.putscore1[courseNo]++
+          break
+        case this._index_name2:
+          if(this.putscore2[courseNo] < 15 )
+            this.putscore2[courseNo]++
+          break
+        case this._index_name3:
+          if(this.putscore3[courseNo] < 15 )
+            this.putscore3[courseNo]++
+          break
+        default:
+          break
+      }
+    }
+
+    /**
+     * パターのカウントダウン（マイナス1）
+     * ダイアログ用イベント
+     * @param courseNo コースNo
+     * @param playerIndex プレイヤー番号
+     */
+    setPutscoreCounter1Down(courseNo: any, playerIndex: any){
+      switch (playerIndex){
+        case this._index_name1:
+          if(this.putscore1[courseNo] > 0 )
+            this.putscore1[courseNo]--
+          break
+        case this._index_name2:
+          if(this.putscore2[courseNo] > 0 )
+            this.putscore2[courseNo]--
+          break
+        case this._index_name3:
+          if(this.putscore3[courseNo] > 0 )
+            this.putscore3[courseNo]--
+          break
+        default:
+          break
+      }
+    }
+
   /**
    * ダイアログを閉じるタイミングの処理
    * /トータルスコアの更新/
@@ -343,7 +406,7 @@ export class Scorelist3ptComponent implements OnInit {
 
     this.setBadgeOrder()
     this.setOlympicTotal()
-    this.setOlympicAndLasvegasAfterRate(this.input.rate)
+    this.setOlympicAndLasvegasAfterRate(this.rate)
   }
 
   /**
@@ -503,14 +566,19 @@ export class Scorelist3ptComponent implements OnInit {
     this.courseIndex = 0
 
     //最初の打順設定が完了していない場合は、エラーフラグを立てる
-    if(this.order1st[this._index_name1] == 0 || this.order1st[this._index_name2] == 0
-        || this.order1st[this._index_name3] == 0) {
+    if(this.order1st[this._index_name1] == undefined || this.order1st[this._index_name2] == undefined
+        || this.order1st[this._index_name3] == undefined) {
         this.orderError = true
     } else if (+this.order1st[this._index_name1] + +this.order1st[this._index_name2] +
         +this.order1st[this._index_name3] != 6) {
         this.orderError = true
     } else {
       this.orderError = false
+    }
+
+    //重複除いた配列の長さが4以外はエラーとする
+    if (Array.from(new Set(this.order1st)).length != 4) {
+      this.orderError = true
     }
 
     for (let i=0; i<=17; i++) {
@@ -639,6 +707,33 @@ export class Scorelist3ptComponent implements OnInit {
     }
   }
 
+  orderSelect1(order: any){
+
+    if(this.order1st[this._index_name1] == order){
+      this.order1st[this._index_name1] = 0
+    }else{
+      this.order1st[this._index_name1] = order
+    }
+  }
+
+  orderSelect2(order: any){
+
+    if(this.order1st[this._index_name2] == order){
+      this.order1st[this._index_name2] = 0
+    }else{
+      this.order1st[this._index_name2] = order
+    }
+  }
+
+  orderSelect3(order: any){
+
+    if(this.order1st[this._index_name3] == order){
+      this.order1st[this._index_name3] = 0
+    }else{
+      this.order1st[this._index_name3] = order
+    }
+  }
+
   /**
    * フォームsubmit処理
    * 入力内容をFirestoreに上書きする
@@ -646,9 +741,34 @@ export class Scorelist3ptComponent implements OnInit {
    */
   onSubmit(form: any) {
 
+    //オーダーが未設定の場合undefinedになるため
+    //undifinedの場合は、0に置き換えてから保存する
+    for(let i=0; i<=2; i++) {
+      if (this.order1st[i] == undefined){
+        this.order1st[i] = 0
+      }
+    }
+
+    //オリンピックが未設定の場合undefinedになるため
+    //undifinedの場合は、0に置き換えてから保存する
+    for(let i=0; i<=17; i++) {
+      if (this.olympic1[i] == undefined){
+        this.olympic1[i] = 0
+      }
+    }
+    for(let i=0; i<=17; i++) {
+      if (this.olympic2[i] == undefined){
+        this.olympic2[i] = 0
+      }
+    }
+    for(let i=0; i<=17; i++) {
+      if (this.olympic3[i] == undefined){
+        this.olympic3[i] = 0
+      }
+    }
+
     // リクエスト送信用にJSON作成
     this.checkoutForm = ({
-
       order1st: this.order1st,
       score1: this.score1,
       score2: this.score2,
@@ -656,7 +776,8 @@ export class Scorelist3ptComponent implements OnInit {
       olympic1: this.olympic1,
       olympic2: this.olympic2,
       olympic3: this.olympic3,
-      rate: form.value.txtRate
+      rate: this.rate,
+      isOlyNearping: this.isOlyNearping,
     });
 
     this.saving = true

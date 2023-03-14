@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Subscription } from 'rxjs';
 import { getAuth } from '@angular/fire/auth';
-import { Input } from '../input';
 import { NgForm } from '@angular/forms';
 
 @Component({
@@ -12,6 +11,8 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./scorelist.component.scss']
 })
 export class ScorelistComponent implements OnInit {
+
+  panelOpenState = false;
 
   //NgFormの作成
   form!: NgForm;
@@ -24,6 +25,12 @@ export class ScorelistComponent implements OnInit {
   score2: any
   score3: any
   score4: any
+
+  //各プレーヤーのパットスコア(ドキュメント)
+  putscore1: any
+  putscore2: any
+  putscore3: any
+  putscore4: any
 
   //各プレーヤーのラスベガス(ドキュメント)
   lasvegas1: any
@@ -43,13 +50,21 @@ export class ScorelistComponent implements OnInit {
   //人数(ドキュメント)
   player: any
 
-  //レート
-  txtRate: any
-
-  //プレーヤー識別用のインデックス
+  /**
+   * 一人目を意味するインデックス
+   */
   _index_name1 = 0
+  /**
+   * 二人目を意味するインデックス
+   */
   _index_name2 = 1
+  /**
+   * 三人目を意味するインデックス
+   */
   _index_name3 = 2
+  /**
+   * 四人目を意味するインデックス
+   */
   _index_name4 = 3
 
   //プレイヤー識別用のインデックスを格納する配列
@@ -113,20 +128,24 @@ export class ScorelistComponent implements OnInit {
   olympicTotal3_rated = 0
   olympicTotal4_rated = 0
 
+  //OLYMPIC
+  isOlyNearping = false
+
   //LASVEGAS
   lasvegasTotal1 = 0
   lasvegasTotal2 = 0
   lasvegasTotal3 = 0
   lasvegasTotal4 = 0
 
+  //LASVEGAS
+  isLas2stories = false
+  isLasPair = false
+
   //LASVEGAS（レート反映後）
   lasvegasTotal1_rated = 0
   lasvegasTotal2_rated = 0
   lasvegasTotal3_rated = 0
   lasvegasTotal4_rated = 0
-
-  //レート
-  rateValue = 0
 
   //フォームデータ
   checkoutForm: any
@@ -141,13 +160,10 @@ export class ScorelistComponent implements OnInit {
   private subscriptions = new Subscription();
 
   //レートのモデルを定義
-  input: Input = { rate: ""}
+  rate: any
 
   //ドキュメントID
   _id: any
-
-  //遷移確認
-  moveThisPageConf: any
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -184,6 +200,10 @@ export class ScorelistComponent implements OnInit {
     this.score2 = data.score2
     this.score3 = data.score3
     this.score4 = data.score4
+    this.putscore1 = data.putscore1
+    this.putscore2 = data.putscore2
+    this.putscore3 = data.putscore3
+    this.putscore4 = data.putscore4
     this.lasvegas1 = data.lasvegas1
     this.lasvegas2 = data.lasvegas2
     this.lasvegas3 = data.lasvegas3
@@ -196,7 +216,10 @@ export class ScorelistComponent implements OnInit {
     this.no = data.no
     this.order1st = data.order1st
     this.playerArray.push(this._index_name1, this._index_name2, this._index_name3, this._index_name4)
-    this.input.rate = data.rate
+    this.rate = data.rate
+    this.isOlyNearping = data.isOlyNearping
+    this.isLas2stories = data.isLas2stories
+    this.isLasPair = data.isLasPair
     this.save()
   }
 
@@ -374,6 +397,64 @@ export class ScorelistComponent implements OnInit {
   }
 
   /**
+   * パターのカウントアップ(プラス1)
+   * ダイアログ用イベント
+   * @param courseNo コースNo
+   * @param playerIndex プレイヤー番号
+   */
+  setPutscoreCounter1Up(courseNo: any, playerIndex: any){
+    switch (playerIndex){
+      case this._index_name1:
+        if(this.putscore1[courseNo] < 15 )
+          this.putscore1[courseNo]++
+        break
+      case this._index_name2:
+        if(this.putscore2[courseNo] < 15 )
+          this.putscore2[courseNo]++
+        break
+      case this._index_name3:
+        if(this.putscore3[courseNo] < 15 )
+          this.putscore3[courseNo]++
+        break
+      case this._index_name4:
+        if(this.putscore4[courseNo] < 15 )
+          this.putscore4[courseNo]++
+        break
+      default:
+        break
+    }
+  }
+
+  /**
+   * パターのカウントダウン（マイナス1）
+   * ダイアログ用イベント
+   * @param courseNo コースNo
+   * @param playerIndex プレイヤー番号
+   */
+  setPutscoreCounter1Down(courseNo: any, playerIndex: any){
+    switch (playerIndex){
+      case this._index_name1:
+        if(this.putscore1[courseNo] > 0 )
+          this.putscore1[courseNo]--
+        break
+      case this._index_name2:
+        if(this.putscore2[courseNo] > 0 )
+          this.putscore2[courseNo]--
+        break
+      case this._index_name3:
+        if(this.putscore3[courseNo] > 0 )
+          this.putscore3[courseNo]--
+        break
+      case this._index_name4:
+        if(this.putscore4[courseNo] > 0 )
+          this.putscore4[courseNo]--
+        break
+      default:
+        break
+    }
+  }
+
+  /**
    * ダイアログを閉じるタイミングの処理
    * /トータルスコアの更新/
    * /オリンピックの更新/
@@ -396,12 +477,10 @@ export class ScorelistComponent implements OnInit {
     this.total4 = this.setTotal4()
 
     this.setBadgeOrder()
+    this.setLasvegasTeam()
     this.setOlympicTotal()
     this.setLasvegasTotal()
-    this.setOlympicAndLasvegasAfterRate(this.input.rate)
-
-    //画面遷移確認フラグをONにする
-    this.moveThisPageConf = true
+    this.setOlympicAndLasvegasAfterRate()
   }
 
   /**
@@ -656,27 +735,17 @@ export class ScorelistComponent implements OnInit {
   }
 
   /**
-   * レート反映
-   * オリンピックとラスベガスのスコアにレートを反映する
-   * @param val 入力したレート
-   */
-  olympicAndLasvegasRateChange(val: any) {
-    //this.rateValue = val
-    this.setOlympicAndLasvegasAfterRate(val)
-  }
-
-  /**
    * オリンピックとラスベガスの再描画
    */
-  setOlympicAndLasvegasAfterRate(val: any) {
-    this.olympicTotal1_rated = this.olympicTotal1 * val
-    this.olympicTotal2_rated = this.olympicTotal2 * val
-    this.olympicTotal3_rated = this.olympicTotal3 * val
-    this.olympicTotal4_rated = this.olympicTotal4 * val
-    this.lasvegasTotal1_rated = this.lasvegasTotal1 * val
-    this.lasvegasTotal2_rated = this.lasvegasTotal2 * val
-    this.lasvegasTotal3_rated = this.lasvegasTotal3 * val
-    this.lasvegasTotal4_rated = this.lasvegasTotal4 * val
+  setOlympicAndLasvegasAfterRate() {
+    this.olympicTotal1_rated = this.olympicTotal1 * this.rate
+    this.olympicTotal2_rated = this.olympicTotal2 * this.rate
+    this.olympicTotal3_rated = this.olympicTotal3 * this.rate
+    this.olympicTotal4_rated = this.olympicTotal4 * this.rate
+    this.lasvegasTotal1_rated = this.lasvegasTotal1 * this.rate
+    this.lasvegasTotal2_rated = this.lasvegasTotal2 * this.rate
+    this.lasvegasTotal3_rated = this.lasvegasTotal3 * this.rate
+    this.lasvegasTotal4_rated = this.lasvegasTotal4 * this.rate
   }
 
   /**
@@ -693,14 +762,19 @@ export class ScorelistComponent implements OnInit {
 
     //最初の打順設定が完了していない場合は、エラーフラグを立てる
     //または、打順がかぶっていたりするとエラーフラグを立てる
-    if(this.order1st[this._index_name1] == 0 || this.order1st[this._index_name2] == 0
-        || this.order1st[this._index_name3] == 0 || this.order1st[this._index_name4] == 0) {
+    if(this.order1st[this._index_name1] == undefined || this.order1st[this._index_name2] == undefined
+        || this.order1st[this._index_name3] == undefined || this.order1st[this._index_name4] == undefined) {
         this.orderError = true
     } else if(+this.order1st[this._index_name1] + +this.order1st[this._index_name2]
         + +this.order1st[this._index_name3] + +this.order1st[this._index_name4] != 10){
         this.orderError = true
     } else {
       this.orderError = false
+    }
+
+    //重複除いた配列の長さが4以外はエラーとする
+    if (Array.from(new Set(this.order1st)).length != 4) {
+      this.orderError = true
     }
 
     for (let i=0; i<=17; i++) {
@@ -721,7 +795,7 @@ export class ScorelistComponent implements OnInit {
       if(i == 0){
         if(!this.orderError){
           this.setBagdeOrder(i, this.order1st[this._index_name1], this.order1st[this._index_name2]
-            , this.order1st[this._index_name3], this.order1st[this._index_name4])
+            , this.order1st[this._index_name3], this.order1st[this._index_name4], this.isLasPair)
         }
       } else {
         //最初のコース以外の場合、スコアを見て判定する
@@ -751,7 +825,7 @@ export class ScorelistComponent implements OnInit {
                 p4point = +this.score4[i-1] * 10 + +this.order[i-1][this._index_name4]
               }
 
-            this.setBagdeOrder(i, p1point, p2point, p3point, p4point)
+            this.setBagdeOrder(i, p1point, p2point, p3point, p4point, this.isLasPair)
           }
       }
     }
@@ -766,102 +840,152 @@ export class ScorelistComponent implements OnInit {
    * @param p3point
    * @param p4point
    */
-  setBagdeOrder(trgt:any, p1point:any, p2point:any, p3point:any, p4point:any) {
+  setBagdeOrder(trgt:any, p1point:any, p2point:any, p3point:any, p4point:any, isLasPair: any) {
 
     //一人目
     if(p1point < p2point && p1point < p3point && p1point < p4point){
       this.order[trgt][this._index_name1] = 1
-      this.lasvegas1[trgt] = 0
     }
     if(p1point > p2point && p1point > p3point && p1point > p4point){
       this.order[trgt][this._index_name1] = 4
-      this.lasvegas1[trgt] = 0
     }
     if(
       (p1point > p2point && p1point < p3point && p1point < p4point)
       ||(p1point > p3point && p1point < p2point && p1point < p4point)
       ||(p1point > p4point && p1point < p2point && p1point < p3point)){
         this.order[trgt][this._index_name1] = 2
-        this.lasvegas1[trgt] = 1
     }
     if(
       (p1point < p2point && p1point > p3point && p1point > p4point)
       ||(p1point < p3point && p1point > p2point && p1point > p4point)
       ||(p1point < p4point && p1point > p2point && p1point > p3point)){
         this.order[trgt][this._index_name1] = 3
-        this.lasvegas1[trgt] = 1
     }
 
     //二人目
     if(p2point < p1point && p2point < p3point && p2point < p4point){
       this.order[trgt][this._index_name2] = 1
-      this.lasvegas2[trgt] = 0
     }
     if(p2point > p1point && p2point > p3point && p2point > p4point){
       this.order[trgt][this._index_name2] = 4
-      this.lasvegas2[trgt] = 0
     }
     if(
       (p2point > p1point && p2point < p3point && p2point < p4point)
       ||(p2point > p3point && p2point < p1point && p2point < p4point)
       ||(p2point > p4point && p2point < p1point && p2point < p3point)){
         this.order[trgt][this._index_name2] = 2
-        this.lasvegas2[trgt] = 1
     }
     if(
       (p2point < p1point && p2point > p3point && p2point > p4point)
       ||(p2point < p3point && p2point > p1point && p2point > p4point)
       ||(p2point < p4point && p2point > p1point && p2point > p3point)){
         this.order[trgt][this._index_name2] = 3
-        this.lasvegas2[trgt] = 1
     }
 
     //三人目
     if(p3point < p1point && p3point < p2point && p3point < p4point){
       this.order[trgt][this._index_name3] = 1
-      this.lasvegas3[trgt] = 0
     }
     if(p3point > p1point && p3point > p2point && p3point > p4point){
       this.order[trgt][this._index_name3] = 4
-      this.lasvegas3[trgt] = 0
     }
     if(
       (p3point > p1point && p3point < p2point && p3point < p4point)
       ||(p3point > p2point && p3point < p1point && p3point < p4point)
       ||(p3point > p4point && p3point < p1point && p3point < p2point)){
         this.order[trgt][this._index_name3] = 2
-        this.lasvegas3[trgt] = 1
     }
     if(
       (p3point < p1point && p3point > p2point && p3point > p4point)
       ||(p3point < p2point && p3point > p1point && p3point > p4point)
       ||(p3point < p4point && p3point > p1point && p3point > p2point)){
         this.order[trgt][this._index_name3] = 3
-        this.lasvegas3[trgt] = 1
     }
 
     //四人目
     if(p4point < p1point && p4point < p2point && p4point < p3point){
       this.order[trgt][this._index_name4] = 1
-      this.lasvegas4[trgt] = 0
     }
     if(p4point > p1point && p4point > p2point && p4point > p3point){
       this.order[trgt][this._index_name4] = 4
-      this.lasvegas4[trgt] = 0
     }
     if(
       (p4point > p1point && p4point < p2point && p4point < p3point)
       ||(p4point > p2point && p4point < p1point && p4point < p3point)
       ||(p4point > p3point && p4point < p1point && p4point < p2point)){
         this.order[trgt][this._index_name4] = 2
-        this.lasvegas4[trgt] = 1
     }
     if(
       (p4point < p1point && p4point > p2point && p4point > p3point)
       ||(p4point < p2point && p4point > p1point && p4point > p3point)
       ||(p4point < p3point && p4point > p1point && p4point > p2point)){
         this.order[trgt][this._index_name4] = 3
-        this.lasvegas4[trgt] = 1
+    }
+  }
+
+  /**
+   * ラスベガスのチーム分け
+   * 設定画面でローテーションフラグがONの場合とOFFの場合で呼び出すメソッドが変わる
+   * setLasvegas1：1位と4位、2位と3位の固定
+   * setLasvegas2：1位と4位、次は1位と3位、次は1位と2位とローテーションする
+   */
+  setLasvegasTeam() {
+
+    let teamType = [1,2,3,1,2,3,1,2,3,1,2,3,1,2,3,1,2,3]
+
+    for (let i=0; i<=17; i++) {
+      if ( this.order[i][this._index_name1] != 0 && this.order[i][this._index_name2] != 0
+          && this.order[i][this._index_name3] != 0 && this.order[i][this._index_name4] != 0 ) {
+        if(this.isLasPair){
+          this.setLasvegas2(i, this.order[i], teamType[i])
+        }else{
+          this.setLasvegas1(i, this.order[i])
+        }
+      }
+    }
+  }
+
+  /**
+   * 打順によるチーム分けを設定する
+   * @param i コースNo
+   * @param lasArray 打順の配列
+   */
+  setLasvegas1(i:any, lasArray:any){
+    this.lasvegas1[i] = lasArray[this._index_name1] != 1 ? lasArray[this._index_name1] != 4 ? 1 : 0 : 0
+    this.lasvegas2[i] = lasArray[this._index_name2] != 1 ? lasArray[this._index_name2] != 4 ? 1 : 0 : 0
+    this.lasvegas3[i] = lasArray[this._index_name3] != 1 ? lasArray[this._index_name3] != 4 ? 1 : 0 : 0
+    this.lasvegas4[i] = lasArray[this._index_name4] != 1 ? lasArray[this._index_name4] != 4 ? 1 : 0 : 0
+  }
+
+  /**
+   * 打順によるチーム分けを設定する
+   * チームをコース毎にローテーションさせるパターン
+   * @param i コースNo
+   * @param lasArray 打順の配列
+   * @param type チームタイプ
+   */
+  setLasvegas2(i:any, lasArray:any, type:any){
+    switch (type) {
+      case 1:
+        this.lasvegas1[i] = lasArray[this._index_name1] != 1 ? lasArray[this._index_name1] != 4 ? 1 : 0 : 0
+        this.lasvegas2[i] = lasArray[this._index_name2] != 1 ? lasArray[this._index_name2] != 4 ? 1 : 0 : 0
+        this.lasvegas3[i] = lasArray[this._index_name3] != 1 ? lasArray[this._index_name3] != 4 ? 1 : 0 : 0
+        this.lasvegas4[i] = lasArray[this._index_name4] != 1 ? lasArray[this._index_name4] != 4 ? 1 : 0 : 0
+        break;
+      case 2:
+        this.lasvegas1[i] = lasArray[this._index_name1] != 1 ? lasArray[this._index_name1] != 3 ? 1 : 0 : 0
+        this.lasvegas2[i] = lasArray[this._index_name2] != 1 ? lasArray[this._index_name2] != 3 ? 1 : 0 : 0
+        this.lasvegas3[i] = lasArray[this._index_name3] != 1 ? lasArray[this._index_name3] != 3 ? 1 : 0 : 0
+        this.lasvegas4[i] = lasArray[this._index_name4] != 1 ? lasArray[this._index_name4] != 3 ? 1 : 0 : 0
+        break;
+      case 3:
+        this.lasvegas1[i] = lasArray[this._index_name1] != 1 ? lasArray[this._index_name1] != 2 ? 1 : 0 : 0
+        this.lasvegas2[i] = lasArray[this._index_name2] != 1 ? lasArray[this._index_name2] != 2 ? 1 : 0 : 0
+        this.lasvegas3[i] = lasArray[this._index_name3] != 1 ? lasArray[this._index_name3] != 2 ? 1 : 0 : 0
+        this.lasvegas4[i] = lasArray[this._index_name4] != 1 ? lasArray[this._index_name4] != 2 ? 1 : 0 : 0
+        break;
+      default:
+        break;
     }
   }
 
@@ -901,12 +1025,79 @@ export class ScorelistComponent implements OnInit {
     }
   }
 
+  orderSelect1(order: any){
+
+    if(this.order1st[this._index_name1] == order){
+      this.order1st[this._index_name1] = 0
+    }else{
+      this.order1st[this._index_name1] = order
+    }
+  }
+
+  orderSelect2(order: any){
+
+    if(this.order1st[this._index_name2] == order){
+      this.order1st[this._index_name2] = 0
+    }else{
+      this.order1st[this._index_name2] = order
+    }
+  }
+
+  orderSelect3(order: any){
+
+    if(this.order1st[this._index_name3] == order){
+      this.order1st[this._index_name3] = 0
+    }else{
+      this.order1st[this._index_name3] = order
+    }
+  }
+
+  orderSelect4(order: any){
+
+    if(this.order1st[this._index_name4] == order){
+      this.order1st[this._index_name4] = 0
+    }else{
+      this.order1st[this._index_name4] = order
+    }
+  }
+
   /**
    * フォームsubmit処理
    * 入力内容をFirestoreに上書きする
    * Subscribeできないため、try-catchでエラーをハンドリングする
    */
   onSubmit(form: any) {
+
+    //オーダーが未設定の場合undefinedになるため
+    //undifinedの場合は、0に置き換えてから保存する
+    for(let i=0; i<=3; i++) {
+      if (this.order1st[i] == undefined){
+        this.order1st[i] = 0
+      }
+    }
+
+    //オリンピックが未設定の場合undefinedになるため
+    //undifinedの場合は、0に置き換えてから保存する
+    for(let i=0; i<=17; i++) {
+      if (this.olympic1[i] == undefined){
+        this.olympic1[i] = 0
+      }
+    }
+    for(let i=0; i<=17; i++) {
+      if (this.olympic2[i] == undefined){
+        this.olympic2[i] = 0
+      }
+    }
+    for(let i=0; i<=17; i++) {
+      if (this.olympic3[i] == undefined){
+        this.olympic3[i] = 0
+      }
+    }
+    for(let i=0; i<=17; i++) {
+      if (this.olympic4[i] == undefined){
+        this.olympic4[i] = 0
+      }
+    }
 
     // リクエスト送信用にJSON作成
     this.checkoutForm = ({
@@ -915,6 +1106,10 @@ export class ScorelistComponent implements OnInit {
       score2: this.score2,
       score3: this.score3,
       score4: this.score4,
+      putscore1: this.putscore1,
+      putscore2: this.putscore2,
+      putscore3: this.putscore3,
+      putscore4: this.putscore4,
       lasvegas1: this.lasvegas1,
       lasvegas2: this.lasvegas2,
       lasvegas3: this.lasvegas3,
@@ -923,7 +1118,10 @@ export class ScorelistComponent implements OnInit {
       olympic2: this.olympic2,
       olympic3: this.olympic3,
       olympic4: this.olympic4,
-      rate: form.value.txtRate
+      rate: this.rate,
+      isOlyNearping: this.isOlyNearping,
+      isLas2stories: this.isLas2stories,
+      isLasPair: this.isLasPair
     });
 
     this.saving = true

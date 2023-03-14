@@ -7,3 +7,30 @@
 h2{
   margin: 0 0 0px;
 }
+
+.remove-mat-expansion-panel-padding .mat-expansion-panel-content .mat-expansion-panel-body{
+  padding: 0 !important;
+}
+
+.menu-header {
+  border-radius: 5px;
+}
+
+.help-botton {
+  border: none;
+  background: transparent;
+  color: #6e87a7;
+}
+
+.nav-link.active {
+  background-color: #7f6aab;
+  color: white;
+}
+
+.nav-link {
+  color: #ac8a90;
+}
+
+.tab-content>.active {
+  margin: 15px;
+}

@@ -13,6 +13,7 @@ import { getAuth, provideAuth } from '@angular/fire/auth';
 import { LoginComponent } from './login/login.component';
 import { FormsModule } from '@angular/forms';
 import { LogoutComponent } from './logout/logout.component';
+import { AccountComponent } from './account/account.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { LogoutComponent } from './logout/logout.component';
     HomeComponent,
     SignupComponent,
     LoginComponent,
-    LogoutComponent
+    LogoutComponent,
+    AccountComponent
   ],
   imports: [
     BrowserModule,

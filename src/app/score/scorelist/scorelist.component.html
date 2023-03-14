@@ -1,6 +1,6 @@
 <div *ngIf="score">
   <form #form=ngForm (ngSubmit)="onSubmit(form)">
-    <table class="table table-sm">
+    <table class="table table-borderless table-sm">
       <thead class="sticky-top table-secondary">
         <tr class="table-primary">
           <td class="text-center" style="width: 20%;"><span class="enFont">#</span></td>
@@ -18,7 +18,7 @@
       <tbody>
         <ng-container *ngFor="let _score1 of score1; let i = index">
           <tr>
-            <th scope="row" class="d-grid gap-2 mt-2">
+            <th scope="row" class="d-grid gap-2 mt-3">
               <button type="button" mat-raised-button color="primary" data-bs-toggle="modal" data-bs-target="#course1Modal" data-bs-whatever="0" (click)="setDialogIndex(i)">
                 <span class="enFont">{{ no[i] }}</span>
               </button>
@@ -31,7 +31,7 @@
                       'backgroundColor' : lasvegas1[i] ? '#696969' : '#F8F9FA',
                       'color' : lasvegas1[i] ? 'white' : 'black'
                     }">
-                      <span class="enFont">{{ score1[i] }}</span>
+                      <span class="enFontBold">{{ score1[i] }}</span>
                       <div *ngIf="order[i][p] != 0">
                         <span class="position-absolute top-0 start-0 translate-middle badge rounded-pill bg-danger">
                           <span class="enFont">{{ order[i][p] }}</span>
@@ -67,6 +67,16 @@
                         <ng-container *ngSwitchDefault>
                         </ng-container>
                       </ng-container>
+                      <span class="position-absolute top-100 start-100 translate-middle badge rounded-pill text-bg-success">
+                        <span class="enFontSmall">{{ putscore1[i] }}</span>
+                        <span class="visually-hidden">unread messages</span>
+                      </span>
+                      <ng-container *ngIf="isOlyNearping">
+                        <span class="position-absolute top-100 start-0 translate-middle badge rounded-pill text-bg-primary">
+                          <span class="small">ニア</span>
+                          <span class="visually-hidden">unread messages</span>
+                        </span>
+                      </ng-container>
                     </button>
                   </ng-container>
                   <ng-container *ngIf="p == 1">
@@ -74,7 +84,7 @@
                       'backgroundColor' : lasvegas2[i] ? '#696969' : '#F8F9FA',
                       'color' : lasvegas2[i] ? 'white' : 'black'
                     }">
-                      <span class="enFont">{{ score2[i] }}</span>
+                      <span class="enFontBold">{{ score2[i] }}</span>
                       <div *ngIf="order[i][p] != 0">
                         <span class="position-absolute top-0 start-0 translate-middle badge rounded-pill bg-danger">
                           <span class="enFont">{{ order[i][p] }}</span>
@@ -110,6 +120,10 @@
                         <ng-container *ngSwitchDefault>
                         </ng-container>
                       </ng-container>
+                      <span class="position-absolute top-100 start-100 translate-middle badge rounded-pill text-bg-success">
+                        <span class="enFontSmall">{{ putscore2[i] }}</span>
+                        <span class="visually-hidden">unread messages</span>
+                      </span>
                     </button>
                   </ng-container>
                   <ng-container *ngIf="p == 2">
@@ -117,7 +131,7 @@
                       'backgroundColor' : lasvegas3[i] ? '#696969' : '#F8F9FA',
                       'color' : lasvegas3[i] ? 'white' : 'black'
                     }">
-                      <span class="enFont">{{ score3[i] }}</span>
+                      <span class="enFontBold">{{ score3[i] }}</span>
                       <div *ngIf="order[i][p] != 0">
                         <span class="position-absolute top-0 start-0 translate-middle badge rounded-pill bg-danger">
                           <span class="enFont">{{ order[i][p] }}</span>
@@ -153,6 +167,10 @@
                         <ng-container *ngSwitchDefault>
                         </ng-container>
                       </ng-container>
+                      <span class="position-absolute top-100 start-100 translate-middle badge rounded-pill text-bg-success">
+                        <span class="enFontSmall">{{ putscore3[i] }}</span>
+                        <span class="visually-hidden">unread messages</span>
+                      </span>
                     </button>
                   </ng-container>
                   <ng-container *ngIf="p == 3">
@@ -160,7 +178,7 @@
                       'backgroundColor' : lasvegas4[i] ? '#696969' : '#F8F9FA',
                       'color' : lasvegas4[i] ? 'white' : 'black'
                     }">
-                      <span class="enFont">{{ score4[i] }}</span>
+                      <span class="enFontBold">{{ score4[i] }}</span>
                       <div *ngIf="order[i][p] != 0">
                         <span class="position-absolute top-0 start-0 translate-middle badge rounded-pill bg-danger">
                           <span class="enFont">{{ order[i][p] }}</span>
@@ -196,6 +214,10 @@
                           </ng-container>
                         </ng-container>
                       </div>
+                      <span class="position-absolute top-100 start-100 translate-middle badge rounded-pill text-bg-success">
+                        <span class="enFontSmall">{{ putscore4[i] }}</span>
+                        <span class="visually-hidden">unread messages</span>
+                      </span>
                     </button>
                   </ng-container>
                 </div>
@@ -203,44 +225,50 @@
             </ng-container>
           </tr>
           <ng-container *ngIf="i == 8">
+            <tr>
+              <td></td>
+            </tr>
             <tr class="table-secondary">
               <td>
                 <ng-container *ngIf="no[i] == '9th'">
-                  <div class="text-center"><span class="enFont">OUT</span></div>
+                  <div class="text-center"><span class="enFontBold">OUT</span></div>
                 </ng-container>
                 <ng-container *ngIf="no[i] == '18th'">
-                  <div class="text-center"><span class="enFont">IN</span></div>
+                  <div class="text-center"><span class="enFontBold">IN</span></div>
                 </ng-container>
               </td>
-              <td class="text-center"><span class="enFont">{{ outTotal1 }}</span></td>
-              <td class="text-center"><span class="enFont">{{ outTotal2 }}</span></td>
-              <td class="text-center"><span class="enFont">{{ outTotal3 }}</span></td>
-              <td class="text-center"><span class="enFont">{{ outTotal4 }}</span></td>
+              <td class="text-center"><span class="enFontBold">{{ outTotal1 }}</span></td>
+              <td class="text-center"><span class="enFontBold">{{ outTotal2 }}</span></td>
+              <td class="text-center"><span class="enFontBold">{{ outTotal3 }}</span></td>
+              <td class="text-center"><span class="enFontBold">{{ outTotal4 }}</span></td>
             </tr>
           </ng-container>
           <ng-container *ngIf="i == 17">
+            <tr>
+              <td></td>
+            </tr>
             <tr class="table-secondary">
               <td>
                 <ng-container *ngIf="no[i] == '9th'">
-                  <div class="text-center"><span class="enFont">OUT</span></div>
+                  <div class="text-center"><span class="enFontBold">OUT</span></div>
                 </ng-container>
                 <ng-container *ngIf="no[i] == '18th'">
-                  <div class="text-center"><span class="enFont">IN</span></div>
+                  <div class="text-center"><span class="enFontBold">IN</span></div>
                 </ng-container>
               </td>
-              <td class="text-center"><span class="enFont">{{ inTotal1 }}</span></td>
-              <td class="text-center"><span class="enFont">{{ inTotal2 }}</span></td>
-              <td class="text-center"><span class="enFont">{{ inTotal3 }}</span></td>
-              <td class="text-center"><span class="enFont">{{ inTotal4 }}</span></td>
+              <td class="text-center"><span class="enFontBold">{{ inTotal1 }}</span></td>
+              <td class="text-center"><span class="enFontBold">{{ inTotal2 }}</span></td>
+              <td class="text-center"><span class="enFontBold">{{ inTotal3 }}</span></td>
+              <td class="text-center"><span class="enFontBold">{{ inTotal4 }}</span></td>
             </tr>
             <tr class="table-primary">
               <td>
-                <div class="text-center"><span class="enFont">TOTAL</span></div>
+                <div class="text-center"><span class="enFontBold">TOTAL</span></div>
               </td>
-              <td class="text-center"><span class="enFont">{{ total1 }}</span></td>
-              <td class="text-center"><span class="enFont">{{ total2 }}</span></td>
-              <td class="text-center"><span class="enFont">{{ total3 }}</span></td>
-              <td class="text-center"><span class="enFont">{{ total4 }}</span></td>
+              <td class="text-center"><span class="enFontBold">{{ total1 }}</span></td>
+              <td class="text-center"><span class="enFontBold">{{ total2 }}</span></td>
+              <td class="text-center"><span class="enFontBold">{{ total3 }}</span></td>
+              <td class="text-center"><span class="enFontBold">{{ total4 }}</span></td>
             </tr>
           </ng-container>
         </ng-container>
@@ -248,255 +276,252 @@
     </table>
     <!--  -->
     <!--  -->
-    <div class="container">
-      <div class="row">
-        <div class="col-12 text-center bg-secondary text-white">
-          <small><span class="enFont">RESULT</span></small>
+    <div class="justify-content-center">
+      <ul class="nav nav-tabs mx-2" id="myTab" role="tablist">
+        <li class="col-4 d-grid gap-2 nav-item small" role="presentation">
+          <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#olympic-tab-pane" type="button" role="tab" aria-controls="olympic-tab-pane" aria-selected="true">オリンピック</button>
+        </li>
+        <li class="col-4 d-grid gap-2 nav-item small" role="presentation">
+          <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#lasvegas-tab-pane" type="button" role="tab" aria-controls="lasvegas-tab-pane" aria-selected="false">ラスベガス</button>
+        </li>
+        <li class="col-4 d-grid gap-2 nav-item small" role="presentation">
+          <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#total-tab-pane" type="button" role="tab" aria-controls="total-tab-pane" aria-selected="false">合計</button>
+        </li>
+      </ul>
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="olympic-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+          <table class="table table-sm">
+            <thead>
+              <tr>
+                <td class="enFontSmall text-center table-secondary">#</td>
+                <td class="small text-center table-secondary">
+                  獲得ポイント
+                </td>
+                <td class="small text-center table-secondary">
+                  換算後ポイント
+                </td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <small>{{ score.name1 }}</small>
+                </td>
+                <td>
+                  <div class="text-end" [ngStyle] = "{'color' : olympicTotal1 >= 0 ? 'blue' : 'red'}">
+                    <small><span class="enFont">{{ olympicTotal1 }}</span></small>
+                  </div>
+                </td>
+                <td>
+                  <div class="text-end" [ngStyle] = "{'color' : olympicTotal1 >= 0 ? 'blue' : 'red'}">
+                    <small><span class="enFont">{{ olympicTotal1_rated }}</span></small>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <small>{{ score.name2 }}</small>
+                </td>
+                <td>
+                  <div class="text-end" [ngStyle] = "{'color' : olympicTotal2 >= 0 ? 'blue' : 'red'}">
+                    <small><span class="enFont">{{ olympicTotal2 }}</span></small>
+                  </div>
+                </td>
+                <td>
+                  <div class="text-end" [ngStyle] = "{'color' : olympicTotal2 >= 0 ? 'blue' : 'red'}">
+                    <small><span class="enFont">{{ olympicTotal2_rated }}</span></small>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <small>{{ score.name3 }}</small>
+                </td>
+                <td>
+                  <div class="text-end" [ngStyle] = "{'color' : olympicTotal3 >= 0 ? 'blue' : 'red'}">
+                    <small><span class="enFont">{{ olympicTotal3 }}</span></small>
+                  </div>
+                </td>
+                <td>
+                  <div class="text-end" [ngStyle] = "{'color' : olympicTotal3 >= 0 ? 'blue' : 'red'}">
+                    <small><span class="enFont">{{ olympicTotal3_rated }}</span></small>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <small>{{ score.name4 }}</small>
+                </td>
+                <td>
+                  <div class="text-end" [ngStyle] = "{'color' : olympicTotal4 >= 0 ? 'blue' : 'red'}">
+                    <small><span class="enFont">{{ olympicTotal4 }}</span></small>
+                  </div>
+                </td>
+                <td>
+                  <div class="text-end" [ngStyle] = "{'color' : olympicTotal4 >= 0 ? 'blue' : 'red'}">
+                    <small><span class="enFont">{{ olympicTotal4_rated }}</span></small>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="tab-pane fade" id="lasvegas-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+          <table class="table table-sm">
+            <thead>
+              <tr>
+                <td class="enFontSmall text-center table-secondary">#</td>
+                <td class="small text-center table-secondary">
+                  獲得ポイント
+                </td>
+                <td class="small text-center table-secondary">
+                  換算後ポイント
+                </td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <small>{{ score.name1 }}</small>
+                </td>
+                <td>
+                  <div class="text-end" [ngStyle] = "{'color' : lasvegasTotal1 >= 0 ? 'blue' : 'red'}">
+                    <small><span class="enFont">{{ lasvegasTotal1 }}</span></small>
+                  </div>
+                </td>
+                <td>
+                  <div class="text-end" [ngStyle] = "{'color' : lasvegasTotal1 >= 0 ? 'blue' : 'red'}">
+                    <small><span class="enFont">{{ lasvegasTotal1_rated }}</span></small>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <small>{{ score.name2 }}</small>
+                </td>
+                <td>
+                  <div class="text-end" [ngStyle] = "{'color' : lasvegasTotal2 >= 0 ? 'blue' : 'red'}">
+                    <small><span class="enFont">{{ lasvegasTotal2 }}</span></small>
+                  </div>
+                </td>
+                <td>
+                  <div class="text-end" [ngStyle] = "{'color' : lasvegasTotal2 >= 0 ? 'blue' : 'red'}">
+                    <small><span class="enFont">{{ lasvegasTotal2_rated }}</span></small>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <small>{{ score.name3 }}</small>
+                </td>
+                <td>
+                  <div class="text-end" [ngStyle] = "{'color' : lasvegasTotal3 >= 0 ? 'blue' : 'red'}">
+                    <small><span class="enFont">{{ lasvegasTotal3 }}</span></small>
+                  </div>
+                </td>
+                <td>
+                  <div class="text-end" [ngStyle] = "{'color' : lasvegasTotal3 >= 0 ? 'blue' : 'red'}">
+                    <small><span class="enFont">{{ lasvegasTotal3_rated }}</span></small>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <small>{{ score.name4 }}</small>
+                </td>
+                <td>
+                  <div class="text-end" [ngStyle] = "{'color' : lasvegasTotal4 >= 0 ? 'blue' : 'red'}">
+                    <small><span class="enFont">{{ lasvegasTotal4 }}</span></small>
+                  </div>
+                </td>
+                <td>
+                  <div class="text-end" [ngStyle] = "{'color' : lasvegasTotal4 >= 0 ? 'blue' : 'red'}">
+                    <small><span class="enFont">{{ lasvegasTotal4_rated }}</span></small>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="tab-pane fade" id="total-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
+          <table class="table table-sm">
+            <thead>
+              <tr>
+                <td class="enFontSmall text-center table-secondary">#</td>
+                <td class="small text-center table-secondary">
+                  獲得ポイント
+                </td>
+                <td class="small text-center table-secondary">
+                  換算後ポイント
+                </td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <small>{{ score.name1 }}</small>
+                </td>
+                <td>
+                  <div class="text-end" [ngStyle] = "{'color' : olympicTotal1 + lasvegasTotal1 >= 0 ? 'blue' : 'red'}">
+                    <small><span class="enFont">{{ olympicTotal1 + lasvegasTotal1 }}</span></small>
+                  </div>
+                </td>
+                <td>
+                  <div class="text-end" [ngStyle] = "{'color' : olympicTotal1_rated + lasvegasTotal1_rated >= 0 ? 'blue' : 'red'}">
+                    <small><span class="enFont">{{ olympicTotal1_rated + lasvegasTotal1_rated }}</span></small>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <small>{{ score.name2 }}</small>
+                </td>
+                <td>
+                  <div class="text-end" [ngStyle] = "{'color' : olympicTotal2 + lasvegasTotal2 >= 0 ? 'blue' : 'red'}">
+                    <small><span class="enFont">{{ olympicTotal2 + lasvegasTotal2 }}</span></small>
+                  </div>
+                </td>
+                <td>
+                  <div class="text-end" [ngStyle] = "{'color' : olympicTotal2_rated + lasvegasTotal2_rated >= 0 ? 'blue' : 'red'}">
+                    <small><span class="enFont">{{ olympicTotal2_rated + lasvegasTotal2_rated }}</span></small>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <small>{{ score.name3 }}</small>
+                </td>
+                <td>
+                  <div class="text-end" [ngStyle] = "{'color' : olympicTotal3 + lasvegasTotal3 >= 0 ? 'blue' : 'red'}">
+                    <small><span class="enFont">{{ olympicTotal3 + lasvegasTotal3 }}</span></small>
+                  </div>
+                </td>
+                <td>
+                  <div class="text-end" [ngStyle] = "{'color' : olympicTotal3_rated + lasvegasTotal3_rated >= 0 ? 'blue' : 'red'}">
+                    <small><span class="enFont">{{ olympicTotal3_rated + lasvegasTotal3_rated }}</span></small>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <small>{{ score.name4 }}</small>
+                </td>
+                <td>
+                  <div class="text-end" [ngStyle] = "{'color' : olympicTotal4 + lasvegasTotal4 >= 0 ? 'blue' : 'red'}">
+                    <small><span class="enFont">{{ olympicTotal4 + lasvegasTotal4 }}</span></small>
+                  </div>
+                </td>
+                <td>
+                  <div class="text-end" [ngStyle] = "{'color' : olympicTotal4_rated + lasvegasTotal4_rated >= 0 ? 'blue' : 'red'}">
+                    <small><span class="enFont">{{ olympicTotal4_rated + lasvegasTotal4_rated }}</span></small>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
-      <div class="row">
-        <div class="col-3 text-center bg-secondary text-white ">
-          <small><span class="enFont">#</span></small>
-        </div>
-        <div class="col-3 text-center bg-secondary text-white">
-          <small><span class="badge bg-danger enFont">A</span><br><span class="enFont">OLYMPIC</span></small>
-        </div>
-        <div class="col-3 text-center bg-secondary text-white">
-          <small><span class="badge bg-primary enFont">B</span><br><span class="enFont">LASVEGAS</span></small>
-        </div>
-        <div class="col-3 text-center bg-secondary text-white">
-          <small><span class="badge bg-danger enFont">A</span><span class="enFont">+</span><span class="badge bg-primary enFont">B</span><br><span class="enFont">TOTAL</span></small>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-3 text-center bg-secondary text-white">
-          <small>{{ score.name1 }}</small>
-        </div>
-        <div class="col-3 text-end border border-white" [ngStyle] = "{
-          'color' : olympicTotal1 >= 0 ? 'blue' : 'red'
-        }">
-          <small><span class="enFont">{{ olympicTotal1 }}</span></small>
-        </div>
-        <div class="visually-hidden">
-          <small><span class="enFont">{{ olympicTotal1_rated }}</span></small>
-        </div>
-        <div class="col-3 text-end border border-white" [ngStyle] = "{
-          'color' : lasvegasTotal1 >= 0 ? 'blue' : 'red'
-        }">
-          <small><span class="enFont">{{ lasvegasTotal1 }}</span></small>
-        </div>
-        <div class="visually-hidden">
-          <small><span class="enFont">{{ lasvegasTotal1_rated }}</span></small>
-        </div>
-        <div class="col-3 text-end border border-white" [ngStyle] = "{
-          'color' : olympicTotal1 + lasvegasTotal1 >= 0 ? 'blue' : 'red'
-        }">
-          <small><span class="enFont">{{ olympicTotal1 + lasvegasTotal1 }}</span></small>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-3 text-center bg-secondary text-white">
-          <small>{{ score.name2 }}</small>
-        </div>
-        <div class="col-3 text-end border border-white" [ngStyle] = "{
-          'color' : olympicTotal2 >= 0 ? 'blue' : 'red'
-        }">
-          <small><span class="enFont">{{ olympicTotal2 }}</span></small>
-        </div>
-        <div class="visually-hidden">
-          <small><span class="enFont">{{ olympicTotal2_rated }}</span></small>
-        </div>
-        <div class="col-3 text-end border border-white" [ngStyle] = "{
-          'color' : lasvegasTotal2 >= 0 ? 'blue' : 'red'
-        }">
-          <small><span class="enFont">{{ lasvegasTotal2 }}</span></small>
-        </div>
-        <div class="visually-hidden">
-          <small><span class="enFont">{{ lasvegasTotal2_rated }}</span></small>
-        </div>
-        <div class="col-3 text-end border border-white" [ngStyle] = "{
-          'color' : olympicTotal2 + lasvegasTotal2 >= 0 ? 'blue' : 'red'
-        }">
-          <small><span class="enFont">{{ olympicTotal2 + lasvegasTotal2 }}</span></small>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-3 text-center bg-secondary text-white">
-          <small>{{ score.name3 }}</small>
-        </div>
-        <div class="col-3 text-end border border-white" [ngStyle] = "{
-          'color' : olympicTotal3 >= 0 ? 'blue' : 'red'
-        }">
-          <small><span class="enFont">{{ olympicTotal3 }}</span></small>
-        </div>
-        <div class="visually-hidden">
-          <small><span class="enFont">{{ olympicTotal3_rated }}</span></small>
-        </div>
-        <div class="col-3 text-end border border-white" [ngStyle] = "{
-          'color' : lasvegasTotal3 >= 0 ? 'blue' : 'red'
-        }">
-          <small><span class="enFont">{{ lasvegasTotal3 }}</span></small>
-        </div>
-        <div class="visually-hidden">
-          <small><span class="enFont">{{ lasvegasTotal3_rated }}</span></small>
-        </div>
-        <div class="col-3 text-end border border-white" [ngStyle] = "{
-          'color' : olympicTotal3 + lasvegasTotal3 >= 0 ? 'blue' : 'red'
-        }">
-          <small><span class="enFont">{{ olympicTotal3 + lasvegasTotal3 }}</span></small>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-3 text-center bg-secondary text-white">
-          <small>{{ score.name4 }}</small>
-        </div>
-        <div class="col-3 text-end border border-white" [ngStyle] = "{
-          'color' : olympicTotal4 >= 0 ? 'blue' : 'red'
-        }">
-          <small><span class="enFont">{{ olympicTotal4 }}</span></small>
-        </div>
-        <div class="visually-hidden">
-          <small><span class="enFont">{{ olympicTotal4_rated }}</span></small>
-        </div>
-        <div class="col-3 text-end border border-white" [ngStyle] = "{
-          'color' : lasvegasTotal4 >= 0 ? 'blue' : 'red'
-        }">
-          <small><span class="enFont">{{ lasvegasTotal4 }}</span></small>
-        </div>
-        <div class="visually-hidden">
-          <small><span class="enFont">{{ lasvegasTotal4_rated }}</span></small>
-        </div>
-        <div class="col-3 text-end border border-white" [ngStyle] = "{
-          'color' : olympicTotal4 + lasvegasTotal4 >= 0 ? 'blue' : 'red'
-        }">
-          <small><span class="enFont">{{ olympicTotal4 + lasvegasTotal4 }}</span></small>
-        </div>
-      </div>
-      <div class="row mt-1 mb-1">
-        <div class="col">
-        </div>
-        <div class="col-3 text-end mt-1">
-          <small>レート</small>
-        </div>
-        <div class="col-3 text-end">
-          <span class="enFont">
-            <input #box1 [ngModel]="input.rate" type="number" name="txtRate" class="form-control form-control-sm" placeholder="レート"
-              aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
-              (ngModelChange)="olympicAndLasvegasRateChange($event)">
-          </span>
-          <div class="visually-hidden">
-            <small>{{ rateValue }}</small>
-          </div>
-        </div>
-        <div class="col-3">
-        </div>
-        <div class="col">
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-12 text-center">
-          <mat-icon>expand_more</mat-icon>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-12 text-center bg-secondary text-white">
-          <small><span class="enFont">RESULT (After Rate)</span></small>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-3 text-center bg-secondary text-white ">
-          <small><span class="enFont">#</span></small>
-        </div>
-        <div class="col-3 text-center bg-secondary text-white">
-          <small><span class="badge bg-danger enFont">A</span><br><span class="enFont">OLYMPIC</span></small>
-        </div>
-        <div class="col-3 text-center bg-secondary text-white">
-          <small><span class="badge bg-primary enFont">B</span><br><span class="enFont">LASVEGAS</span></small>
-        </div>
-        <div class="col-3 text-center bg-secondary text-white">
-          <small><span class="badge bg-danger enFont">A</span><span class="enFont">+</span><span class="badge bg-primary enFont">B</span><br><span class="enFont">TOTAL</span></small>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-3 text-center bg-secondary text-white">
-          <small>{{ score.name1 }}</small>
-        </div>
-        <div class="col-3 text-end border border-white" [ngStyle] = "{
-          'color' : olympicTotal1_rated >= 0 ? 'blue' : 'red'
-        }">
-          <small><span class="enFont">{{ olympicTotal1_rated }}</span></small>
-        </div>
-        <div class="col-3 text-end border border-white" [ngStyle] = "{
-          'color' : lasvegasTotal1_rated >= 0 ? 'blue' : 'red'
-        }">
-          <small><span class="enFont">{{ lasvegasTotal1_rated }}</span></small>
-        </div>
-        <div class="col-3 text-end border border-white" [ngStyle] = "{
-          'color' : olympicTotal1_rated + lasvegasTotal1_rated >= 0 ? 'blue' : 'red'
-        }">
-          <small><span class="enFont">{{ olympicTotal1_rated + lasvegasTotal1_rated }}</span></small>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-3 text-center bg-secondary text-white">
-          <small>{{ score.name2 }}</small>
-        </div>
-        <div class="col-3 text-end border border-white" [ngStyle] = "{
-          'color' : olympicTotal2_rated >= 0 ? 'blue' : 'red'
-        }">
-          <small><span class="enFont">{{ olympicTotal2_rated }}</span></small>
-        </div>
-        <div class="col-3 text-end border border-white" [ngStyle] = "{
-          'color' : lasvegasTotal2_rated >= 0 ? 'blue' : 'red'
-        }">
-          <small><span class="enFont">{{ lasvegasTotal2_rated }}</span></small>
-        </div>
-        <div class="col-3 text-end border border-white" [ngStyle] = "{
-          'color' : olympicTotal2_rated + lasvegasTotal2_rated >= 0 ? 'blue' : 'red'
-        }">
-          <small><span class="enFont">{{ olympicTotal2_rated + lasvegasTotal2_rated }}</span></small>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-3 text-center bg-secondary text-white">
-          <small>{{ score.name3 }}</small>
-        </div>
-        <div class="col-3 text-end border border-white" [ngStyle] = "{
-          'color' : olympicTotal3_rated >= 0 ? 'blue' : 'red'
-        }">
-          <small><span class="enFont">{{ olympicTotal3_rated }}</span></small>
-        </div>
-        <div class="col-3 text-end border border-white" [ngStyle] = "{
-          'color' : lasvegasTotal3_rated >= 0 ? 'blue' : 'red'
-        }">
-          <small><span class="enFont">{{ lasvegasTotal3_rated }}</span></small>
-        </div>
-        <div class="col-3 text-end border border-white" [ngStyle] = "{
-          'color' : olympicTotal3_rated + lasvegasTotal3_rated >= 0 ? 'blue' : 'red'
-        }">
-          <small><span class="enFont">{{ olympicTotal3_rated + lasvegasTotal3_rated }}</span></small>
-        </div>
-      </div>
-      <div class="row mb-5">
-        <div class="col-3 text-center bg-secondary text-white">
-          <small>{{ score.name4 }}</small>
-        </div>
-        <div class="col-3 text-end border border-white" [ngStyle] = "{
-          'color' : olympicTotal4_rated >= 0 ? 'blue' : 'red'
-        }">
-          <small><span class="enFont">{{ olympicTotal4_rated }}</span></small>
-        </div>
-        <div class="col-3 text-end border border-white" [ngStyle] = "{
-          'color' : lasvegasTotal4_rated >= 0 ? 'blue' : 'red'
-        }">
-          <small><span class="enFont">{{ lasvegasTotal4_rated }}</span></small>
-        </div>
-        <div class="col-3 text-end border border-white" [ngStyle] = "{
-          'color' : olympicTotal4_rated + lasvegasTotal4_rated >= 0 ? 'blue' : 'red'
-        }">
-          <small><span class="enFont">{{ olympicTotal4_rated + lasvegasTotal4_rated }}</span></small>
-        </div>
-      </div>
+      <br>
       <br>
       <br>
       <br>
@@ -519,7 +544,10 @@
               </button>
             </a>
           </div>
-          <div class="col">
+          <div class="col text-end">
+            <button class="btn btn-sm btn-secondary mb-3 mr-3" type="button" data-bs-toggle="modal" data-bs-target="#settingModal" style="width: 35px; height: 35px;">
+              <i class="material-icons small-size">settings</i>
+            </button>
           </div>
         </div>
       </div>
@@ -543,450 +571,429 @@
           </div>
         </nav>
         <div class="modal-body">
-          <div class="container">
-            <!--プレーヤー1-->
-            <div class="row">
-              <div class="col-3">
-              </div>
-              <div class="col-6 d-flex justify-content-center" style="font-weight: bold;">
-                <p class="align-bottom">{{ score.name1 }}</p>
-              </div>
-              <div class="col-3">
-              </div>
-            </div>
-            <div class="row justify-content-center">
-              <div class="col-2">
-                <div class="d-grid">
-                  <button mat-mini-fab color="accent" (click)="setScoreCounter5Down(courseIndex, _index_name1)">
-                    <i class="material-icons">keyboard_double_arrow_down</i>
-                  </button>
-                </div>
-              </div>
-              <div class="col-2">
-                <div class="d-grid">
-                  <button mat-mini-fab color="accent" (click)="setScoreCounter1Down(courseIndex, _index_name1)">
-                    <i class="material-icons">keyboard_arrow_down</i>
-                  </button>
-                </div>
-              </div>
-              <div class="col-2">
-                <h2 class="text-center align-items-center">{{ score1[courseIndex] }}</h2>
-              </div>
-              <div class="col-2">
-                <div class="d-grid">
-                  <button mat-mini-fab color="accent" (click)="setScoreCounter1Up(courseIndex, _index_name1)">
-                    <i class="material-icons">keyboard_arrow_up</i>
-                  </button>
-                </div>
-              </div>
-              <div class="col-2">
-                <div class="d-grid">
-                  <button mat-mini-fab color="accent" (click)="setScoreCounter5Up(courseIndex, _index_name1)">
-                    <i class="material-icons">keyboard_double_arrow_up</i>
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div class="row justify-content-center" style="border-bottom: 1px solid #dee2e6">
-              <div class="col-auto">
-                <mat-chip-listbox aria-label="olympic selection">
-                  <span [ngSwitch]="olympic1[courseIndex]">
-                    <p *ngSwitchCase=5>
-                      <mat-chip-option selected #olympic1 value=5 (selectionChange)="olympicSelect1(courseIndex, 5)">ダイヤ</mat-chip-option>
-                      <mat-chip-option #olympic1 value=4 (selectionChange)="olympicSelect1(courseIndex, 4)">金</mat-chip-option>
-                      <mat-chip-option #olympic1 value=3 (selectionChange)="olympicSelect1(courseIndex, 3)">銀</mat-chip-option>
-                      <mat-chip-option #olympic1 value=2 (selectionChange)="olympicSelect1(courseIndex, 2)">銅</mat-chip-option>
-                      <mat-chip-option #olympic1 value=1 (selectionChange)="olympicSelect1(courseIndex, 1)">鉄</mat-chip-option>
-                    </p>
-                    <p *ngSwitchCase=4>
-                      <mat-chip-option #olympic1 value=5 (selectionChange)="olympicSelect1(courseIndex, 5)">ダイヤ</mat-chip-option>
-                      <mat-chip-option selected #olympic1 value=4 (selectionChange)="olympicSelect1(courseIndex, 4)">金</mat-chip-option>
-                      <mat-chip-option #olympic1 value=3 (selectionChange)="olympicSelect1(courseIndex, 3)">銀</mat-chip-option>
-                      <mat-chip-option #olympic1 value=2 (selectionChange)="olympicSelect1(courseIndex, 2)">銅</mat-chip-option>
-                      <mat-chip-option #olympic1 value=1 (selectionChange)="olympicSelect1(courseIndex, 1)">鉄</mat-chip-option>
-                    </p>
-                    <p *ngSwitchCase=3>
-                      <mat-chip-option #olympic1 value=5 (selectionChange)="olympicSelect1(courseIndex, 5)">ダイヤ</mat-chip-option>
-                      <mat-chip-option #olympic1 value=4 (selectionChange)="olympicSelect1(courseIndex, 4)">金</mat-chip-option>
-                      <mat-chip-option selected #olympic1 value=3 (selectionChange)="olympicSelect1(courseIndex, 3)">銀</mat-chip-option>
-                      <mat-chip-option #olympic1 value=2 (selectionChange)="olympicSelect1(courseIndex, 2)">銅</mat-chip-option>
-                      <mat-chip-option #olympic1 value=1 (selectionChange)="olympicSelect1(courseIndex, 1)">鉄</mat-chip-option>
-                    </p>
-                    <p *ngSwitchCase=2>
-                      <mat-chip-option #olympic1 value=5 (selectionChange)="olympicSelect1(courseIndex, 5)">ダイヤ</mat-chip-option>
-                      <mat-chip-option #olympic1 value=4 (selectionChange)="olympicSelect1(courseIndex, 4)">金</mat-chip-option>
-                      <mat-chip-option #olympic1 value=3 (selectionChange)="olympicSelect1(courseIndex, 3)">銀</mat-chip-option>
-                      <mat-chip-option selected #olympic1 value=2 (selectionChange)="olympicSelect1(courseIndex, 2)">銅</mat-chip-option>
-                      <mat-chip-option #olympic1 value=1 (selectionChange)="olympicSelect1(courseIndex, 1)">鉄</mat-chip-option>
-                    </p>
-                    <p *ngSwitchCase=1>
-                      <mat-chip-option #olympic1 value=5 (selectionChange)="olympicSelect1(courseIndex, 5)">ダイヤ</mat-chip-option>
-                      <mat-chip-option #olympic1 value=4 (selectionChange)="olympicSelect1(courseIndex, 4)">金</mat-chip-option>
-                      <mat-chip-option #olympic1 value=3 (selectionChange)="olympicSelect1(courseIndex, 3)">銀</mat-chip-option>
-                      <mat-chip-option #olympic1 value=2 (selectionChange)="olympicSelect1(courseIndex, 2)">銅</mat-chip-option>
-                      <mat-chip-option selected #olympic1 value=1 (selectionChange)="olympicSelect1(courseIndex, 1)">鉄</mat-chip-option>
-                    </p>
-                    <p *ngSwitchDefault>
-                      <mat-chip-option #olympic1 value=5 (selectionChange)="olympicSelect1(courseIndex, 5)">ダイヤ</mat-chip-option>
-                      <mat-chip-option #olympic1 value=4 (selectionChange)="olympicSelect1(courseIndex, 4)">金</mat-chip-option>
-                      <mat-chip-option #olympic1 value=3 (selectionChange)="olympicSelect1(courseIndex, 3)">銀</mat-chip-option>
-                      <mat-chip-option #olympic1 value=2 (selectionChange)="olympicSelect1(courseIndex, 2)">銅</mat-chip-option>
-                      <mat-chip-option #olympic1 value=1 (selectionChange)="olympicSelect1(courseIndex, 1)">鉄</mat-chip-option>
-                    </p>
-                  </span>
-                </mat-chip-listbox>
-              </div>
-            </div>
-            <!--プレーヤー2-->
-            <div class="row">
-              <div class="col-3">
-              </div>
-              <div class="col-6 d-flex justify-content-center" style="font-weight: bold;">
-                <p>{{ score.name2 }}</p>
-              </div>
-              <div class="col-3">
-              </div>
-            </div>
-            <div class="row justify-content-center">
-              <div class="col-2">
-                <div class="d-grid">
-                  <button mat-mini-fab color="accent" (click)="setScoreCounter5Down(courseIndex, _index_name2)">
-                    <i class="material-icons">keyboard_double_arrow_down</i>
-                  </button>
-                </div>
-              </div>
-              <div class="col-2">
-                <div class="d-grid">
-                  <button mat-mini-fab color="accent" (click)="setScoreCounter1Down(courseIndex, _index_name2)">
-                    <i class="material-icons">keyboard_arrow_down</i>
-                  </button>
-                </div>
-              </div>
-              <div class="col-2">
-                <h2 class="text-center align-items-center">{{ score2[courseIndex] }}</h2>
-              </div>
-              <div class="col-2">
-                <div class="d-grid">
-                  <button mat-mini-fab color="accent" (click)="setScoreCounter1Up(courseIndex, _index_name2)">
-                    <i class="material-icons">keyboard_arrow_up</i>
-                  </button>
-                </div>
-              </div>
-              <div class="col-2">
-                <div class="d-grid">
-                  <button mat-mini-fab color="accent" (click)="setScoreCounter5Up(courseIndex, _index_name2)">
-                    <i class="material-icons">keyboard_double_arrow_up</i>
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div class="row justify-content-center" style="border-bottom: 1px solid #dee2e6">
-              <div class="col-auto">
-                <mat-chip-listbox aria-label="olympic selection">
-                  <span [ngSwitch]="olympic2[courseIndex]">
-                    <p *ngSwitchCase=5>
-                      <mat-chip-option selected #olympic2 value=5 (selectionChange)="olympicSelect2(courseIndex, 5)">ダイヤ</mat-chip-option>
-                      <mat-chip-option #olympic2 value=4 (selectionChange)="olympicSelect2(courseIndex, 4)">金</mat-chip-option>
-                      <mat-chip-option #olympic2 value=3 (selectionChange)="olympicSelect2(courseIndex, 3)">銀</mat-chip-option>
-                      <mat-chip-option #olympic2 value=2 (selectionChange)="olympicSelect2(courseIndex, 2)">銅</mat-chip-option>
-                      <mat-chip-option #olympic2 value=1 (selectionChange)="olympicSelect2(courseIndex, 1)">鉄</mat-chip-option>
-                    </p>
-                    <p *ngSwitchCase=4>
-                      <mat-chip-option #olympic2 value=5 (selectionChange)="olympicSelect2(courseIndex, 5)">ダイヤ</mat-chip-option>
-                      <mat-chip-option selected #olympic1 value=4 (selectionChange)="olympicSelect2(courseIndex, 4)">金</mat-chip-option>
-                      <mat-chip-option #olympic2 value=3 (selectionChange)="olympicSelect2(courseIndex, 3)">銀</mat-chip-option>
-                      <mat-chip-option #olympic2 value=2 (selectionChange)="olympicSelect2(courseIndex, 2)">銅</mat-chip-option>
-                      <mat-chip-option #olympic2 value=1 (selectionChange)="olympicSelect1(courseIndex, 1)">鉄</mat-chip-option>
-                    </p>
-                    <p *ngSwitchCase=3>
-                      <mat-chip-option #olympic2 value=5 (selectionChange)="olympicSelect2(courseIndex, 5)">ダイヤ</mat-chip-option>
-                      <mat-chip-option #olympic2 value=4 (selectionChange)="olympicSelect2(courseIndex, 4)">金</mat-chip-option>
-                      <mat-chip-option selected #olympic2 value=3 (selectionChange)="olympicSelect2(courseIndex, 3)">銀</mat-chip-option>
-                      <mat-chip-option #olympic2 value=2 (selectionChange)="olympicSelect2(courseIndex, 2)">銅</mat-chip-option>
-                      <mat-chip-option #olympic2 value=1 (selectionChange)="olympicSelect2(courseIndex, 1)">鉄</mat-chip-option>
-                    </p>
-                    <p *ngSwitchCase=2>
-                      <mat-chip-option #olympic2 value=5 (selectionChange)="olympicSelect2(courseIndex, 5)">ダイヤ</mat-chip-option>
-                      <mat-chip-option #olympic2 value=4 (selectionChange)="olympicSelect2(courseIndex, 4)">金</mat-chip-option>
-                      <mat-chip-option #olympic2 value=3 (selectionChange)="olympicSelect2(courseIndex, 3)">銀</mat-chip-option>
-                      <mat-chip-option selected #olympic1 value=2 (selectionChange)="olympicSelect2(courseIndex, 2)">銅</mat-chip-option>
-                      <mat-chip-option #olympic2 value=1 (selectionChange)="olympicSelect2(courseIndex, 1)">鉄</mat-chip-option>
-                    </p>
-                    <p *ngSwitchCase=1>
-                      <mat-chip-option #olympic2 value=5 (selectionChange)="olympicSelect2(courseIndex, 5)">ダイヤ</mat-chip-option>
-                      <mat-chip-option #olympic2 value=4 (selectionChange)="olympicSelect2(courseIndex, 4)">金</mat-chip-option>
-                      <mat-chip-option #olympic2 value=3 (selectionChange)="olympicSelect2(courseIndex, 3)">銀</mat-chip-option>
-                      <mat-chip-option #olympic2 value=2 (selectionChange)="olympicSelect2(courseIndex, 2)">銅</mat-chip-option>
-                      <mat-chip-option selected #olympic2 value=1 (selectionChange)="olympicSelect2(courseIndex, 1)">鉄</mat-chip-option>
-                    </p>
-                    <p *ngSwitchDefault>
-                      <mat-chip-option #olympic2 value=5 (selectionChange)="olympicSelect2(courseIndex, 5)">ダイヤ</mat-chip-option>
-                      <mat-chip-option #olympic2 value=4 (selectionChange)="olympicSelect2(courseIndex, 4)">金</mat-chip-option>
-                      <mat-chip-option #olympic2 value=3 (selectionChange)="olympicSelect2(courseIndex, 3)">銀</mat-chip-option>
-                      <mat-chip-option #olympic2 value=2 (selectionChange)="olympicSelect2(courseIndex, 2)">銅</mat-chip-option>
-                      <mat-chip-option #olympic2 value=1 (selectionChange)="olympicSelect2(courseIndex, 1)">鉄</mat-chip-option>
-                    </p>
-                  </span>
-                </mat-chip-listbox>
-              </div>
-            </div>
-            <!--プレーヤー3-->
-            <div class="row">
-              <div class="col-3">
-              </div>
-              <div class="col-6 d-flex justify-content-center" style="font-weight: bold;">
-                <p>{{ score.name3 }}</p>
-              </div>
-              <div class="col-2">
-              </div>
-            </div>
-            <div class="row justify-content-center">
-              <div class="col-2">
-                <div class="d-grid">
-                  <button mat-mini-fab color="accent" (click)="setScoreCounter5Down(courseIndex, _index_name3)">
-                    <i class="material-icons">keyboard_double_arrow_down</i>
-                  </button>
-                </div>
-              </div>
-              <div class="col-2">
-                <div class="d-grid">
-                  <button mat-mini-fab color="accent" (click)="setScoreCounter1Down(courseIndex, _index_name3)">
-                    <i class="material-icons">keyboard_arrow_down</i>
-                  </button>
-                </div>
-              </div>
-              <div class="col-2">
-                <h2 class="text-center align-items-center">{{ score3[courseIndex] }}</h2>
-              </div>
-              <div class="col-2">
-                <div class="d-grid">
-                  <button mat-mini-fab color="accent" (click)="setScoreCounter1Up(courseIndex, _index_name3)">
-                    <i class="material-icons">keyboard_arrow_up</i>
-                  </button>
-                </div>
-              </div>
-              <div class="col-2">
-                <div class="d-grid">
-                  <button mat-mini-fab color="accent" (click)="setScoreCounter5Up(courseIndex, _index_name3)">
-                    <i class="material-icons">keyboard_double_arrow_up</i>
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div class="row justify-content-center" style="border-bottom: 1px solid #dee2e6">
-              <div class="col-auto">
-                <mat-chip-listbox aria-label="olympic selection">
-                  <span [ngSwitch]="olympic3[courseIndex]">
-                    <p *ngSwitchCase=5>
-                      <mat-chip-option selected #olympic3 value=5 (selectionChange)="olympicSelect3(courseIndex, 5)">ダイヤ</mat-chip-option>
-                      <mat-chip-option #olympic3 value=4 (selectionChange)="olympicSelect3(courseIndex, 4)">金</mat-chip-option>
-                      <mat-chip-option #olympic3 value=3 (selectionChange)="olympicSelect3(courseIndex, 3)">銀</mat-chip-option>
-                      <mat-chip-option #olympic3 value=2 (selectionChange)="olympicSelect3(courseIndex, 2)">銅</mat-chip-option>
-                      <mat-chip-option #olympic3 value=1 (selectionChange)="olympicSelect3(courseIndex, 1)">鉄</mat-chip-option>
-                    </p>
-                    <p *ngSwitchCase=4>
-                      <mat-chip-option #olympic3 value=5 (selectionChange)="olympicSelect3(courseIndex, 5)">ダイヤ</mat-chip-option>
-                      <mat-chip-option selected #olympic3 value=4 (selectionChange)="olympicSelect3(courseIndex, 4)">金</mat-chip-option>
-                      <mat-chip-option #olympic3 value=3 (selectionChange)="olympicSelect3(courseIndex, 3)">銀</mat-chip-option>
-                      <mat-chip-option #olympic3 value=2 (selectionChange)="olympicSelect3(courseIndex, 2)">銅</mat-chip-option>
-                      <mat-chip-option #olympic3 value=1 (selectionChange)="olympicSelect3(courseIndex, 1)">鉄</mat-chip-option>
-                    </p>
-                    <p *ngSwitchCase=3>
-                      <mat-chip-option #olympic3 value=5 (selectionChange)="olympicSelect3(courseIndex, 5)">ダイヤ</mat-chip-option>
-                      <mat-chip-option #olympic3 value=4 (selectionChange)="olympicSelect3(courseIndex, 4)">金</mat-chip-option>
-                      <mat-chip-option selected #olympic3 value=3 (selectionChange)="olympicSelect3(courseIndex, 3)">銀</mat-chip-option>
-                      <mat-chip-option #olympic3 value=2 (selectionChange)="olympicSelect3(courseIndex, 2)">銅</mat-chip-option>
-                      <mat-chip-option #olympic3 value=1 (selectionChange)="olympicSelect3(courseIndex, 1)">鉄</mat-chip-option>
-                    </p>
-                    <p *ngSwitchCase=2>
-                      <mat-chip-option #olympic3 value=5 (selectionChange)="olympicSelect3(courseIndex, 5)">ダイヤ</mat-chip-option>
-                      <mat-chip-option #olympic3 value=4 (selectionChange)="olympicSelect3(courseIndex, 4)">金</mat-chip-option>
-                      <mat-chip-option #olympic3 value=3 (selectionChange)="olympicSelect3(courseIndex, 3)">銀</mat-chip-option>
-                      <mat-chip-option selected #olympic3 value=2 (selectionChange)="olympicSelect3(courseIndex, 2)">銅</mat-chip-option>
-                      <mat-chip-option #olympic3 value=1 (selectionChange)="olympicSelect3(courseIndex, 1)">鉄</mat-chip-option>
-                    </p>
-                    <p *ngSwitchCase=1>
-                      <mat-chip-option #olympic3 value=5 (selectionChange)="olympicSelect3(courseIndex, 5)">ダイヤ</mat-chip-option>
-                      <mat-chip-option #olympic3 value=4 (selectionChange)="olympicSelect3(courseIndex, 4)">金</mat-chip-option>
-                      <mat-chip-option #olympic3 value=3 (selectionChange)="olympicSelect3(courseIndex, 3)">銀</mat-chip-option>
-                      <mat-chip-option #olympic3 value=2 (selectionChange)="olympicSelect3(courseIndex, 2)">銅</mat-chip-option>
-                      <mat-chip-option selected #olympic3 value=1 (selectionChange)="olympicSelect3(courseIndex, 1)">鉄</mat-chip-option>
-                    </p>
-                    <p *ngSwitchDefault>
-                      <mat-chip-option #olympic3 value=5 (selectionChange)="olympicSelect3(courseIndex, 5)">ダイヤ</mat-chip-option>
-                      <mat-chip-option #olympic3 value=4 (selectionChange)="olympicSelect3(courseIndex, 4)">金</mat-chip-option>
-                      <mat-chip-option #olympic3 value=3 (selectionChange)="olympicSelect3(courseIndex, 3)">銀</mat-chip-option>
-                      <mat-chip-option #olympic3 value=2 (selectionChange)="olympicSelect3(courseIndex, 2)">銅</mat-chip-option>
-                      <mat-chip-option #olympic3 value=1 (selectionChange)="olympicSelect3(courseIndex, 1)">鉄</mat-chip-option>
-                    </p>
-                  </span>
-                </mat-chip-listbox>
-              </div>
-            </div>
-            <!--プレーヤー4-->
-            <div class="row">
-              <div class="col-3">
-              </div>
-              <div class="col-6 d-flex justify-content-center" style="font-weight: bold;">
-                <p>{{ score.name4 }}</p>
-              </div>
-              <div class="col-3">
-              </div>
-            </div>
-            <div class="row justify-content-center">
-              <div class="col-2">
-                <div class="d-grid">
-                  <button mat-mini-fab color="accent" (click)="setScoreCounter5Down(courseIndex, _index_name4)">
-                    <i class="material-icons">keyboard_double_arrow_down</i>
-                  </button>
-                </div>
-              </div>
-              <div class="col-2">
-                <div class="d-grid">
-                  <button mat-mini-fab color="accent" (click)="setScoreCounter1Down(courseIndex, _index_name4)">
-                    <i class="material-icons">keyboard_arrow_down</i>
-                  </button>
-                </div>
-              </div>
-              <div class="col-2">
-                <h2 class="text-center align-items-center">{{ score4[courseIndex] }}</h2>
-              </div>
-              <div class="col-2">
-                <div class="d-grid">
-                  <button mat-mini-fab color="accent" (click)="setScoreCounter1Up(courseIndex, _index_name4)">
-                    <i class="material-icons">keyboard_arrow_up</i>
-                  </button>
-                </div>
-              </div>
-              <div class="col-2">
-                <div class="d-grid">
-                  <button mat-mini-fab color="accent" (click)="setScoreCounter5Up(courseIndex, _index_name4)">
-                    <i class="material-icons">keyboard_double_arrow_up</i>
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div class="row justify-content-center">
-              <div class="col-auto">
-                <mat-chip-listbox aria-label="olympic selection">
-                  <span [ngSwitch]="olympic4[courseIndex]">
-                    <p *ngSwitchCase=5>
-                      <mat-chip-option selected #olympic4 value=5 (selectionChange)="olympicSelect4(courseIndex, 5)">ダイヤ</mat-chip-option>
-                      <mat-chip-option #olympic4 value=4 (selectionChange)="olympicSelect4(courseIndex, 4)">金</mat-chip-option>
-                      <mat-chip-option #olympic4 value=3 (selectionChange)="olympicSelect4(courseIndex, 3)">銀</mat-chip-option>
-                      <mat-chip-option #olympic4 value=2 (selectionChange)="olympicSelect4(courseIndex, 2)">銅</mat-chip-option>
-                      <mat-chip-option #olympic4 value=1 (selectionChange)="olympicSelect4(courseIndex, 1)">鉄</mat-chip-option>
-                    </p>
-                    <p *ngSwitchCase=4>
-                      <mat-chip-option #olympic4 value=5 (selectionChange)="olympicSelect4(courseIndex, 5)">ダイヤ</mat-chip-option>
-                      <mat-chip-option selected #olympic4 value=4 (selectionChange)="olympicSelect4(courseIndex, 4)">金</mat-chip-option>
-                      <mat-chip-option #olympic4 value=3 (selectionChange)="olympicSelect4(courseIndex, 3)">銀</mat-chip-option>
-                      <mat-chip-option #olympic4 value=2 (selectionChange)="olympicSelect4(courseIndex, 2)">銅</mat-chip-option>
-                      <mat-chip-option #olympic4 value=1 (selectionChange)="olympicSelect4(courseIndex, 1)">鉄</mat-chip-option>
-                    </p>
-                    <p *ngSwitchCase=3>
-                      <mat-chip-option #olympic4 value=5 (selectionChange)="olympicSelect4(courseIndex, 5)">ダイヤ</mat-chip-option>
-                      <mat-chip-option #olympic4 value=4 (selectionChange)="olympicSelect4(courseIndex, 4)">金</mat-chip-option>
-                      <mat-chip-option selected #olympic4 value=3 (selectionChange)="olympicSelect4(courseIndex, 3)">銀</mat-chip-option>
-                      <mat-chip-option #olympic4 value=2 (selectionChange)="olympicSelect4(courseIndex, 2)">銅</mat-chip-option>
-                      <mat-chip-option #olympic4 value=1 (selectionChange)="olympicSelect4(courseIndex, 1)">鉄</mat-chip-option>
-                    </p>
-                    <p *ngSwitchCase=2>
-                      <mat-chip-option #olympic4 value=5 (selectionChange)="olympicSelect4(courseIndex, 5)">ダイヤ</mat-chip-option>
-                      <mat-chip-option #olympic4 value=4 (selectionChange)="olympicSelect4(courseIndex, 4)">金</mat-chip-option>
-                      <mat-chip-option #olympic4 value=3 (selectionChange)="olympicSelect4(courseIndex, 3)">銀</mat-chip-option>
-                      <mat-chip-option selected #olympic4 value=2 (selectionChange)="olympicSelect4(courseIndex, 2)">銅</mat-chip-option>
-                      <mat-chip-option #olympic4 value=1 (selectionChange)="olympicSelect4(courseIndex, 1)">鉄</mat-chip-option>
-                    </p>
-                    <p *ngSwitchCase=1>
-                      <mat-chip-option #olympic4 value=5 (selectionChange)="olympicSelect4(courseIndex, 5)">ダイヤ</mat-chip-option>
-                      <mat-chip-option #olympic4 value=4 (selectionChange)="olympicSelect4(courseIndex, 4)">金</mat-chip-option>
-                      <mat-chip-option #olympic4 value=3 (selectionChange)="olympicSelect4(courseIndex, 3)">銀</mat-chip-option>
-                      <mat-chip-option #olympic4 value=2 (selectionChange)="olympicSelect4(courseIndex, 2)">銅</mat-chip-option>
-                      <mat-chip-option selected #olympic4 value=1 (selectionChange)="olympicSelect4(courseIndex, 1)">鉄</mat-chip-option>
-                    </p>
-                    <p *ngSwitchDefault>
-                      <mat-chip-option #olympic4 value=5 (selectionChange)="olympicSelect4(courseIndex, 5)">ダイヤ</mat-chip-option>
-                      <mat-chip-option #olympic4 value=4 (selectionChange)="olympicSelect4(courseIndex, 4)">金</mat-chip-option>
-                      <mat-chip-option #olympic4 value=3 (selectionChange)="olympicSelect4(courseIndex, 3)">銀</mat-chip-option>
-                      <mat-chip-option #olympic4 value=2 (selectionChange)="olympicSelect4(courseIndex, 2)">銅</mat-chip-option>
-                      <mat-chip-option #olympic4 value=1 (selectionChange)="olympicSelect4(courseIndex, 1)">鉄</mat-chip-option>
-                    </p>
-                  </span>
-                </mat-chip-listbox>
-              </div>
-            </div>
+          <mat-accordion>
             <ng-container *ngIf="courseIndex == 0">
-              <div class="row justify-content-center">
-                <div class="col-1"></div>
-                <div class="col-10">
-                  <p class="row justify-content-center">
-                    <a class="btn btn-primary" data-bs-toggle="collapse" href="#order1st" role="button" aria-expanded="false" aria-controls="order1st">
-                      初回の打順を設定
-                    </a>
-                  </p>
+              <mat-expansion-panel class="remove-mat-expansion-panel-padding" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    打順を設定
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="container">
                   <div class="row">
-                    <div class="collapse" id="order1st">
-                      <div class="card card-body">
-                        <table>
-                          <tr style="margin-bottom: 2px;">
-                            <td style="width: 50%;">{{ score.name1 }}</td>
-                            <td style="width: 50%;">
-                              <select class="form-select" [(ngModel)]='order1st[_index_name1]' name="dropdownOption" id="dropdownOption">
-                                <option value=0>打順</option>
-                                <option value=1>No.1</option>
-                                <option value=2>No.2</option>
-                                <option value=3>No.3</option>
-                                <option value=4>No.4</option>
-                              </select>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>{{ score.name2 }}</td>
-                            <td>
-                              <select class="form-select" [(ngModel)]='order1st[_index_name2]' name="dropdownOption" id="dropdownOption">
-                                <option value=0>打順</option>
-                                <option value=1>No.1</option>
-                                <option value=2>No.2</option>
-                                <option value=3>No.3</option>
-                                <option value=4>No.4</option>
-                              </select>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>{{ score.name3 }}</td>
-                            <td>
-                              <select class="form-select" [(ngModel)]='order1st[_index_name3]' name="dropdownOption" id="dropdownOption">
-                                <option value=0>打順</option>
-                                <option value=1>No.1</option>
-                                <option value=2>No.2</option>
-                                <option value=3>No.3</option>
-                                <option value=4>No.4</option>
-                              </select>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>{{ score.name4 }}</td>
-                            <td>
-                              <select class="form-select" [(ngModel)]='order1st[_index_name4]' name="dropdownOption" id="dropdownOption">
-                                <option value=0>打順</option>
-                                <option value=1>No.1</option>
-                                <option value=2>No.2</option>
-                                <option value=3>No.3</option>
-                                <option value=4>No.4</option>
-                              </select>
-                            </td>
-                          </tr>
-                        </table>
-                      </div>
-                      <br>
+                    <div class="col-4" style="margin-top: 8px; text-align: center;">
+                      {{ score.name1 }}
+                    </div>
+                    <p class="col-8">
+                      <mat-chip-listbox aria-label="order1st selection" [(ngModel)]="order1st[_index_name1]">
+                        <mat-chip-option value=1><span class="enFont">1</span></mat-chip-option>
+                        <mat-chip-option value=2><span class="enFont">2</span></mat-chip-option>
+                        <mat-chip-option value=3><span class="enFont">3</span></mat-chip-option>
+                        <mat-chip-option value=4><span class="enFont">4</span></mat-chip-option>
+                      </mat-chip-listbox>
+                    </p>
+                  </div>
+                  <div class="row">
+                    <div class="col-4" style="margin-top: 8px; text-align: center;">
+                      {{ score.name2 }}
+                    </div>
+                    <p class="col-8">
+                      <mat-chip-listbox aria-label="order1st selection" [(ngModel)]="order1st[_index_name2]">
+                        <mat-chip-option value=1><span class="enFont">1</span></mat-chip-option>
+                        <mat-chip-option value=2><span class="enFont">2</span></mat-chip-option>
+                        <mat-chip-option value=3><span class="enFont">3</span></mat-chip-option>
+                        <mat-chip-option value=4><span class="enFont">4</span></mat-chip-option>
+                      </mat-chip-listbox>
+                    </p>
+                  </div>
+                  <div class="row">
+                    <div class="col-4" style="margin-top: 8px; text-align: center;">
+                      {{ score.name3 }}
+                    </div>
+                    <p class="col-8">
+                      <mat-chip-listbox aria-label="order1st selection" [(ngModel)]="order1st[_index_name3]">
+                        <mat-chip-option value=1><span class="enFont">1</span></mat-chip-option>
+                        <mat-chip-option value=2><span class="enFont">2</span></mat-chip-option>
+                        <mat-chip-option value=3><span class="enFont">3</span></mat-chip-option>
+                        <mat-chip-option value=4><span class="enFont">4</span></mat-chip-option>
+                      </mat-chip-listbox>
+                    </p>
+                  </div>
+                  <div class="row">
+                    <div class="col-4" style="margin-top: 8px; text-align: center;">
+                      {{ score.name4 }}
+                    </div>
+                    <p class="col-8">
+                      <mat-chip-listbox aria-label="order1st selection" [(ngModel)]="order1st[_index_name4]">
+                        <mat-chip-option value=1><span class="enFont">1</span></mat-chip-option>
+                        <mat-chip-option value=2><span class="enFont">2</span></mat-chip-option>
+                        <mat-chip-option value=3><span class="enFont">3</span></mat-chip-option>
+                        <mat-chip-option value=4><span class="enFont">4</span></mat-chip-option>
+                      </mat-chip-listbox>
+                    </p>
+                  </div>
+                </div>
+              </mat-expansion-panel>
+            </ng-container>
+            <mat-expansion-panel class="remove-mat-expansion-panel-padding" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  {{ score.name1 }}
+                </mat-panel-title>
+                <mat-panel-description>
+                  スコア:{{ score1[courseIndex] }} パット:{{ putscore1[courseIndex] }}
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <div class="container">
+                <div class="row justify-content-center">
+                  <div class="col text-center">
+                    <small>スコア</small>
+                  </div>
+                </div>
+                <div class="row justify-content-center mb-1">
+                  <div class="col-2">
+                    <button mat-mini-fab color="accent" (click)="setScoreCounter5Down(courseIndex, _index_name1)">
+                      <i class="material-icons">keyboard_double_arrow_down</i>
+                    </button>
+                  </div>
+                  <div class="col-2">
+                    <button mat-mini-fab color="accent" (click)="setScoreCounter1Down(courseIndex, _index_name1)">
+                      <i class="material-icons">keyboard_arrow_down</i>
+                    </button>
+                  </div>
+                  <div class="col-2">
+                    <h2 class="text-center align-items-center">{{ score1[courseIndex] }}</h2>
+                  </div>
+                  <div class="col-2">
+                    <button mat-mini-fab color="accent" (click)="setScoreCounter1Up(courseIndex, _index_name1)">
+                      <i class="material-icons">keyboard_arrow_up</i>
+                    </button>
+                  </div>
+                  <div class="col-2">
+                    <button mat-mini-fab color="accent" (click)="setScoreCounter5Up(courseIndex, _index_name1)">
+                      <i class="material-icons">keyboard_double_arrow_up</i>
+                    </button>
+                  </div>
+                </div>
+                <div class="row justify-content-center mb-2">
+                  <div class="row justify-content-center">
+                    <div class="col text-center">
+                      <small>パット</small>
+                    </div>
+                  </div>
+                  <div class="col-2">
+                  </div>
+                  <div class="col-2">
+                    <button mat-mini-fab color="basic" (click)="setPutscoreCounter1Down(courseIndex, _index_name1)">
+                      <i class="material-icons">keyboard_arrow_down</i>
+                    </button>
+                  </div>
+                  <div class="col-2">
+                    <h2 class="text-center align-items-center">{{ putscore1[courseIndex] }}</h2>
+                  </div>
+                  <div class="col-2">
+                    <button mat-mini-fab color="basic" (click)="setPutscoreCounter1Up(courseIndex, _index_name1)">
+                      <i class="material-icons">keyboard_arrow_up</i>
+                    </button>
+                  </div>
+                  <div class="col-2">
+                  </div>
+                </div>
+                <div class="row justify-content-center">
+                  <p class="col-auto">
+                    <mat-chip-listbox aria-label="olympic1 selection" [(ngModel)]="olympic1[courseIndex]">
+                      <mat-chip-option value=5>ダイヤ</mat-chip-option>
+                      <mat-chip-option value=4>金</mat-chip-option>
+                      <mat-chip-option value=3>銀</mat-chip-option>
+                      <mat-chip-option value=2>銅</mat-chip-option>
+                      <mat-chip-option value=1>鉄</mat-chip-option>
+                    </mat-chip-listbox>
+                  </p>
+                </div>
+                <div class="row justify-content-center" style="border-bottom: 1px solid #dee2e6">
+                  <p class="col-auto">
+                    <mat-chip-listbox aria-label="olympic1 selection" [(ngModel)]="olympic1[courseIndex]">
+                      <mat-chip-option value=1 color="warn">ニアピン</mat-chip-option>
+                    </mat-chip-listbox>
+                  </p>
+                </div>
+              </div>
+            </mat-expansion-panel>
+            <mat-expansion-panel class="remove-mat-expansion-panel-padding" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  {{ score.name2 }}
+                </mat-panel-title>
+                <mat-panel-description>
+                  スコア:{{ score2[courseIndex] }} パット:{{ putscore2[courseIndex] }}
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <div class="container">
+                <div class="row justify-content-center">
+                  <div class="col text-center">
+                    <small>スコア</small>
+                  </div>
+                </div>
+                <div class="row justify-content-center mb-1">
+                  <div class="col-2">
+                    <div class="d-grid">
+                      <button mat-mini-fab color="accent" (click)="setScoreCounter5Down(courseIndex, _index_name2)">
+                        <i class="material-icons">keyboard_double_arrow_down</i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="col-2">
+                    <div class="d-grid">
+                      <button mat-mini-fab color="accent" (click)="setScoreCounter1Down(courseIndex, _index_name2)">
+                        <i class="material-icons">keyboard_arrow_down</i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="col-2">
+                    <h2 class="text-center align-items-center">{{ score2[courseIndex] }}</h2>
+                  </div>
+                  <div class="col-2">
+                    <div class="d-grid">
+                      <button mat-mini-fab color="accent" (click)="setScoreCounter1Up(courseIndex, _index_name2)">
+                        <i class="material-icons">keyboard_arrow_up</i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="col-2">
+                    <div class="d-grid">
+                      <button mat-mini-fab color="accent" (click)="setScoreCounter5Up(courseIndex, _index_name2)">
+                        <i class="material-icons">keyboard_double_arrow_up</i>
+                      </button>
                     </div>
                   </div>
                 </div>
-                <div class="col-1"></div>
+                <div class="row justify-content-center mb-2">
+                  <div class="row justify-content-center">
+                    <div class="col text-center">
+                      <small>パット</small>
+                    </div>
+                  </div>
+                  <div class="col-2">
+                  </div>
+                  <div class="col-2">
+                    <div class="d-grid">
+                      <button mat-mini-fab color="basic" (click)="setPutscoreCounter1Down(courseIndex, _index_name2)">
+                        <i class="material-icons">keyboard_arrow_down</i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="col-2">
+                    <h2 class="text-center align-items-center">{{ putscore2[courseIndex] }}</h2>
+                  </div>
+                  <div class="col-2">
+                    <div class="d-grid">
+                      <button mat-mini-fab color="basic" (click)="setPutscoreCounter1Up(courseIndex, _index_name2)">
+                        <i class="material-icons">keyboard_arrow_up</i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="col-2">
+                  </div>
+                </div>
+                <div class="row justify-content-center" style="border-bottom: 1px solid #dee2e6">
+                  <div class="col-auto">
+                    <p class="col-auto">
+                      <mat-chip-listbox aria-label="olympic1 selection" [(ngModel)]="olympic2[courseIndex]">
+                        <mat-chip-option value=5>ダイヤ</mat-chip-option>
+                        <mat-chip-option value=4>金</mat-chip-option>
+                        <mat-chip-option value=3>銀</mat-chip-option>
+                        <mat-chip-option value=2>銅</mat-chip-option>
+                        <mat-chip-option value=1>鉄</mat-chip-option>
+                      </mat-chip-listbox>
+                    </p>
+                  </div>
+                </div>
               </div>
-            </ng-container>
-          </div>
+            </mat-expansion-panel>
+            <mat-expansion-panel class="remove-mat-expansion-panel-padding" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  {{ score.name3 }}
+                </mat-panel-title>
+                <mat-panel-description>
+                  スコア:{{ score3[courseIndex] }} パット:{{ putscore3[courseIndex] }}
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <div class="container">
+                <div class="row justify-content-center">
+                  <div class="col text-center">
+                    <small>スコア</small>
+                  </div>
+                </div>
+                <div class="row justify-content-center mb-1">
+                  <div class="col-2">
+                    <div class="d-grid">
+                      <button mat-mini-fab color="accent" (click)="setScoreCounter5Down(courseIndex, _index_name3)">
+                        <i class="material-icons">keyboard_double_arrow_down</i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="col-2">
+                    <div class="d-grid">
+                      <button mat-mini-fab color="accent" (click)="setScoreCounter1Down(courseIndex, _index_name3)">
+                        <i class="material-icons">keyboard_arrow_down</i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="col-2">
+                    <h2 class="text-center align-items-center">{{ score3[courseIndex] }}</h2>
+                  </div>
+                  <div class="col-2">
+                    <div class="d-grid">
+                      <button mat-mini-fab color="accent" (click)="setScoreCounter1Up(courseIndex, _index_name3)">
+                        <i class="material-icons">keyboard_arrow_up</i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="col-2">
+                    <div class="d-grid">
+                      <button mat-mini-fab color="accent" (click)="setScoreCounter5Up(courseIndex, _index_name3)">
+                        <i class="material-icons">keyboard_double_arrow_up</i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="row justify-content-center mb-2">
+                  <div class="row justify-content-center">
+                    <div class="col text-center">
+                      <small>パット</small>
+                    </div>
+                  </div>
+                  <div class="col-2">
+                  </div>
+                  <div class="col-2">
+                    <div class="d-grid">
+                      <button mat-mini-fab color="basic" (click)="setPutscoreCounter1Down(courseIndex, _index_name3)">
+                        <i class="material-icons">keyboard_arrow_down</i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="col-2">
+                    <h2 class="text-center align-items-center">{{ putscore3[courseIndex] }}</h2>
+                  </div>
+                  <div class="col-2">
+                    <div class="d-grid">
+                      <button mat-mini-fab color="basic" (click)="setPutscoreCounter1Up(courseIndex, _index_name3)">
+                        <i class="material-icons">keyboard_arrow_up</i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="col-2">
+                  </div>
+                </div>
+                <div class="row justify-content-center" style="border-bottom: 1px solid #dee2e6">
+                  <div class="col-auto">
+                    <p class="col-auto">
+                      <mat-chip-listbox aria-label="olympic1 selection" [(ngModel)]="olympic3[courseIndex]">
+                        <mat-chip-option value=5>ダイヤ</mat-chip-option>
+                        <mat-chip-option value=4>金</mat-chip-option>
+                        <mat-chip-option value=3>銀</mat-chip-option>
+                        <mat-chip-option value=2>銅</mat-chip-option>
+                        <mat-chip-option value=1>鉄</mat-chip-option>
+                      </mat-chip-listbox>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </mat-expansion-panel>
+            <mat-expansion-panel class="remove-mat-expansion-panel-padding" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  {{ score.name4 }}
+                </mat-panel-title>
+                <mat-panel-description>
+                  スコア:{{ score4[courseIndex] }} パット:{{ putscore4[courseIndex] }}
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <div class="container">
+                <div class="row justify-content-center">
+                  <div class="col text-center">
+                    <small>スコア</small>
+                  </div>
+                </div>
+                <div class="row justify-content-center mb-1">
+                  <div class="col-2">
+                    <div class="d-grid">
+                      <button mat-mini-fab color="accent" (click)="setScoreCounter5Down(courseIndex, _index_name4)">
+                        <i class="material-icons">keyboard_double_arrow_down</i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="col-2">
+                    <div class="d-grid">
+                      <button mat-mini-fab color="accent" (click)="setScoreCounter1Down(courseIndex, _index_name4)">
+                        <i class="material-icons">keyboard_arrow_down</i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="col-2">
+                    <h2 class="text-center align-items-center">{{ score4[courseIndex] }}</h2>
+                  </div>
+                  <div class="col-2">
+                    <div class="d-grid">
+                      <button mat-mini-fab color="accent" (click)="setScoreCounter1Up(courseIndex, _index_name4)">
+                        <i class="material-icons">keyboard_arrow_up</i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="col-2">
+                    <div class="d-grid">
+                      <button mat-mini-fab color="accent" (click)="setScoreCounter5Up(courseIndex, _index_name4)">
+                        <i class="material-icons">keyboard_double_arrow_up</i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="row justify-content-center mb-2">
+                  <div class="row justify-content-center">
+                    <div class="col text-center">
+                      <small>パット</small>
+                    </div>
+                  </div>
+                  <div class="col-2">
+                  </div>
+                  <div class="col-2">
+                    <div class="d-grid">
+                      <button mat-mini-fab color="basic" (click)="setPutscoreCounter1Down(courseIndex, _index_name4)">
+                        <i class="material-icons">keyboard_arrow_down</i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="col-2">
+                    <h2 class="text-center align-items-center">{{ putscore4[courseIndex] }}</h2>
+                  </div>
+                  <div class="col-2">
+                    <div class="d-grid">
+                      <button mat-mini-fab color="basic" (click)="setPutscoreCounter1Up(courseIndex, _index_name4)">
+                        <i class="material-icons">keyboard_arrow_up</i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="col-2">
+                  </div>
+                </div>
+                <div class="row justify-content-center">
+                  <div class="col-auto">
+                    <p class="col-auto">
+                      <mat-chip-listbox aria-label="olympic1 selection" [(ngModel)]="olympic4[courseIndex]">
+                        <mat-chip-option value=5>ダイヤ</mat-chip-option>
+                        <mat-chip-option value=4>金</mat-chip-option>
+                        <mat-chip-option value=3>銀</mat-chip-option>
+                        <mat-chip-option value=2>銅</mat-chip-option>
+                        <mat-chip-option value=1>鉄</mat-chip-option>
+                      </mat-chip-listbox>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </mat-expansion-panel>
+          </mat-accordion>
+          <br>
           <div class="container">
             <div class="row justify-content-center">
               <div class="col-6">
@@ -997,7 +1004,6 @@
             </div>
           </div>
         </div>
-        <br>
       </div>
     </div>
   </div>
@@ -1027,6 +1033,125 @@
               <div class="col-9">
                 <div class="d-grid">
                   <button type="button" class="btn btn-primary" data-bs-dismiss="modal">閉じる</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- 設定ダイアログ -->
+  <div class="modal fade" id="settingModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+      <div class="modal-content">
+        <nav class="navbar navbar-dark bg-primary sticky-top" aria-label="nabverTop">
+          <div class="container">
+            <div class="col-4"></div>
+            <div class="col-4 d-flex align-items-center justify-content-center">
+              <div class="text-center" style="color: #ffffff;">
+                <h2>設定画面</h2>
+              </div>
+            </div>
+            <div class="col-4"></div>
+          </div>
+        </nav>
+        <div class="modal-body">
+          <div class="container">
+            <div class="row my-2">
+              <div class="col">
+                <div class="border-bottom">ラスベガスルール</div>
+              </div>
+            </div>
+            <div class="row my-3">
+              <div class="col">
+                <span><mat-slide-toggle [(ngModel)]="isLas2stories">同点の場合は次に持ち越し</mat-slide-toggle></span>
+                <span><button type="button" class="material-icons small-size help-botton" data-bs-toggle="collapse" data-bs-target="#lasvegasRule1" aria-expanded="false">help</button></span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="collapse" id="lasvegasRule1">
+                  <div class="card card-body small">
+                    AチームBチームの得点が同じだった場合、次のホールの得点を倍にします。
+                    同点が続く場合はさらに次のホールに持ち越しとなります。<br><br>
+                    (例)1番2番ホールが同点の場合、3番ホールの得点は3倍となる。
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row my-3">
+              <div class="col">
+                <mat-slide-toggle [(ngModel)]="isLasPair">組み合わせをローテーション</mat-slide-toggle>
+                <span><button type="button" class="material-icons small-size help-botton" data-bs-toggle="collapse" data-bs-target="#lasvegasRule2" aria-expanded="false">help</button></span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="collapse" id="lasvegasRule2">
+                  <div class="card card-body small">
+                    選択がOFFの場合、1位と4位をAチーム、2位と3位をBチームとします。
+                    組み合わせをローテーションしたい場合は、選択をONにしてください。<br><br>
+                    (例)1番ホールは1位と4位をAチーム、2番ホールは1位と3位をAチーム、3番ホールは1位と2位をAチーム、4番ホールは1位と4位を…以下繰り返し。
+                  </div>
+                </div>
+              </div>
+            </div>
+            <br>
+            <div class="row my-2">
+              <div class="col">
+                <div class="border-bottom">オリンピックルール</div>
+              </div>
+            </div>
+            <div class="row my-3">
+              <div class="col">
+                <mat-slide-toggle [(ngModel)]="isOlyNearping">ニアピン</mat-slide-toggle>
+                <span><button type="button" class="material-icons small-size help-botton" data-bs-toggle="collapse" data-bs-target="#olympicRule1" aria-expanded="false">help</button></span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="collapse" id="olympicRule1">
+                  <div class="card card-body small">
+                    ニアピンを設定する場合は、選択をONにしてください。
+                    <br><br>
+                    ニアピン:1打目がグリーンに乗った人の中で一番ピンに近い人が、パー以内でホールアウトした場合に得点が入るルール。
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row my-2">
+              <div class="col">
+                <div class="border-bottom">共通設定</div>
+              </div>
+            </div>
+            <div class="row my-3">
+              <div class="col-3 mt-1">
+                レート
+              </div>
+              <div class="col-3">
+                <input [(ngModel)]="rate" type="number" name="rate" class="form-control form-control-sm" placeholder="レート">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="collapse" id="olympicRule1">
+                  <div class="card card-body small">
+                    ニアピンを設定する場合は、選択をONにしてください。
+                    <br><br>
+                    ニアピン:1打目がグリーンに乗った人の中で一番ピンに近い人が、パー以内でホールアウトした場合に得点が入るルール。
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <div class="container">
+            <div class="row justify-content-center">
+              <div class="col-6">
+                <div class="d-grid">
+                  <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="save()">閉じる</button>
                 </div>
               </div>
             </div>

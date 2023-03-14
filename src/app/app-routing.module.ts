@@ -10,6 +10,7 @@ import { ScoreModule } from './score/score.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NewgameComponent } from './newgame/newgame.component';
 import { NewgameModule } from './newgame/newgame.module';
+import { AccountComponent } from './account/account.component';
 
 const routes: Routes = [
   {
@@ -43,7 +44,11 @@ const routes: Routes = [
   { path: 'logout',
     component: LogoutComponent,
     canActivate: [AuthGuard]
-  }
+  },
+  { path: 'account',
+  component: AccountComponent,
+  canActivate: [AuthGuard]
+}
 ];
 
 @NgModule({
