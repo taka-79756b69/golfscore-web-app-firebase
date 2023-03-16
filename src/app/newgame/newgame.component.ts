@@ -118,8 +118,15 @@ export class NewgameComponent {
       olympic2: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
       olympic3: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
       olympic4: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      nearping1: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      nearping2: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      nearping3: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      nearping4: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
       rate: 100,
-      timestamp: serverTimestamp()
+      timestamp: serverTimestamp(),
+      isOlyNearping: false,
+      isLas2stories: false,
+      isLasPair: false,
     });
 
     this.saving = true

@@ -44,6 +44,12 @@ export class ScorelistComponent implements OnInit {
   olympic3: any
   olympic4: any
 
+  //各プレーヤーのニアピン(ドキュメント)
+  nearping1:any
+  nearping2:any
+  nearping3:any
+  nearping4:any
+
   //コースNo(ドキュメント)
   no: any[] = new Array()
 
@@ -138,6 +144,7 @@ export class ScorelistComponent implements OnInit {
   lasvegasTotal4 = 0
 
   //LASVEGAS
+  //設定画面用
   isLas2stories = false
   isLasPair = false
 
@@ -146,6 +153,10 @@ export class ScorelistComponent implements OnInit {
   lasvegasTotal2_rated = 0
   lasvegasTotal3_rated = 0
   lasvegasTotal4_rated = 0
+
+  //LASVEGASのn階建て
+  noStorey = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+  noStoreyNow = 0
 
   //フォームデータ
   checkoutForm: any
@@ -161,6 +172,9 @@ export class ScorelistComponent implements OnInit {
 
   //レートのモデルを定義
   rate: any
+
+  //メモ
+  memo: any
 
   //ドキュメントID
   _id: any
@@ -217,9 +231,17 @@ export class ScorelistComponent implements OnInit {
     this.order1st = data.order1st
     this.playerArray.push(this._index_name1, this._index_name2, this._index_name3, this._index_name4)
     this.rate = data.rate
-    this.isOlyNearping = data.isOlyNearping
-    this.isLas2stories = data.isLas2stories
-    this.isLasPair = data.isLasPair
+
+    //2023年3月以降追加分はDBに項目がないためundifinedになる
+    //undifinedの場合、初期値を設定する
+    this.nearping1 = data.nearping1 == undefined ? [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] : data.nearping1
+    this.nearping2 = data.nearping2 == undefined ? [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] : data.nearping2
+    this.nearping3 = data.nearping3 == undefined ? [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] : data.nearping3
+    this.nearping4 = data.nearping4 == undefined ? [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] : data.nearping4
+    this.isOlyNearping = data.isOlyNearping == undefined ? false : data.isOlyNearping
+    this.isLas2stories = data.isLas2stories == undefined ? false : data.isLas2stories
+    this.isLasPair = data.isLasPair == undefined ? false : data.isLasPair
+    this.memo = data.memo == undefined ? "" : data.memo
     this.save()
   }
 
@@ -476,6 +498,13 @@ export class ScorelistComponent implements OnInit {
     this.total3 = this.setTotal3()
     this.total4 = this.setTotal4()
 
+    //ラスベガスチームと2階建ての設定を初期化
+    this.resetDataset()
+
+    //undifinedになる可能性があるものは置き換える
+    this.chipsUndefinedReplace()
+
+    //画面表示内容の制御
     this.setBadgeOrder()
     this.setLasvegasTeam()
     this.setOlympicTotal()
@@ -532,28 +561,67 @@ export class ScorelistComponent implements OnInit {
    * @param teamB チームBのスコア
    */
   setLasvegasTotal_set_display(index: any, teamA: any, teamB: any){
+
+    //Aチームのラスベガススコア
+    let teamAScore = 0
+    //Bチームのラスベガススコア
+    let teamBScore = 0
+
+    let p1Score = 0
+    let p2Score = 0
+    let p3Score = 0
+    let p4Score = 0
+
     if(this.lasvegas1[index] == 0){
-      this.lasvegasTotal1 = this.lasvegasTotal1 + (this.getLasTeamScore(teamB) - this.getLasTeamScore(teamA))
+      teamAScore += this.getLasTeamScore(teamB) - this.getLasTeamScore(teamA)
+      p1Score = this.getLasTeamScore(teamB) - this.getLasTeamScore(teamA)
     }else{
-      this.lasvegasTotal1 = this.lasvegasTotal1 + (this.getLasTeamScore(teamA) - this.getLasTeamScore(teamB))
+      teamBScore += this.getLasTeamScore(teamA) - this.getLasTeamScore(teamB)
+      p1Score = this.getLasTeamScore(teamA) - this.getLasTeamScore(teamB)
     }
 
     if(this.lasvegas2[index] == 0){
-      this.lasvegasTotal2 = this.lasvegasTotal2 + (this.getLasTeamScore(teamB) - this.getLasTeamScore(teamA))
+      teamAScore += this.getLasTeamScore(teamB) - this.getLasTeamScore(teamA)
+      p2Score = this.getLasTeamScore(teamB) - this.getLasTeamScore(teamA)
     }else{
-      this.lasvegasTotal2 = this.lasvegasTotal2 + (this.getLasTeamScore(teamA) - this.getLasTeamScore(teamB))
+      teamBScore += this.getLasTeamScore(teamA) - this.getLasTeamScore(teamB)
+      p2Score = this.getLasTeamScore(teamA) - this.getLasTeamScore(teamB)
     }
 
     if(this.lasvegas3[index] == 0){
-      this.lasvegasTotal3 = this.lasvegasTotal3 + (this.getLasTeamScore(teamB) - this.getLasTeamScore(teamA))
+      teamAScore += this.getLasTeamScore(teamB) - this.getLasTeamScore(teamA)
+      p3Score = this.getLasTeamScore(teamB) - this.getLasTeamScore(teamA)
     }else{
-      this.lasvegasTotal3 = this.lasvegasTotal3 + (this.getLasTeamScore(teamA) - this.getLasTeamScore(teamB))
+      teamBScore += this.getLasTeamScore(teamA) - this.getLasTeamScore(teamB)
+      p3Score = this.getLasTeamScore(teamA) - this.getLasTeamScore(teamB)
     }
 
     if(this.lasvegas4[index] == 0){
-      this.lasvegasTotal4 = this.lasvegasTotal4 + (this.getLasTeamScore(teamB) - this.getLasTeamScore(teamA))
+      teamAScore += this.getLasTeamScore(teamB) - this.getLasTeamScore(teamA)
+      p4Score = this.getLasTeamScore(teamB) - this.getLasTeamScore(teamA)
     }else{
-      this.lasvegasTotal4 = this.lasvegasTotal4 + (this.getLasTeamScore(teamA) - this.getLasTeamScore(teamB))
+      teamBScore += this.getLasTeamScore(teamA) - this.getLasTeamScore(teamB)
+      p4Score = this.getLasTeamScore(teamA) - this.getLasTeamScore(teamB)
+    }
+
+    if(this.isLas2stories){
+      //同点の場合次のコースの倍率を上げる
+      if(teamAScore==teamBScore){
+        this.noStoreyNow += 1
+        this.noStorey[index+1] += this.noStoreyNow
+      }else{
+        //同点でない場合倍率を元に戻す
+        this.noStoreyNow = 0
+        this.lasvegasTotal1 = this.lasvegasTotal1 + p1Score * this.noStorey[index]
+        this.lasvegasTotal2 = this.lasvegasTotal2 + p2Score * this.noStorey[index]
+        this.lasvegasTotal3 = this.lasvegasTotal3 + p3Score * this.noStorey[index]
+        this.lasvegasTotal4 = this.lasvegasTotal4 + p4Score * this.noStorey[index]
+      }
+    }else{
+      this.lasvegasTotal1 = this.lasvegasTotal1 + p1Score
+      this.lasvegasTotal2 = this.lasvegasTotal2 + p2Score
+      this.lasvegasTotal3 = this.lasvegasTotal3 + p3Score
+      this.lasvegasTotal4 = this.lasvegasTotal4 + p4Score
     }
   }
 
@@ -588,13 +656,25 @@ export class ScorelistComponent implements OnInit {
     for (let tmp of this.olympic1){
       this.olympicTotal1 += +tmp
     }
+    for (let tmp of this.nearping1){
+      this.olympicTotal1 += +tmp
+    }
     for (let tmp of this.olympic2){
+      this.olympicTotal2 += +tmp
+    }
+    for (let tmp of this.nearping2){
       this.olympicTotal2 += +tmp
     }
     for (let tmp of this.olympic3){
       this.olympicTotal3 += +tmp
     }
+    for (let tmp of this.nearping3){
+      this.olympicTotal3 += +tmp
+    }
     for (let tmp of this.olympic4){
+      this.olympicTotal4 += +tmp
+    }
+    for (let tmp of this.nearping4){
       this.olympicTotal4 += +tmp
     }
 
@@ -989,78 +1069,6 @@ export class ScorelistComponent implements OnInit {
     }
   }
 
-  olympicSelect1(courseNo: any, olympic: any){
-
-    if(this.olympic1[courseNo] == olympic){
-      this.olympic1[courseNo] = 0
-    }else{
-      this.olympic1[courseNo] = olympic
-    }
-  }
-
-  olympicSelect2(courseNo: any, olympic: any){
-
-    if(this.olympic2[courseNo] == olympic){
-      this.olympic2[courseNo] = 0
-    }else{
-      this.olympic2[courseNo] = olympic
-    }
-  }
-
-  olympicSelect3(courseNo: any, olympic: any){
-
-    if(this.olympic3[courseNo] == olympic){
-      this.olympic3[courseNo] = 0
-    }else{
-      this.olympic3[courseNo] = olympic
-    }
-  }
-
-  olympicSelect4(courseNo: any, olympic: any){
-
-    if(this.olympic4[courseNo] == olympic){
-      this.olympic4[courseNo] = 0
-    }else{
-      this.olympic4[courseNo] = olympic
-    }
-  }
-
-  orderSelect1(order: any){
-
-    if(this.order1st[this._index_name1] == order){
-      this.order1st[this._index_name1] = 0
-    }else{
-      this.order1st[this._index_name1] = order
-    }
-  }
-
-  orderSelect2(order: any){
-
-    if(this.order1st[this._index_name2] == order){
-      this.order1st[this._index_name2] = 0
-    }else{
-      this.order1st[this._index_name2] = order
-    }
-  }
-
-  orderSelect3(order: any){
-
-    if(this.order1st[this._index_name3] == order){
-      this.order1st[this._index_name3] = 0
-    }else{
-      this.order1st[this._index_name3] = order
-    }
-  }
-
-  orderSelect4(order: any){
-
-    if(this.order1st[this._index_name4] == order){
-      this.order1st[this._index_name4] = 0
-    }else{
-      this.order1st[this._index_name4] = order
-    }
-  }
-
   /**
    * フォームsubmit処理
    * 入力内容をFirestoreに上書きする
@@ -1068,36 +1076,7 @@ export class ScorelistComponent implements OnInit {
    */
   onSubmit(form: any) {
 
-    //オーダーが未設定の場合undefinedになるため
-    //undifinedの場合は、0に置き換えてから保存する
-    for(let i=0; i<=3; i++) {
-      if (this.order1st[i] == undefined){
-        this.order1st[i] = 0
-      }
-    }
-
-    //オリンピックが未設定の場合undefinedになるため
-    //undifinedの場合は、0に置き換えてから保存する
-    for(let i=0; i<=17; i++) {
-      if (this.olympic1[i] == undefined){
-        this.olympic1[i] = 0
-      }
-    }
-    for(let i=0; i<=17; i++) {
-      if (this.olympic2[i] == undefined){
-        this.olympic2[i] = 0
-      }
-    }
-    for(let i=0; i<=17; i++) {
-      if (this.olympic3[i] == undefined){
-        this.olympic3[i] = 0
-      }
-    }
-    for(let i=0; i<=17; i++) {
-      if (this.olympic4[i] == undefined){
-        this.olympic4[i] = 0
-      }
-    }
+    this.chipsUndefinedReplace()
 
     // リクエスト送信用にJSON作成
     this.checkoutForm = ({
@@ -1118,10 +1097,15 @@ export class ScorelistComponent implements OnInit {
       olympic2: this.olympic2,
       olympic3: this.olympic3,
       olympic4: this.olympic4,
+      nearping1: this.nearping1,
+      nearping2: this.nearping2,
+      nearping3: this.nearping3,
+      nearping4: this.nearping4,
       rate: this.rate,
       isOlyNearping: this.isOlyNearping,
       isLas2stories: this.isLas2stories,
-      isLasPair: this.isLasPair
+      isLasPair: this.isLasPair,
+      memo: this.memo
     });
 
     this.saving = true
@@ -1132,5 +1116,62 @@ export class ScorelistComponent implements OnInit {
       this.saving = false
       console.log('[log] POST Error: '+error)
     }
+  }
+
+  /**
+   * undifinedを初期値に置き換える
+   * CHIPSコンポーネントは値未選択にするとundifinedになるため初期値に置き換える
+   */
+  chipsUndefinedReplace(){
+    //オーダーが未設定の場合undefinedになるため
+    //undifinedの場合は、0に置き換えてから保存する
+    for(let i=0; i<=3; i++) {
+      if (this.order1st[i] == undefined){
+        this.order1st[i] = 0
+      }
+    }
+
+    //オリンピックが未設定の場合undefinedになるため
+    //undifinedの場合は、0に置き換えてから保存する
+    for(let i=0; i<=17; i++) {
+      if (this.olympic1[i] == undefined){
+        this.olympic1[i] = 0
+      }
+      if (this.olympic2[i] == undefined){
+        this.olympic2[i] = 0
+      }
+      if (this.olympic3[i] == undefined){
+        this.olympic3[i] = 0
+      }
+      if (this.olympic4[i] == undefined){
+        this.olympic4[i] = 0
+      }
+      if (this.nearping1[i] == undefined){
+        this.nearping1[i] = 0
+      }
+      if (this.nearping2[i] == undefined){
+        this.nearping2[i] = 0
+      }
+      if (this.nearping3[i] == undefined){
+        this.nearping3[i] = 0
+      }
+      if (this.nearping4[i] == undefined){
+        this.nearping4[i] = 0
+      }
+    }
+  }
+
+  /**
+   * 必要な項目をリセット
+   * ラスベガスのチームと2階建ての設定をsave()する毎にリセットする
+   * 入力したスコアを削除したりすると値が変わることがあるため
+   */
+  resetDataset(){
+    this.noStoreyNow = 0
+    this.noStorey = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+    this.lasvegas1 = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    this.lasvegas2 = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    this.lasvegas3 = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    this.lasvegas4 = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
   }
 }

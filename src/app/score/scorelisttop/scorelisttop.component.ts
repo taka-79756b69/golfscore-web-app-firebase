@@ -18,15 +18,6 @@ export class ScorelisttopComponent {
 
   delDocId: any
 
-  _index_id = 0
-  _index_courseName = 1
-  _index_playDate = 2
-  _index_player = 3
-  _index_name1 = 4
-  _index_name2 = 5
-  _index_name3 = 6
-  _index_name4 = 7
-
   /**
    * コンストラクタ
    * AngularFirestoreサービスを定義
