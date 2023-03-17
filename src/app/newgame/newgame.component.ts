@@ -2,16 +2,8 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { serverTimestamp } from "firebase/firestore"
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { DateAdapter, NativeDateAdapter } from '@angular/material/core';
 import { Router } from '@angular/router';
-import { User } from './user';
 import { getAuth } from '@angular/fire/auth';
-
-export class MyDateAdapter extends NativeDateAdapter {
-  override getDateNames(): string[] {
-    return [...Array(31).keys()].map((i) => String(i + 1));
-  }
-}
 
 @Component({
   selector: 'app-newgame',
@@ -22,13 +14,18 @@ export class NewgameComponent {
 
   constructor(
     private router: Router,
-    private firestore: AngularFirestore,
-    dateAdapter: DateAdapter<NativeDateAdapter>) {
-    dateAdapter.setLocale('ja-JP');
+    private firestore: AngularFirestore,) {
   }
 
-  //modelの初期化
-  user: User = { name1: '', name2: '', name3: '', name4: '', playDate: new Date(), courseName: '', player: 0, inout: 0 };
+  //初期化
+  name1 = ''
+  name2 = ''
+  name3 = ''
+  name4 = ''
+  playDate = 0
+  courseName = ''
+  player = 0
+  inout = 0
 
   //NgFormの作成
   form!: NgForm;
@@ -38,9 +35,6 @@ export class NewgameComponent {
 
   //バリデーション
   validate = true
-
-  //プレイヤー人数
-  player = 0
 
   //フォーム
   checkoutForm: any
@@ -66,40 +60,40 @@ export class NewgameComponent {
   /**
    * フォーム入力内容で新規作成
    * 空のスコア入力データをDBに作成する。
-   * @param form
    */
-  onSubmit(form: any) {
+  onSubmit() {
 
+    debugger
     this.saving = true
 
     //1000で割って日付を保存
-    let savePlayDate = form.value.playDate / 1000
+    let savePlayDate = this.playDate
 
-    if(form.value.name1 != ''){
+    if(this.name1 != ''){
       this.player++
     }
-    if(form.value.name2 != ''){
+    if(this.name2 != ''){
       this.player++
     }
-    if(form.value.name3 != ''){
+    if(this.name3 != ''){
       this.player++
     }
-    if(form.value.name4 != ''){
+    if(this.name4 != ''){
       this.player++
     }
 
     // リクエスト送信用にJSON作成
     this.checkoutForm = ({
 
-      name1: form.value.name1,
-      name2: form.value.name2,
-      name3: form.value.name3,
-      name4: form.value.name4,
-      courseName: form.value.courseName,
+      name1: this.name1,
+      name2: this.name2,
+      name3: this.name3,
+      name4: this.name4,
+      courseName: this.courseName,
       player: this.player,
       playDate: savePlayDate,
       order1st: [0,0,0,0],
-      no: (form.value.inout ?
+      no: (this.inout ?
         ["10th","11th","12th","13th","14th","15th","16th","17th","18th","1st","2nd","3rd","4th","5th","6th","7th","8th","9th"]
         : ["1st","2nd","3rd","4th","5th","6th","7th","8th","9th","10th","11th","12th","13th","14th","15th","16th","17th","18th"]),
       score1: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -157,10 +151,10 @@ export class NewgameComponent {
    * @param name2 お名前2
    * @param name3 お名前3
    */
-  inputCheck(name1: any, name2: any, name3: any) {
+  inputCheck() {
 
     this.validate = true
-    if(name1 == "" || name2 == "" || name3 == ""){
+    if(this.name1 == "" || this.name2 == "" || this.name3 == ""){
       //console.log("error")
     } else {
       this.validate = false

@@ -1,8 +1,28 @@
 /** newgame.component.scss */
 .table>:not(caption)>*>*{
-  padding-top: 0rem;
-  padding-left: 1rem;
-  padding-bottom: 0rem;
-  padding-right: 0rem;
-  margin-bottom: -10px;
+  //padding-top: 0rem;
+  //padding-left: 1rem;
+  //padding-bottom: 0rem;
+  //padding-right: 0rem;
+  margin-bottom: 0px;
+}
+
+.form-control{
+  background-color: white;
+  width: 100%;
+  margin-right: 1rem;
+}
+
+.card-body{
+  margin: 10px;
+}
+
+.mat-icon-error{
+  color: red;
+  vertical-align: -6px;
+}
+
+.mat-icon-priority{
+  color: #0cb528;
+  vertical-align: -6px;
 }
