@@ -176,6 +176,9 @@ export class ScorelistComponent implements OnInit {
   //メモ
   memo: any
 
+  //プレイ中のコースインデックス
+  nowPlaying = 0
+
   //ドキュメントID
   _id: any
 
@@ -903,6 +906,7 @@ export class ScorelistComponent implements OnInit {
                 p2point = +this.score2[i-1] * 10 + +this.order[i-1][this._index_name2]
                 p3point = +this.score3[i-1] * 10 + +this.order[i-1][this._index_name3]
                 p4point = +this.score4[i-1] * 10 + +this.order[i-1][this._index_name4]
+                this.nowPlaying = i
               }
 
             this.setBagdeOrder(i, p1point, p2point, p3point, p4point, this.isLasPair)

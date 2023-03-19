@@ -19,7 +19,8 @@
         <ng-container *ngFor="let _score1 of score1; let i = index">
           <tr>
             <th scope="row" class="d-grid gap-2 mt-3">
-              <button type="button" mat-raised-button color="primary" data-bs-toggle="modal" data-bs-target="#course1Modal" data-bs-whatever="0" (click)="setDialogIndex(i)">
+              <button type="button" mat-raised-button color="primary" data-bs-toggle="modal" data-bs-target="#course1Modal" data-bs-whatever="0" (click)="setDialogIndex(i)"
+              [ngStyle] = "{ 'backgroundColor': nowPlaying == i ? '#d63384' : ''}">
                 <span class="enFont">{{ no[i] }}</span>
                 <ng-container *ngIf="noStorey[i] != 1">
                   <span class="position-absolute top-100 start-0 badge rounded-pill badgeLasvegas2storiesColor">
@@ -548,7 +549,11 @@
               <i class="material-icons small-size">save_as</i> スコア保存
             </button>
           </div>
-          <div class="col"></div>
+          <div class="col text-end">
+            <button class="btn btn-sm btn-primary mb-3 mr-3" type="button" data-bs-toggle="modal" data-bs-target="#settingModal" style="width: 35px; height: 35px;">
+              <i class="material-icons small-size">settings</i>
+            </button>
+          </div>
         </div>
         <div class="row">
           <div class="col"></div>
@@ -559,11 +564,7 @@
               </button>
             </a>
           </div>
-          <div class="col text-end">
-            <button class="btn btn-sm btn-primary mb-3 mr-3" type="button" data-bs-toggle="modal" data-bs-target="#settingModal" style="width: 35px; height: 35px;">
-              <i class="material-icons small-size">settings</i>
-            </button>
-          </div>
+          <div class="col"></div>
         </div>
       </div>
     </div>
