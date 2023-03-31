@@ -879,6 +879,7 @@ export class ScorelistComponent implements OnInit {
         if(!this.orderError){
           this.setBagdeOrder(i, this.order1st[this._index_name1], this.order1st[this._index_name2]
             , this.order1st[this._index_name3], this.order1st[this._index_name4], this.isLasPair)
+          this.nowPlaying = 0
         }
       } else {
         //最初のコース以外の場合、スコアを見て判定する

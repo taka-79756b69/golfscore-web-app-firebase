@@ -18,7 +18,8 @@
         <ng-container *ngFor="let _score1 of score1; let i = index">
           <tr>
             <th scope="row" class="d-grid gap-2 mt-3">
-              <button type="button" mat-raised-button color="primary" data-bs-toggle="modal" data-bs-target="#course1Modal" data-bs-whatever="0" (click)="setDialogIndex(i)">
+              <button type="button" mat-raised-button color="primary" data-bs-toggle="modal" data-bs-target="#course1Modal" data-bs-whatever="0" (click)="setDialogIndex(i)"
+              [ngStyle] = "{ 'backgroundColor': nowPlaying == i ? '#d63384' : ''}">
                 <span class="enFont">{{ no[i] }}</span>
               </button>
             </th>
@@ -29,7 +30,7 @@
                     <button type="button" class="btn btn-light position-relative">
                       <span class="enFontBold">{{ score1[i] }}</span>
                       <div *ngIf="order[i][p] != 0">
-                        <span class="position-absolute top-0 start-0 translate-middle badge rounded-pill bg-danger">
+                        <span class="position-absolute top-0 start-0 translate-middle badge rounded-pill badgeOrderCustomColor" [ngStyle] = "{ 'backgroundColor': nowPlaying == i ? '' : '#ffc6ff'}">
                           <span class="enFont">{{ order[i][p] }}</span>
                           <span class="visually-hidden">unread messages</span>
                         </span>
@@ -63,17 +64,23 @@
                         <ng-container *ngSwitchDefault>
                         </ng-container>
                       </ng-container>
-                      <span class="position-absolute top-100 start-100 translate-middle badge rounded-pill text-bg-success">
-                        <span class="enFontSmall">{{ putscore1[i] }}</span>
-                        <span class="visually-hidden">unread messages</span>
-                      </span>
+                      <ng-container *ngIf="order[i][p]!=0 && score1[i]!=0">
+                        <span class="position-absolute top-100 start-100 translate-middle badge rounded-pill text-bg-success">
+                          <span class="enFontSmall">{{ putscore1[i] }}</span>
+                        </span>
+                      </ng-container>
+                      <ng-container *ngIf="nearping1[i]==3">
+                        <span class="position-absolute top-100 start-0 translate-middle badge rounded-pill text-bg-primary">
+                          <span class="small">ニア</span>
+                        </span>
+                      </ng-container>
                     </button>
                   </ng-container>
                   <ng-container *ngIf="p == 1">
                     <button type="button" class="btn btn-light position-relative">
                       <span class="enFontBold">{{ score2[i] }}</span>
                       <div *ngIf="order[i][p] != 0">
-                        <span class="position-absolute top-0 start-0 translate-middle badge rounded-pill bg-danger">
+                        <span class="position-absolute top-0 start-0 translate-middle badge rounded-pill badgeOrderCustomColor" [ngStyle] = "{ 'backgroundColor': nowPlaying == i ? '' : '#ffc6ff'}">
                           <span class="enFont">{{ order[i][p] }}</span>
                           <span class="visually-hidden">unread messages</span>
                         </span>
@@ -107,17 +114,23 @@
                         <ng-container *ngSwitchDefault>
                         </ng-container>
                       </ng-container>
-                      <span class="position-absolute top-100 start-100 translate-middle badge rounded-pill text-bg-success">
-                        <span class="enFontSmall">{{ putscore2[i] }}</span>
-                        <span class="visually-hidden">unread messages</span>
-                      </span>
+                      <ng-container *ngIf="order[i][p]!=0 && score2[i]!=0">
+                        <span class="position-absolute top-100 start-100 translate-middle badge rounded-pill text-bg-success">
+                          <span class="enFontSmall">{{ putscore2[i] }}</span>
+                        </span>
+                      </ng-container>
+                      <ng-container *ngIf="nearping2[i]==3">
+                        <span class="position-absolute top-100 start-0 translate-middle badge rounded-pill text-bg-primary">
+                          <span class="small">ニア</span>
+                        </span>
+                      </ng-container>
                     </button>
                   </ng-container>
                   <ng-container *ngIf="p == 2">
                     <button type="button" class="btn btn-light position-relative">
                       <span class="enFontBold">{{ score3[i] }}</span>
                       <div *ngIf="order[i][p] != 0">
-                        <span class="position-absolute top-0 start-0 translate-middle badge rounded-pill bg-danger">
+                        <span class="position-absolute top-0 start-0 translate-middle badge rounded-pill badgeOrderCustomColor" [ngStyle] = "{ 'backgroundColor': nowPlaying == i ? '' : '#ffc6ff'}">
                           <span class="enFont">{{ order[i][p] }}</span>
                           <span class="visually-hidden">unread messages</span>
                         </span>
@@ -151,10 +164,16 @@
                         <ng-container *ngSwitchDefault>
                         </ng-container>
                       </ng-container>
-                      <span class="position-absolute top-100 start-100 translate-middle badge rounded-pill text-bg-success">
-                        <span class="enFontSmall">{{ putscore3[i] }}</span>
-                        <span class="visually-hidden">unread messages</span>
-                      </span>
+                      <ng-container *ngIf="order[i][p]!=0 && score3[i]!=0">
+                        <span class="position-absolute top-100 start-100 translate-middle badge rounded-pill text-bg-success">
+                          <span class="enFontSmall">{{ putscore3[i] }}</span>
+                        </span>
+                      </ng-container>
+                      <ng-container *ngIf="nearping3[i]==3">
+                        <span class="position-absolute top-100 start-0 translate-middle badge rounded-pill text-bg-primary">
+                          <span class="small">ニア</span>
+                        </span>
+                      </ng-container>
                     </button>
                   </ng-container>
                 </div>
@@ -442,7 +461,7 @@
                   <div class="col-2">
                   </div>
                 </div>
-                <div class="row justify-content-center" style="border-bottom: 1px solid #dee2e6">
+                <div class="row justify-content-center">
                   <p class="col-auto">
                     <mat-chip-listbox aria-label="olympic1 selection" [(ngModel)]="olympic1[courseIndex]">
                       <mat-chip-option value=5>ダイヤ</mat-chip-option>
@@ -453,6 +472,15 @@
                     </mat-chip-listbox>
                   </p>
                 </div>
+                <ng-container *ngIf="isOlyNearping">
+                  <div class="row justify-content-center">
+                    <p class="col-auto">
+                      <mat-chip-listbox aria-label="nearping1 selection" [(ngModel)]="nearping1[courseIndex]">
+                        <mat-chip-option value=3 color="warn">ニアピン</mat-chip-option>
+                      </mat-chip-listbox>
+                    </p>
+                  </div>
+                </ng-container>
               </div>
             </mat-expansion-panel>
             <mat-expansion-panel class="remove-mat-expansion-panel-padding" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
@@ -531,7 +559,7 @@
                   <div class="col-2">
                   </div>
                 </div>
-                <div class="row justify-content-center" style="border-bottom: 1px solid #dee2e6">
+                <div class="row justify-content-center">
                   <p class="col-auto">
                     <mat-chip-listbox aria-label="olympic1 selection" [(ngModel)]="olympic2[courseIndex]">
                       <mat-chip-option value=5>ダイヤ</mat-chip-option>
@@ -542,6 +570,15 @@
                     </mat-chip-listbox>
                   </p>
                 </div>
+                <ng-container *ngIf="isOlyNearping">
+                  <div class="row justify-content-center">
+                    <p class="col-auto">
+                      <mat-chip-listbox aria-label="nearping2 selection" [(ngModel)]="nearping2[courseIndex]">
+                        <mat-chip-option value=3 color="warn">ニアピン</mat-chip-option>
+                      </mat-chip-listbox>
+                    </p>
+                  </div>
+                </ng-container>
               </div>
             </mat-expansion-panel>
             <mat-expansion-panel class="remove-mat-expansion-panel-padding" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
@@ -620,7 +657,7 @@
                   <div class="col-2">
                   </div>
                 </div>
-                <div class="row justify-content-center" style="border-bottom: 1px solid #dee2e6">
+                <div class="row justify-content-center">
                   <p class="col-auto">
                     <mat-chip-listbox aria-label="olympic1 selection" [(ngModel)]="olympic3[courseIndex]">
                       <mat-chip-option value=5>ダイヤ</mat-chip-option>
@@ -631,6 +668,15 @@
                     </mat-chip-listbox>
                   </p>
                 </div>
+                <ng-container *ngIf="isOlyNearping">
+                  <div class="row justify-content-center">
+                    <p class="col-auto">
+                      <mat-chip-listbox aria-label="nearping3 selection" [(ngModel)]="nearping3[courseIndex]">
+                        <mat-chip-option value=3 color="warn">ニアピン</mat-chip-option>
+                      </mat-chip-listbox>
+                    </p>
+                  </div>
+                </ng-container>
               </div>
             </mat-expansion-panel>
           </mat-accordion>
@@ -743,6 +789,16 @@
                     ニアピン:1打目がグリーンに乗った人の中で一番ピンに近い人が、パー以内でホールアウトした場合に得点が入るルール。
                   </div>
                 </div>
+              </div>
+            </div>
+            <div class="row my-2">
+              <div class="col">
+                <div class="border-bottom">メモ</div>
+              </div>
+            </div>
+            <div class="row my-3">
+              <div class="col">
+                <textarea class="form-control" [(ngModel)]="memo" placeholder="メモ" rows="3"></textarea>
               </div>
             </div>
           </div>

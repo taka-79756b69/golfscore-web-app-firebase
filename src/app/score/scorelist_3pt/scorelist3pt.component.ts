@@ -101,6 +101,11 @@ export class Scorelist3ptComponent implements OnInit {
   total2: any
   total3: any
 
+  //各プレーヤーのニアピン(ドキュメント)
+  nearping1:any
+  nearping2:any
+  nearping3:any
+
   //OLYMPIC
   olympicTotal1: any
   olympicTotal2: any
@@ -128,6 +133,12 @@ export class Scorelist3ptComponent implements OnInit {
 
   //ドキュメントID
   _id: any
+
+  //メモ
+  memo: any
+
+  //プレイ中のコースインデックス
+  nowPlaying = 0
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -175,6 +186,13 @@ export class Scorelist3ptComponent implements OnInit {
     this.playerArray.push(this._index_name1, this._index_name2, this._index_name3)
     this.rate = data.rate
 
+    //2023年3月以降追加分はDBに項目がないためundifinedになる
+    //undifinedの場合、初期値を設定する
+    this.nearping1 = data.nearping1 == undefined ? [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] : data.nearping1
+    this.nearping2 = data.nearping2 == undefined ? [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] : data.nearping2
+    this.nearping3 = data.nearping3 == undefined ? [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] : data.nearping3
+    this.isOlyNearping = data.isOlyNearping == undefined ? false : data.isOlyNearping
+    this.memo = data.memo == undefined ? "" : data.memo
     this.save()
   }
 
@@ -404,6 +422,9 @@ export class Scorelist3ptComponent implements OnInit {
     this.total2 = this.setTotal2()
     this.total3 = this.setTotal3()
 
+    //undifinedになる可能性があるものは置き換える
+    this.chipsUndefinedReplace()
+
     this.setBadgeOrder()
     this.setOlympicTotal()
     this.setOlympicAndLasvegasAfterRate(this.rate)
@@ -425,10 +446,19 @@ export class Scorelist3ptComponent implements OnInit {
     for (let tmp of this.olympic1){
       this.olympicTotal1 += +tmp
     }
+    for (let tmp of this.nearping1){
+      this.olympicTotal1 += +tmp
+    }
     for (let tmp of this.olympic2){
       this.olympicTotal2 += +tmp
     }
+    for (let tmp of this.nearping2){
+      this.olympicTotal2 += +tmp
+    }
     for (let tmp of this.olympic3){
+      this.olympicTotal3 += +tmp
+    }
+    for (let tmp of this.nearping3){
       this.olympicTotal3 += +tmp
     }
 
@@ -598,6 +628,7 @@ export class Scorelist3ptComponent implements OnInit {
         if(!this.orderError){
           this.setBagdeOrder(i, this.order1st[this._index_name1], this.order1st[this._index_name2]
             , this.order1st[this._index_name3])
+          this.nowPlaying = 0
         }
       } else {
         //最初のコース以外の場合、スコアを見て判定する
@@ -622,6 +653,7 @@ export class Scorelist3ptComponent implements OnInit {
                 p1point = +this.score1[i-1] * 10 + +this.order[i-1][this._index_name1]
                 p2point = +this.score2[i-1] * 10 + +this.order[i-1][this._index_name2]
                 p3point = +this.score3[i-1] * 10 + +this.order[i-1][this._index_name3]
+                this.nowPlaying = i
               }
 
             this.setBagdeOrder(i, p1point, p2point, p3point)
@@ -773,11 +805,18 @@ export class Scorelist3ptComponent implements OnInit {
       score1: this.score1,
       score2: this.score2,
       score3: this.score3,
+      putscore1: this.putscore1,
+      putscore2: this.putscore2,
+      putscore3: this.putscore3,
       olympic1: this.olympic1,
       olympic2: this.olympic2,
       olympic3: this.olympic3,
+      nearping1: this.nearping1,
+      nearping2: this.nearping2,
+      nearping3: this.nearping3,
       rate: this.rate,
       isOlyNearping: this.isOlyNearping,
+      memo: this.memo
     });
 
     this.saving = true
@@ -787,6 +826,43 @@ export class Scorelist3ptComponent implements OnInit {
     } catch (error) {
       this.saving = false
       console.log('[log] POST Error: '+error)
+    }
+  }
+
+  /**
+   * undifinedを初期値に置き換える
+   * CHIPSコンポーネントは値未選択にするとundifinedになるため初期値に置き換える
+   */
+  chipsUndefinedReplace(){
+    //オーダーが未設定の場合undefinedになるため
+    //undifinedの場合は、0に置き換えてから保存する
+    for(let i=0; i<=2; i++) {
+      if (this.order1st[i] == undefined){
+        this.order1st[i] = 0
+      }
+    }
+
+    //オリンピックが未設定の場合undefinedになるため
+    //undifinedの場合は、0に置き換えてから保存する
+    for(let i=0; i<=17; i++) {
+      if (this.olympic1[i] == undefined){
+        this.olympic1[i] = 0
+      }
+      if (this.olympic2[i] == undefined){
+        this.olympic2[i] = 0
+      }
+      if (this.olympic3[i] == undefined){
+        this.olympic3[i] = 0
+      }
+      if (this.nearping1[i] == undefined){
+        this.nearping1[i] = 0
+      }
+      if (this.nearping2[i] == undefined){
+        this.nearping2[i] = 0
+      }
+      if (this.nearping3[i] == undefined){
+        this.nearping3[i] = 0
+      }
     }
   }
 }

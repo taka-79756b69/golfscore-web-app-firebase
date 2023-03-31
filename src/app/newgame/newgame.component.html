@@ -59,10 +59,18 @@
       </tr>
       <tr>
         <td class="text-start">
-          <h3><small>プレイ日付</small></h3>
+          <h3>
+            <small>プレイ日付 </small>
+            <ng-container *ngIf="playDate==''; else playDateElse">
+              <i class="material-icons mat-icon-error">error</i>
+            </ng-container>
+            <ng-template #playDateElse>
+              <i class="material-icons mat-icon-priority">verified</i>
+            </ng-template>
+          </h3>
         </td>
         <td class="text-start">
-          <input type="date" class="form-control enFont my-2" [(ngModel)]="playDate" name="playDate" placeholder="プレイ日付">
+          <input type="date" class="form-control enFont my-2" [(ngModel)]="playDate" name="playDate" placeholder="プレイ日付" (blur)="inputCheck()">
         </td>
       </tr>
       <tr>

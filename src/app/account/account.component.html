@@ -3,7 +3,7 @@
     <h2 class="heading text-center">削除するアカウントを確認します</h2>
     <div class="mb-2" style="color: red;" *ngIf="errorMessage!=''">{{ errorMessage }}</div>
     <div class="form-group mb-3">
-      <input ngModel type="email" name="email" class="form-control" placeholder="メールアドレスを入力" required [(ngModel)]="model.email">
+      <input ngModel type="email" name="email" class="form-control" placeholder="メールアドレスを入力" required [(ngModel)]="model.email" readonly>
     </div>
     <div class="form-group mb-3">
       <input ngModel type="password" name="password" class="form-control" placeholder="パスワードを入力" required autofocus>

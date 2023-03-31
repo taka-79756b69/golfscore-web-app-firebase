@@ -47,6 +47,12 @@ export class AccountComponent implements OnInit {
     this.confirm = true
 
     const { email, password } = form.value;
+
+    if(password==""){
+      this.loading = false
+      this.errorMessage = "パスワードが入力されていません"
+      return
+    }
     try {
       await this.authService.login(email, password)
         .then(() =>

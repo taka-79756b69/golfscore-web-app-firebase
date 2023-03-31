@@ -15,61 +15,55 @@
         <div class="col-10">
           <div class="card">
             <div class="card-body">
-              <h3 class="card-title">
+              <a routerLink="{{ tmp.player }}/{{ tmp.id }}">
+                <h3 class="card-title">
+                  <div>
+                    <span>
+                      {{ tmp.courseName }}
+                    </span>
+                  </div>
+                </h3>
+                <div class="card-text">
+                  <div class="container">
+                    <div class="row">
+                      <div class="col">
+                        <small>
+                          {{ tmp.playDate | date:"yyyy年MM月dd日" }}
+                        </small>
+                      </div>
+                    </div>
+                    <span class="row justify-content-center mt-1">
+                      <div class="col-6">
+                        <small>{{ tmp.name1 }}</small>
+                      </div>
+                      <div class="col-6">
+                        <small>{{ tmp.name2 }}</small>
+                      </div>
+                    </span>
+                    <div class="row justify-content-center">
+                      <div class="col-6">
+                        <small>{{ tmp.name3 }}</small>
+                      </div>
+                      <div class="col-6">
+                        <small>{{ tmp.name4 }}</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </a>
                 <div>
-                  <span>
-                    {{ tmp.courseName }}
-                  </span>
-                </div>
-              </h3>
-              <div class="card-text">
-                <div class="container">
-                  <span class="row justify-content-center">
-                    <div class="col-6">
-                      <small>{{ tmp.name1 }}</small>
-                    </div>
-                    <div class="col-6">
-                      <small>{{ tmp.name2 }}</small>
+                  <span class="float-end align-bottom">
+                    <div class="btn btn-danger btn-sm mt-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop" (click)="deleteConf(tmp.id)">
+                      <i class="material-icons small-size">delete</i>
                     </div>
                   </span>
-                  <div class="row justify-content-center">
-                    <div class="col-6">
-                      <small>{{ tmp.name3 }}</small>
-                    </div>
-                    <div class="col-6">
-                      <small>{{ tmp.name4 }}</small>
-                    </div>
-                  </div>
-                  <div class="row mt-1">
-                    <div class="col">
-                      <span class="float-end">
-                        {{ tmp.playDate | date:"yyyy年MM月dd日" }}
-                      </span>
-                    </div>
-                  </div>
                 </div>
-                <br>
-              </div>
-              <div>
-                <span class="float-start">
-                  <a routerLink="{{ tmp.player }}/{{ tmp.id }}">
-                    <div class="btn btn-primary">
-                      <i class="material-icons">auto_stories</i> スコア表示
-                    </div>
-                  </a>
-                </span>
-                <span class="float-end align-bottom">
-                  <div class="btn btn-danger btn-sm mt-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop" (click)="deleteConf(tmp.id)">
-                    <i class="material-icons small-size">delete</i>
-                  </div>
-                </span>
               </div>
             </div>
           </div>
         </div>
+        <br>
       </div>
-      <br>
-    </div>
   </div>
   <br>
   <br>

@@ -22,7 +22,7 @@ export class NewgameComponent {
   name2 = ''
   name3 = ''
   name4 = ''
-  playDate = 0
+  playDate = ''
   courseName = ''
   player = 0
   inout = 0
@@ -63,7 +63,6 @@ export class NewgameComponent {
    */
   onSubmit() {
 
-    debugger
     this.saving = true
 
     //1000で割って日付を保存
@@ -154,7 +153,7 @@ export class NewgameComponent {
   inputCheck() {
 
     this.validate = true
-    if(this.name1 == "" || this.name2 == "" || this.name3 == ""){
+    if(this.name1 == "" || this.name2 == "" || this.name3 == "" || this.playDate == ""){
       //console.log("error")
     } else {
       this.validate = false

@@ -38,7 +38,7 @@
                       'color' : lasvegas1[i] ? 'white' : 'black'}">
                       <span class="enFontBold">{{ score1[i] }}</span>
                       <ng-container *ngIf="order[i][p] != 0">
-                        <span class="position-absolute top-0 start-0 translate-middle badge rounded-pill badgeOrderCustomColor">
+                        <span class="position-absolute top-0 start-0 translate-middle badge rounded-pill badgeOrderCustomColor" [ngStyle] = "{ 'backgroundColor': nowPlaying == i ? '' : '#ffc6ff'}">
                           <span class="enFont">{{ order[i][p] }}</span>
                         </span>
                       </ng-container>
@@ -89,7 +89,7 @@
                       'color' : lasvegas2[i] ? 'white' : 'black'}">
                       <span class="enFontBold">{{ score2[i] }}</span>
                       <div *ngIf="order[i][p] != 0">
-                        <span class="position-absolute top-0 start-0 translate-middle badge rounded-pill badgeOrderCustomColor">
+                        <span class="position-absolute top-0 start-0 translate-middle badge rounded-pill badgeOrderCustomColor" [ngStyle] = "{ 'backgroundColor': nowPlaying == i ? '' : '#ffc6ff'}">
                           <span class="enFont">{{ order[i][p] }}</span>
                         </span>
                       </div>
@@ -140,7 +140,7 @@
                       'color' : lasvegas3[i] ? 'white' : 'black'}">
                       <span class="enFontBold">{{ score3[i] }}</span>
                       <div *ngIf="order[i][p] != 0">
-                        <span class="position-absolute top-0 start-0 translate-middle badge rounded-pill badgeOrderCustomColor">
+                        <span class="position-absolute top-0 start-0 translate-middle badge rounded-pill badgeOrderCustomColor" [ngStyle] = "{ 'backgroundColor': nowPlaying == i ? '' : '#ffc6ff'}">
                           <span class="enFont">{{ order[i][p] }}</span>
                         </span>
                       </div>
@@ -191,7 +191,7 @@
                       'color' : lasvegas4[i] ? 'white' : 'black'}">
                       <span class="enFontBold">{{ score4[i] }}</span>
                       <div *ngIf="order[i][p] != 0">
-                        <span class="position-absolute top-0 start-0 translate-middle badge rounded-pill badgeOrderCustomColor">
+                        <span class="position-absolute top-0 start-0 translate-middle badge rounded-pill badgeOrderCustomColor" [ngStyle] = "{ 'backgroundColor': nowPlaying == i ? '' : '#ffc6ff'}">
                           <span class="enFont">{{ order[i][p] }}</span>
                         </span>
                         <ng-container [ngSwitch]="olympic4[i]">
@@ -1143,7 +1143,6 @@
                 </div>
               </div>
             </div>
-            <br>
             <div class="row my-2">
               <div class="col">
                 <div class="border-bottom">オリンピックルール</div>
