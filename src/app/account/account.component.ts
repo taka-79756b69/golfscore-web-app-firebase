@@ -4,6 +4,7 @@ import { AuthService } from '../common/services/auth.service';
 import { NgForm } from '@angular/forms';
 import { MessageService } from '../common/message/message.service';
 import { getAuth } from '@angular/fire/auth';
+import { serverTimestamp } from 'firebase/firestore';
 
 @Component({
   selector: 'app-account',
@@ -72,7 +73,7 @@ export class AccountComponent implements OnInit {
    * @TODO GCPのFirebaseの拡張機能でユーザー削除に連動してFirestoreのデータを削除している。
    */
   acountDelete() {
-    console.log("[log] DELETE USER ACCOUNT: "+getAuth().currentUser?.uid);
+    console.log("[log] " + new Date() + " DELETE USER ACCOUNT: "+getAuth().currentUser?.uid);
     this.authService.deleteUser()
   }
 }

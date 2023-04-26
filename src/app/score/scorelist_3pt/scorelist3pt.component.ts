@@ -229,7 +229,7 @@ export class Scorelist3ptComponent implements OnInit {
       this.getSubcollection(getAuth().currentUser?.uid || '', 'scores').doc(_id).valueChanges().subscribe(data => {
         this.score = data
         this.setInitParam(data)
-        console.log('[log] GET Firestore Document: ' + 'ID=' + _id + ' DATA=' + JSON.stringify(data))
+        console.log("[log] " + new Date() + " GET Firestore Document: " + "ID=" + _id + " DATA=" + JSON.stringify(data))
         // unsubscribe
         this.execUnsubscribe()
       })
@@ -249,7 +249,7 @@ export class Scorelist3ptComponent implements OnInit {
    */
   execUnsubscribe(){
     // 購読を停止する
-    console.log("[log] unsubscribe => (scorelist3pt.component)")
+    console.log("[log] " + new Date() + " unsubscribe => (scorelist3pt.component)")
     this.subscriptions.unsubscribe()
   }
 
@@ -822,10 +822,10 @@ export class Scorelist3ptComponent implements OnInit {
     this.saving = true
     try {
       this.getSubcollection(getAuth().currentUser?.uid || '', 'scores').doc(this._id).update(this.checkoutForm)
-      console.log('[log] POST Firestore Document: '+'scores/'+this._id)
+      console.log("[log] " + new Date() + " POST Firestore Document: " + "scores/" + this._id)
     } catch (error) {
       this.saving = false
-      console.log('[log] POST Error: '+error)
+      console.log("[log] " + new Date() + " POST Error: " + error)
     }
   }
 

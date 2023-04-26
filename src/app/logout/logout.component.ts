@@ -13,6 +13,7 @@ export class LogoutComponent implements OnInit {
     private authService: AuthService){}
 
     ngOnInit(): void {
+      console.log("[log] " + new Date() + " LOGOUT ACCOUNT: " + this.authService.getAccountEmail());
       this.authService.logout()
   }
 }

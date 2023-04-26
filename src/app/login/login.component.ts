@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../common/services/auth.service';
 import { NgForm } from '@angular/forms';
 import { MessageService } from '../common/message/message.service';
+import { serverTimestamp } from 'firebase/firestore';
 
 @Component({
   selector: 'app-login',
@@ -31,6 +32,7 @@ export class LoginComponent implements OnInit {
     try {
       await this.authService.login(email, password)
       .then(() => this.router.navigateByUrl('/'));
+      console.log("[log] " + new Date() + " LOGIN ACCOUNT: " + email);
     } catch (error: any) {
       this.loading = false
       this.errorMessage = this.messageService.getErrorMessageJapanese(error.code)

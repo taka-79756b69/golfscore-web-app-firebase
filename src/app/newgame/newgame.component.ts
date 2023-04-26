@@ -125,12 +125,12 @@ export class NewgameComponent {
     this.saving = true
     try {
       this.getSubcollection(getAuth().currentUser?.uid || '', 'scores').add(this.checkoutForm).then(result =>{
-        console.log('[log] POST Firestore New Document: ID=' + result.id)
+        console.log("[log] " + new Date() + " POST Firestore New Document: ID=" + result.id)
         this.createdDocId = result.id
       })
     } catch (error) {
       this.saving = false
-      console.log('[log] POST Error: '+error)
+      console.log("[log] " + new Date() + " POST Error: " + error)
     }
   }
 

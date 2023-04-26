@@ -1,4 +1,3 @@
-import { getAuth } from '@angular/fire/auth';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../common/services/auth.service';
 

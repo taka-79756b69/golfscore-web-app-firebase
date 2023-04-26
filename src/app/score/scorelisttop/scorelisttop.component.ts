@@ -2,7 +2,6 @@ import { getAuth } from '@angular/fire/auth';
 import { Subscription } from 'rxjs';
 import { Component } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Component({
   selector: 'app-scorelisttop',
@@ -73,7 +72,7 @@ export class ScorelisttopComponent {
         colSnap.forEach(snap => {
           let scores: any = snap.payload.doc.data()
           scores.id = snap.payload.doc.id;
-          console.log("[log] COLLECTION: " + JSON.stringify(scores));
+          console.log("[log] " + new Date() + " COLLECTION: " + getAuth().currentUser?.email + " : " + getAuth().currentUser?.uid + " : " + scores.id);
           this.scorelist.push(scores)
         })
         if(this.scorelist==0){
@@ -96,7 +95,7 @@ export class ScorelisttopComponent {
    */
   execUnsubscribe(){
     // 購読を停止する
-    console.log("[log] unsubscribe => (scorelisttop.component)")
+    console.log("[log] " + new Date() + " unsubscribe => (scorelisttop.component)")
     this.subscriptions.unsubscribe()
   }
 
@@ -130,9 +129,9 @@ export class ScorelisttopComponent {
     try {
       //this.firestore.collection('scores').doc(this.delDocId).delete()
       this.getSubcollectionDel(getAuth().currentUser?.uid || '', 'scores').doc(this.delDocId).delete()
-      console.log("[log] Document Delete Complete : ID=" + this.delDocId)
+      console.log("[log] " + new Date() + " Document Delete Complete : ID=" + this.delDocId)
     } catch (error) {
-      console.log('[log] POST Error: '+error)
+      console.log("[log] " + new Date() + " POST Error: " + error)
     }
   }
 

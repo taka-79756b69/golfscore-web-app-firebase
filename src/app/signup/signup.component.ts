@@ -50,6 +50,6 @@ export class SignupComponent implements OnInit {
   ngOnDestroy(): void {
     //Called once, before the instance is destroyed.
     //Add 'implements OnDestroy' to the class.
-    console.log("[log] signup uid: " + getAuth().currentUser?.uid)
+    console.log("[log] " + new Date() + " signup uid: " + getAuth().currentUser?.uid)
   }
 }
