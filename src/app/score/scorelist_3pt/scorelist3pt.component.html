@@ -763,6 +763,8 @@
                     ニアピンを設定する場合は、選択をONにしてください。
                     <br><br>
                     ニアピン:1打目がグリーンに乗った人の中で一番ピンに近い人が、パー以内でホールアウトした場合に得点が入るルール。
+                    <br>
+                    当アプリでは3点としています。
                   </div>
                 </div>
               </div>
@@ -779,14 +781,16 @@
               <div class="col-3">
                 <input [(ngModel)]="rate" type="number" name="rate" class="form-control form-control-sm" placeholder="レート">
               </div>
+              <div class="col" style="padding-left: 0px">
+                <button type="button" class="material-icons small-size help-botton" data-bs-toggle="collapse"
+                 data-bs-target="#commonRule1" aria-expanded="false" style="vertical-align: -8px;">help</button>
+              </div>
             </div>
             <div class="row">
               <div class="col">
-                <div class="collapse" id="olympicRule1">
+                <div class="collapse" id="commonRule1">
                   <div class="card card-body small">
-                    ニアピンを設定する場合は、選択をONにしてください。
-                    <br><br>
-                    ニアピン:1打目がグリーンに乗った人の中で一番ピンに近い人が、パー以内でホールアウトした場合に得点が入るルール。
+                    オリンピックのレートを設定
                   </div>
                 </div>
               </div>
