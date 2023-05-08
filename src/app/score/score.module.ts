@@ -5,11 +5,13 @@ import { ScoreComponent } from './score.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { ScorelistComponent } from './scorelist/scorelist.component';
 import { ScorelisttopComponent } from './scorelisttop/scorelisttop.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
+import { ScorelistComponent } from './scorelist/scorelist.component';
+import { Scorelist1ptComponent } from './scorelist_1pt/scorelist1pt.component';
+import { Scorelist2ptComponent } from './scorelist_2pt/scorelist2pt.component';
 import { Scorelist3ptComponent } from './scorelist_3pt/scorelist3pt.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -32,6 +34,8 @@ const routes: Routes = [
      { path: '', component: ScorelisttopComponent },
      { path: '4/:scoreId', component: ScorelistComponent },
      { path: '3/:scoreId', component: Scorelist3ptComponent },
+     { path: '2/:scoreId', component: Scorelist2ptComponent },
+     { path: '1/:scoreId', component: Scorelist1ptComponent },
      { path: 'scorelisttop', component: ScorelisttopComponent }
     ]
   }
@@ -40,8 +44,10 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     ScoreComponent,
-    ScorelistComponent,
     ScorelisttopComponent,
+    ScorelistComponent,
+    Scorelist1ptComponent,
+    Scorelist2ptComponent,
     Scorelist3ptComponent,
     DatePipe,
   ],

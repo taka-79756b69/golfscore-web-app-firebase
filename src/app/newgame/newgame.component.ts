@@ -153,7 +153,7 @@ export class NewgameComponent {
   inputCheck() {
 
     this.validate = true
-    if(this.name1 == "" || this.name2 == "" || this.name3 == "" || this.playDate == ""){
+    if(this.name1 == "" || this.playDate == ""){
       //console.log("error")
     } else {
       this.validate = false
