@@ -1,0 +1,431 @@
+<div *ngIf="score">
+  <form #form=ngForm (ngSubmit)="onSubmit(form)">
+    <table class="table table-borderless table-sm">
+      <thead class="sticky-top table-secondary">
+        <tr class="table-primary">
+          <td class="text-center" style="width: 20%;"><span class="enFont">#</span></td>
+          <td class="text-center"><small>{{ score.name1 }}</small></td>
+          <td class="text-center"><small>{{ score.name2 }}</small></td>
+        </tr>
+        <ng-container *ngIf="orderError">
+          <tr>
+            <td colspan="5" class="text-center bg-danger text-white">打順が設定されていません</td>
+          </tr>
+        </ng-container>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let _score1 of score1; let i = index">
+          <tr>
+            <th scope="row" class="d-grid gap-2 mt-3">
+              <button type="button" mat-raised-button color="primary" data-bs-toggle="modal" data-bs-target="#course1Modal" data-bs-whatever="0" (click)="setDialogIndex(i)"
+              [ngStyle] = "{ 'backgroundColor': nowPlaying == i ? '#d63384' : ''}">
+                <span class="enFont">{{ no[i] }}</span>
+              </button>
+            </th>
+            <ng-container *ngFor="let _player of playerArray; let p = index">
+              <td class="text-center align-bottom">
+                <div class="d-grid gap-2 col-8 mx-auto">
+                  <ng-container *ngIf="p == 0">
+                    <button type="button" class="btn btn-light position-relative">
+                      <span class="enFontBold">{{ score1[i] }}</span>
+                      <div *ngIf="order[i][p] != 0">
+                        <span class="position-absolute top-0 start-0 translate-middle badge rounded-pill badgeOrderCustomColor" [ngStyle] = "{ 'backgroundColor': nowPlaying == i ? '' : '#ffc6ff'}">
+                          <span class="enFont">{{ order[i][p] }}</span>
+                          <span class="visually-hidden">unread messages</span>
+                        </span>
+                      </div>
+                      <ng-container *ngIf="score1[i]!=0">
+                        <span class="position-absolute top-100 start-100 translate-middle badge rounded-pill text-bg-success">
+                          <span class="enFontSmall">{{ putscore1[i] }}</span>
+                        </span>
+                      </ng-container>
+                    </button>
+                  </ng-container>
+                  <ng-container *ngIf="p == 1">
+                    <button type="button" class="btn btn-light position-relative">
+                      <span class="enFontBold">{{ score2[i] }}</span>
+                      <div *ngIf="order[i][p] != 0">
+                        <span class="position-absolute top-0 start-0 translate-middle badge rounded-pill badgeOrderCustomColor" [ngStyle] = "{ 'backgroundColor': nowPlaying == i ? '' : '#ffc6ff'}">
+                          <span class="enFont">{{ order[i][p] }}</span>
+                          <span class="visually-hidden">unread messages</span>
+                        </span>
+                      </div>
+                      <ng-container *ngIf="score2[i]!=0">
+                        <span class="position-absolute top-100 start-100 translate-middle badge rounded-pill text-bg-success">
+                          <span class="enFontSmall">{{ putscore2[i] }}</span>
+                        </span>
+                      </ng-container>
+                    </button>
+                  </ng-container>
+                </div>
+              </td>
+            </ng-container>
+          </tr>
+          <ng-container *ngIf="i == 8">
+            <tr>
+              <td></td>
+            </tr>
+            <tr class="table-secondary">
+              <td>
+                <ng-container *ngIf="no[i] == '9th'">
+                  <div class="text-center"><span class="enFontBold">OUT</span></div>
+                </ng-container>
+                <ng-container *ngIf="no[i] == '18th'">
+                  <div class="text-center"><span class="enFontBold">IN</span></div>
+                </ng-container>
+              </td>
+              <td class="text-center"><span class="enFontBold">{{ outTotal1 }}</span></td>
+              <td class="text-center"><span class="enFontBold">{{ outTotal2 }}</span></td>
+            </tr>
+          </ng-container>
+          <ng-container *ngIf="i == 17">
+            <tr>
+              <td></td>
+            </tr>
+            <tr class="table-secondary">
+              <td>
+                <ng-container *ngIf="no[i] == '9th'">
+                  <div class="text-center"><span class="enFontBold">OUT</span></div>
+                </ng-container>
+                <ng-container *ngIf="no[i] == '18th'">
+                  <div class="text-center"><span class="enFontBold">IN</span></div>
+                </ng-container>
+              </td>
+              <td class="text-center"><span class="enFontBold">{{ inTotal1 }}</span></td>
+              <td class="text-center"><span class="enFontBold">{{ inTotal2 }}</span></td>
+            </tr>
+            <tr class="table-primary">
+              <td>
+                <div class="text-center"><span class="enFontBold">TOTAL</span></div>
+              </td>
+              <td class="text-center"><span class="enFontBold">{{ total1 }}</span></td>
+              <td class="text-center"><span class="enFontBold">{{ total2 }}</span></td>
+            </tr>
+          </ng-container>
+        </ng-container>
+      </tbody>
+    </table>
+    <!--  -->
+    <!--  -->
+    <div class="justify-content-center">
+      <br>
+      <br>
+      <br>
+      <br>
+      <div class="container fixed-bottom">
+        <div class="row">
+          <div class="col"></div>
+          <div class="col-5 d-grid gap-2">
+            <button class="btn btn-primary mb-3" type="submit" data-bs-toggle="modal" data-bs-target="#saveDialog">
+              <i class="material-icons small-size">save_as</i> スコア保存
+            </button>
+          </div>
+          <div class="col"></div>
+        </div>
+        <div class="row">
+          <div class="col"></div>
+          <div class="col text-center">
+            <a routerLink="{{ '/score' }}">
+              <button class="btn btn-sm btn-secondary mb-3" type="button" style="width: 75px; height: 35px;">
+                戻る
+              </button>
+            </a>
+          </div>
+          <div class="col text-end">
+            <button class="btn btn-sm btn-secondary mb-3 mr-3" type="button" data-bs-toggle="modal" data-bs-target="#settingModal" style="width: 35px; height: 35px;">
+              <i class="material-icons small-size">settings</i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <br>
+
+  <!-- コース1のダイアログ -->
+  <div class="modal fade" id="course1Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+      <div class="modal-content">
+        <nav class="navbar navbar-dark bg-primary sticky-top" aria-label="nabverTop">
+          <div class="container">
+            <div class="col-4"></div>
+            <div class="col-4 d-flex align-items-center justify-content-center">
+              <div class="text-center" style="color: #ffffff;">
+                <h2>{{ no[courseIndex] }}</h2>
+              </div>
+            </div>
+            <div class="col-4"></div>
+          </div>
+        </nav>
+        <div class="modal-body">
+          <mat-accordion>
+            <ng-container *ngIf="courseIndex == 0">
+              <mat-expansion-panel class="remove-mat-expansion-panel-padding" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    打順を設定
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="container">
+                  <div class="row">
+                    <div class="col-4" style="margin-top: 8px; text-align: center;">
+                      {{ score.name1 }}
+                    </div>
+                    <p class="col-8">
+                      <mat-chip-listbox aria-label="order1st selection" [(ngModel)]="order1st[_index_name1]">
+                        <mat-chip-option value=1><span class="enFont">1</span></mat-chip-option>
+                        <mat-chip-option value=2><span class="enFont">2</span></mat-chip-option>
+                      </mat-chip-listbox>
+                    </p>
+                  </div>
+                  <div class="row">
+                    <div class="col-4" style="margin-top: 8px; text-align: center;">
+                      {{ score.name2 }}
+                    </div>
+                    <p class="col-8">
+                      <mat-chip-listbox aria-label="order1st selection" [(ngModel)]="order1st[_index_name2]">
+                        <mat-chip-option value=1><span class="enFont">1</span></mat-chip-option>
+                        <mat-chip-option value=2><span class="enFont">2</span></mat-chip-option>
+                      </mat-chip-listbox>
+                    </p>
+                  </div>
+                </div>
+              </mat-expansion-panel>
+            </ng-container>
+            <mat-expansion-panel class="remove-mat-expansion-panel-padding" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  {{ score.name1 }}
+                </mat-panel-title>
+                <mat-panel-description>
+                  スコア:{{ score1[courseIndex] }} パット:{{ putscore1[courseIndex] }}
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <div class="container">
+                <div class="row justify-content-center">
+                  <div class="col text-center">
+                    <small>スコア</small>
+                  </div>
+                </div>
+                <div class="row justify-content-center mb-1">
+                  <div class="col-2">
+                    <button mat-mini-fab color="accent" (click)="setScoreCounter5Down(courseIndex, _index_name1)">
+                      <i class="material-icons">keyboard_double_arrow_down</i>
+                    </button>
+                  </div>
+                  <div class="col-2">
+                    <button mat-mini-fab color="accent" (click)="setScoreCounter1Down(courseIndex, _index_name1)">
+                      <i class="material-icons">keyboard_arrow_down</i>
+                    </button>
+                  </div>
+                  <div class="col-2">
+                    <h2 class="text-center align-items-center">{{ score1[courseIndex] }}</h2>
+                  </div>
+                  <div class="col-2">
+                    <button mat-mini-fab color="accent" (click)="setScoreCounter1Up(courseIndex, _index_name1)">
+                      <i class="material-icons">keyboard_arrow_up</i>
+                    </button>
+                  </div>
+                  <div class="col-2">
+                    <button mat-mini-fab color="accent" (click)="setScoreCounter5Up(courseIndex, _index_name1)">
+                      <i class="material-icons">keyboard_double_arrow_up</i>
+                    </button>
+                  </div>
+                </div>
+                <div class="row justify-content-center mb-3">
+                  <div class="row justify-content-center">
+                    <div class="col text-center">
+                      <small>パット</small>
+                    </div>
+                  </div>
+                  <div class="col-2">
+                  </div>
+                  <div class="col-2">
+                    <button mat-mini-fab color="basic" (click)="setPutscoreCounter1Down(courseIndex, _index_name1)">
+                      <i class="material-icons">keyboard_arrow_down</i>
+                    </button>
+                  </div>
+                  <div class="col-2">
+                    <h2 class="text-center align-items-center">{{ putscore1[courseIndex] }}</h2>
+                  </div>
+                  <div class="col-2">
+                    <button mat-mini-fab color="basic" (click)="setPutscoreCounter1Up(courseIndex, _index_name1)">
+                      <i class="material-icons">keyboard_arrow_up</i>
+                    </button>
+                  </div>
+                  <div class="col-2">
+                  </div>
+                </div>
+              </div>
+            </mat-expansion-panel>
+            <mat-expansion-panel class="remove-mat-expansion-panel-padding" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  {{ score.name2 }}
+                </mat-panel-title>
+                <mat-panel-description>
+                  スコア:{{ score2[courseIndex] }} パット:{{ putscore2[courseIndex] }}
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <div class="container">
+                <div class="row justify-content-center">
+                  <div class="col text-center">
+                    <small>スコア</small>
+                  </div>
+                </div>
+                <div class="row justify-content-center mb-1">
+                  <div class="col-2">
+                    <div class="d-grid">
+                      <button mat-mini-fab color="accent" (click)="setScoreCounter5Down(courseIndex, _index_name2)">
+                        <i class="material-icons">keyboard_double_arrow_down</i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="col-2">
+                    <div class="d-grid">
+                      <button mat-mini-fab color="accent" (click)="setScoreCounter1Down(courseIndex, _index_name2)">
+                        <i class="material-icons">keyboard_arrow_down</i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="col-2">
+                    <h2 class="text-center align-items-center">{{ score2[courseIndex] }}</h2>
+                  </div>
+                  <div class="col-2">
+                    <div class="d-grid">
+                      <button mat-mini-fab color="accent" (click)="setScoreCounter1Up(courseIndex, _index_name2)">
+                        <i class="material-icons">keyboard_arrow_up</i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="col-2">
+                    <div class="d-grid">
+                      <button mat-mini-fab color="accent" (click)="setScoreCounter5Up(courseIndex, _index_name2)">
+                        <i class="material-icons">keyboard_double_arrow_up</i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="row justify-content-center mb-3">
+                  <div class="row justify-content-center">
+                    <div class="col text-center">
+                      <small>パット</small>
+                    </div>
+                  </div>
+                  <div class="col-2">
+                  </div>
+                  <div class="col-2">
+                    <div class="d-grid">
+                      <button mat-mini-fab color="basic" (click)="setPutscoreCounter1Down(courseIndex, _index_name2)">
+                        <i class="material-icons">keyboard_arrow_down</i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="col-2">
+                    <h2 class="text-center align-items-center">{{ putscore2[courseIndex] }}</h2>
+                  </div>
+                  <div class="col-2">
+                    <div class="d-grid">
+                      <button mat-mini-fab color="basic" (click)="setPutscoreCounter1Up(courseIndex, _index_name2)">
+                        <i class="material-icons">keyboard_arrow_up</i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="col-2">
+                  </div>
+                </div>
+              </div>
+            </mat-expansion-panel>
+          </mat-accordion>
+          <br>
+          <div class="container">
+            <div class="row justify-content-center">
+              <div class="col-6">
+                <div class="d-grid">
+                  <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="save()">一覧へ反映</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- 保存確認ダイアログ -->
+  <div class="modal fade" id="saveDialog" tabindex="-1" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="container">
+            <div class="row justify-content-center">
+              <div class="col-9 text-center">
+                <div *ngIf="saving; else elseContent">
+                  <mat-icon style="color: green; font-size: 35px; height: 37px; width: 37px;">check_circle</mat-icon>
+                  <h3>保存が完了しました。</h3>
+                </div>
+                <ng-template #elseContent>
+                  <mat-icon style="color: red; font-size: 35px; height: 37px; width: 37px;">error</mat-icon>
+                  <h3>保存失敗しました。</h3>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <div class="container">
+            <div class="row justify-content-center">
+              <div class="col-9">
+                <div class="d-grid">
+                  <button type="button" class="btn btn-primary" data-bs-dismiss="modal">閉じる</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- 設定ダイアログ -->
+  <div class="modal fade" id="settingModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+      <div class="modal-content">
+        <nav class="navbar navbar-dark bg-primary sticky-top" aria-label="nabverTop">
+          <div class="container">
+            <div class="col-4"></div>
+            <div class="col-4 d-flex align-items-center justify-content-center">
+              <div class="text-center" style="color: #ffffff;">
+                <h2>設定画面</h2>
+              </div>
+            </div>
+            <div class="col-4"></div>
+          </div>
+        </nav>
+        <div class="modal-body">
+          <div class="container">
+            <div class="row my-2">
+              <div class="col">
+                <div class="border-bottom">メモ</div>
+              </div>
+            </div>
+            <div class="row my-3">
+              <div class="col">
+                <textarea class="form-control" [(ngModel)]="memo" placeholder="メモ" rows="3"></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <div class="container">
+            <div class="row justify-content-center">
+              <div class="col-6">
+                <div class="d-grid">
+                  <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="save()">閉じる</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
