@@ -307,7 +307,7 @@
         <div class="row">
           <div class="col"></div>
           <div class="col-5 d-grid gap-2">
-            <button class="btn btn-primary mb-3" type="submit" data-bs-toggle="modal" data-bs-target="#saveDialog">
+            <button class="btn btn-primary mb-3" type="submit">
               <i class="material-icons small-size">save_as</i> スコア保存
             </button>
           </div>
@@ -694,40 +694,7 @@
       </div>
     </div>
   </div>
-  <!-- 保存確認ダイアログ -->
-  <div class="modal fade" id="saveDialog" tabindex="-1" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
-    <div class="modal-dialog modal-sm modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-body">
-          <div class="container">
-            <div class="row justify-content-center">
-              <div class="col-9 text-center">
-                <div *ngIf="saving; else elseContent">
-                  <mat-icon style="color: green; font-size: 35px; height: 37px; width: 37px;">check_circle</mat-icon>
-                  <h3>保存が完了しました。</h3>
-                </div>
-                <ng-template #elseContent>
-                  <mat-icon style="color: red; font-size: 35px; height: 37px; width: 37px;">error</mat-icon>
-                  <h3>保存失敗しました。</h3>
-                </ng-template>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <div class="container">
-            <div class="row justify-content-center">
-              <div class="col-9">
-                <div class="d-grid">
-                  <button type="button" class="btn btn-primary" data-bs-dismiss="modal">閉じる</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+
   <!-- 設定ダイアログ -->
   <div class="modal fade" id="settingModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">

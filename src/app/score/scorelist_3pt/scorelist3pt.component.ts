@@ -4,6 +4,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Subscription } from 'rxjs';
 import { getAuth } from '@angular/fire/auth';
 import { NgForm } from '@angular/forms';
+import { SnackbarService } from 'src/app/common/snackbar/snackbar.service';
 
 @Component({
   selector: 'app-scorelist3pt',
@@ -122,9 +123,6 @@ export class Scorelist3ptComponent implements OnInit {
   //フォームデータ
   checkoutForm: any
 
-  //保存確認フラグ
-  saving: any
-
   //オーダーフラグ
   orderError: any
 
@@ -142,7 +140,8 @@ export class Scorelist3ptComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private firestore: AngularFirestore
+    private firestore: AngularFirestore,
+    private snackberService: SnackbarService
     ){
     }
 
@@ -819,13 +818,13 @@ export class Scorelist3ptComponent implements OnInit {
       memo: this.memo
     });
 
-    this.saving = true
     try {
       this.getSubcollection(getAuth().currentUser?.uid || '', 'scores').doc(this._id).update(this.checkoutForm)
       console.log("[log] " + new Date() + " POST Firestore Document: " + "scores/" + this._id)
+      this.snackberService.openSnackBar("保存しました")
     } catch (error) {
-      this.saving = false
       console.log("[log] " + new Date() + " POST Error: " + error)
+      this.snackberService.openSnackBar("保存に失敗しました")
     }
   }
 

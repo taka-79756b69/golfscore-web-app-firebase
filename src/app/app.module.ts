@@ -2,7 +2,6 @@ import { SignupComponent } from './signup/signup.component';
 import { environment } from './../environments/environment';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './common/navbar/navbar.component';
@@ -23,7 +22,7 @@ import { AccountComponent } from './account/account.component';
     SignupComponent,
     LoginComponent,
     LogoutComponent,
-    AccountComponent
+    AccountComponent,
   ],
   imports: [
     BrowserModule,

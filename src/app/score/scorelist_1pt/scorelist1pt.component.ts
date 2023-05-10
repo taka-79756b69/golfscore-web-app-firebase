@@ -4,6 +4,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Subscription } from 'rxjs';
 import { getAuth } from '@angular/fire/auth';
 import { NgForm } from '@angular/forms';
+import { SnackbarService } from 'src/app/common/snackbar/snackbar.service';
 
 @Component({
   selector: 'app-scorelist1pt',
@@ -55,9 +56,6 @@ export class Scorelist1ptComponent implements OnInit {
   //フォームデータ
   checkoutForm: any
 
-  //保存確認フラグ
-  saving: any
-
   //オーダーフラグ
   orderError: any
 
@@ -75,7 +73,8 @@ export class Scorelist1ptComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private firestore: AngularFirestore
+    private firestore: AngularFirestore,
+    private snackberService: SnackbarService
     ){
     }
 
@@ -177,14 +176,9 @@ export class Scorelist1ptComponent implements OnInit {
    * @param playerIndex プレイヤー番号
    */
   setScoreCounter1Up(courseNo: any, playerIndex: any){
-    switch (playerIndex){
-      case this._index_name1:
-        if(this.score1[courseNo] < 15 )
-          this.score1[courseNo]++
-        break
-      default:
-        break
-    }
+
+    if(this.score1[courseNo] < 15 )
+      this.score1[courseNo]++
   }
 
   /**
@@ -194,14 +188,9 @@ export class Scorelist1ptComponent implements OnInit {
    * @param playerIndex プレイヤー番号
    */
   setScoreCounter5Up(courseNo: any, playerIndex: any){
-    switch (playerIndex){
-      case this._index_name1:
-        if(this.score1[courseNo] < 15 )
-          this.score1[courseNo] = this.score1[courseNo] + 5 > 15 ? 15 : this.score1[courseNo] + 5
-        break
-      default:
-        break
-    }
+
+    if(this.score1[courseNo] < 15 )
+      this.score1[courseNo] = this.score1[courseNo] + 5 > 15 ? 15 : this.score1[courseNo] + 5
   }
 
   /**
@@ -211,14 +200,9 @@ export class Scorelist1ptComponent implements OnInit {
    * @param playerIndex プレイヤー番号
    */
   setScoreCounter1Down(courseNo: any, playerIndex: any){
-    switch (playerIndex){
-      case this._index_name1:
-        if(this.score1[courseNo] > 0 )
-          this.score1[courseNo]--
-        break
-      default:
-        break
-    }
+
+    if(this.score1[courseNo] > 0 )
+      this.score1[courseNo]--
   }
 
   /**
@@ -228,14 +212,9 @@ export class Scorelist1ptComponent implements OnInit {
    * @param playerIndex プレイヤー番号
    */
   setScoreCounter5Down(courseNo: any, playerIndex: any){
-    switch (playerIndex){
-      case this._index_name1:
-        if(this.score1[courseNo] > 0 )
-          this.score1[courseNo] = this.score1[courseNo] - 5 < 0 ? 0 : this.score1[courseNo] - 5
-        break
-      default:
-        break
-    }
+
+    if(this.score1[courseNo] > 0 )
+      this.score1[courseNo] = this.score1[courseNo] - 5 < 0 ? 0 : this.score1[courseNo] - 5
   }
 
     /**
@@ -245,14 +224,9 @@ export class Scorelist1ptComponent implements OnInit {
    * @param playerIndex プレイヤー番号
    */
     setPutscoreCounter1Up(courseNo: any, playerIndex: any){
-      switch (playerIndex){
-        case this._index_name1:
-          if(this.putscore1[courseNo] < 15 )
-            this.putscore1[courseNo]++
-          break
-        default:
-          break
-      }
+
+      if(this.putscore1[courseNo] < 15 )
+        this.putscore1[courseNo]++
     }
 
     /**
@@ -262,14 +236,9 @@ export class Scorelist1ptComponent implements OnInit {
      * @param playerIndex プレイヤー番号
      */
     setPutscoreCounter1Down(courseNo: any, playerIndex: any){
-      switch (playerIndex){
-        case this._index_name1:
-          if(this.putscore1[courseNo] > 0 )
-            this.putscore1[courseNo]--
-          break
-        default:
-          break
-      }
+
+      if(this.putscore1[courseNo] > 0 )
+        this.putscore1[courseNo]--
     }
 
   /**
@@ -353,13 +322,13 @@ export class Scorelist1ptComponent implements OnInit {
       memo: this.memo
     });
 
-    this.saving = true
     try {
       this.getSubcollection(getAuth().currentUser?.uid || '', 'scores').doc(this._id).update(this.checkoutForm)
       console.log("[log] " + new Date() + " POST Firestore Document: " + "scores/" + this._id)
+      this.snackberService.openSnackBar("保存しました")
     } catch (error) {
-      this.saving = false
       console.log("[log] " + new Date() + " POST Error: " + error)
+      this.snackberService.openSnackBar("保存に失敗しました")
     }
   }
 }
