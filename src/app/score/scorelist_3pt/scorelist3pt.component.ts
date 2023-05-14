@@ -429,6 +429,15 @@ export class Scorelist3ptComponent implements OnInit {
     this.setOlympicAndLasvegasAfterRate(this.rate)
   }
 
+    /**
+   * 設定画面の内容を反映
+   */
+    setSettings(){
+
+      this.save()
+      this.snackberService.openSnackBar("設定内容を反映しました")
+    }
+
   /**
    * オリンピックのスコアを計算する
    */
@@ -821,10 +830,10 @@ export class Scorelist3ptComponent implements OnInit {
     try {
       this.getSubcollection(getAuth().currentUser?.uid || '', 'scores').doc(this._id).update(this.checkoutForm)
       console.log("[log] " + new Date() + " POST Firestore Document: " + "scores/" + this._id)
-      this.snackberService.openSnackBar("保存しました")
+      this.snackberService.openSnackBar("スコアを保存しました")
     } catch (error) {
       console.log("[log] " + new Date() + " POST Error: " + error)
-      this.snackberService.openSnackBar("保存に失敗しました")
+      this.snackberService.openSnackBar("スコアの保存に失敗しました")
     }
   }
 

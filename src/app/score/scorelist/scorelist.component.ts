@@ -159,6 +159,9 @@ export class ScorelistComponent implements OnInit {
   noStorey = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
   noStoreyNow = 0
 
+  //ラスベガスのチームローテーション
+  teamType = [1,2,3,1,2,3,1,2,3,1,2,3,1,2,3,1,2,3]
+
   //フォームデータ
   checkoutForm: any
 
@@ -515,6 +518,15 @@ export class ScorelistComponent implements OnInit {
   }
 
   /**
+   * 設定画面の内容を反映
+   */
+  setSettings(){
+
+    this.save()
+    this.snackberService.openSnackBar("設定内容を反映しました")
+  }
+
+  /**
    * ラスベガスの合計を計算
    */
   setLasvegasTotal() {
@@ -558,6 +570,7 @@ export class ScorelistComponent implements OnInit {
   /**
    * 一覧のラスベガスの合計を設定する
    * コース毎に集計し、合計を設定する
+   * 同点の場合は次コースの持ち越しする
    * @param index 判定するコースNo
    * @param teamA チームAのスコア
    * @param teamB チームBのスコア
@@ -606,11 +619,20 @@ export class ScorelistComponent implements OnInit {
       p4Score = this.getLasTeamScore(teamA) - this.getLasTeamScore(teamB)
     }
 
+    //ラスベガスの2階建てルールを設定する
     if(this.isLas2stories){
       //同点の場合次のコースの倍率を上げる
       if(teamAScore==teamBScore){
+        //倍率をアップ
         this.noStoreyNow += 1
+        //次のコースの倍率に加算する
         this.noStorey[index+1] += this.noStoreyNow
+        //次のコースのチームも持ち越しで同じチームにする
+        this.teamType[index+1] = this.teamType[index]
+        this.lasvegas1[index+1] = this.lasvegas1[index]
+        this.lasvegas2[index+1] = this.lasvegas2[index]
+        this.lasvegas3[index+1] = this.lasvegas3[index]
+        this.lasvegas4[index+1] = this.lasvegas4[index]
       }else{
         //同点でない場合倍率を元に戻す
         this.noStoreyNow = 0
@@ -1015,13 +1037,11 @@ export class ScorelistComponent implements OnInit {
    */
   setLasvegasTeam() {
 
-    let teamType = [1,2,3,1,2,3,1,2,3,1,2,3,1,2,3,1,2,3]
-
     for (let i=0; i<=17; i++) {
       if ( this.order[i][this._index_name1] != 0 && this.order[i][this._index_name2] != 0
           && this.order[i][this._index_name3] != 0 && this.order[i][this._index_name4] != 0 ) {
         if(this.isLasPair){
-          this.setLasvegas2(i, this.order[i], teamType[i])
+          this.setLasvegas2(i, this.order[i], this.teamType[i])
         }else{
           this.setLasvegas1(i, this.order[i])
         }
@@ -1115,10 +1135,10 @@ export class ScorelistComponent implements OnInit {
     try {
       this.getSubcollection(getAuth().currentUser?.uid || '', 'scores').doc(this._id).update(this.checkoutForm)
       console.log("[log] " + new Date() + " POST Success => [Firestore Document]: " + "scores/" + this._id)
-      this.snackberService.openSnackBar("保存しました")
+      this.snackberService.openSnackBar("スコアを保存しました")
     } catch (error) {
       console.log("[log] " + new Date() + " POST Error: " + error)
-      this.snackberService.openSnackBar("保存に失敗しました")
+      this.snackberService.openSnackBar("スコアの保存に失敗しました")
     }
   }
 

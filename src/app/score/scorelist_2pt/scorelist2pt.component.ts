@@ -532,10 +532,10 @@ export class Scorelist2ptComponent implements OnInit {
     try {
       this.getSubcollection(getAuth().currentUser?.uid || '', 'scores').doc(this._id).update(this.checkoutForm)
       console.log("[log] " + new Date() + " POST Firestore Document: " + "scores/" + this._id)
-      this.snackberService.openSnackBar("保存しました")
+      this.snackberService.openSnackBar("スコアを保存しました")
     } catch (error) {
       console.log("[log] " + new Date() + " POST Error: " + error)
-      this.snackberService.openSnackBar("保存に失敗しました")
+      this.snackberService.openSnackBar("スコアの保存に失敗しました")
     }
   }
 
