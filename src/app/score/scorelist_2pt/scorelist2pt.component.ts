@@ -13,8 +13,6 @@ import { SnackbarService } from 'src/app/common/snackbar/snackbar.service';
 })
 export class Scorelist2ptComponent implements OnInit {
 
-  panelOpenState = false;
-
   //NgFormの作成
   form!: NgForm;
 

@@ -25,7 +25,7 @@
               <td class="text-center align-bottom">
                 <div class="d-grid gap-2 col-8 mx-auto">
                   <ng-container *ngIf="p == 0">
-                    <button type="button" class="btn btn-light position-relative">
+                    <button type="button" class="btn btn-light position-relative" data-bs-toggle="modal" data-bs-target="#course1Modal" data-bs-whatever="0" (click)="setDialogIndex(i)">
                       <span class="enFontBold">{{ score1[i] }}</span>
                       <ng-container *ngIf="score1[i]!=0">
                         <span class="position-absolute top-100 start-100 translate-middle badge rounded-pill text-bg-success">
@@ -94,7 +94,11 @@
               <i class="material-icons small-size">save_as</i> スコア保存
             </button>
           </div>
-          <div class="col"></div>
+          <div class="col text-end">
+            <button class="btn btn-sm btn-primary mb-3 mr-3" type="button" data-bs-toggle="modal" data-bs-target="#settingModal" style="width: 35px; height: 35px;">
+              <i class="material-icons small-size">settings</i>
+            </button>
+          </div>
         </div>
         <div class="row">
           <div class="col"></div>
@@ -105,11 +109,7 @@
               </button>
             </a>
           </div>
-          <div class="col text-end">
-            <button class="btn btn-sm btn-secondary mb-3 mr-3" type="button" data-bs-toggle="modal" data-bs-target="#settingModal" style="width: 35px; height: 35px;">
-              <i class="material-icons small-size">settings</i>
-            </button>
-          </div>
+          <div class="col"></div>
         </div>
       </div>
     </div>
@@ -133,7 +133,7 @@
         </nav>
         <div class="modal-body">
           <mat-accordion>
-            <mat-expansion-panel class="remove-mat-expansion-panel-padding" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <mat-expansion-panel class="remove-mat-expansion-panel-padding">
               <mat-expansion-panel-header>
                 <mat-panel-title>
                   {{ score.name1 }}

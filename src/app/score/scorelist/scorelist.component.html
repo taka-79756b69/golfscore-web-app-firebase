@@ -20,11 +20,13 @@
           <tr>
             <th scope="row" class="d-grid gap-2 mt-3">
               <button type="button" mat-raised-button color="primary" data-bs-toggle="modal" data-bs-target="#course1Modal" data-bs-whatever="0" (click)="setDialogIndex(i)"
-              [ngStyle] = "{ 'backgroundColor': nowPlaying == i ? '#d63384' : ''}">
+                [ngStyle] = "{
+                  'backgroundColor': nowPlaying == i ? '#d63384' : ''
+                }">
                 <span class="enFont">{{ no[i] }}</span>
                 <ng-container *ngIf="noStorey[i] != 1">
                   <span class="position-absolute top-100 start-0 badge rounded-pill badgeLasvegas2storiesColor">
-                    <span class="enFontSmall">x{{noStorey[i]}}</span>
+                    <span class="enFontSmall">{{noStorey[i]}}倍</span>
                   </span>
                 </ng-container>
               </button>
@@ -33,12 +35,14 @@
               <td class="text-center align-bottom">
                 <div class="d-grid gap-2 col-8 mx-auto">
                   <ng-container *ngIf="p == 0">
-                    <button type="button" class="btn btn-light position-relative" [ngStyle] = "{
-                      'backgroundColor' : lasvegas1[i] ? '#696969' : '#F8F9FA',
-                      'color' : lasvegas1[i] ? 'white' : 'black'}">
+                    <button type="button" class="btn btn-light position-relative" data-bs-toggle="modal" data-bs-target="#course1Modal" data-bs-whatever="0" (click)="setDialogIndex(i)"
+                      [ngStyle] = "{
+                        'backgroundColor' : lasvegas1[i] ? '#696969' : '#F8F9FA',
+                        'color' : lasvegas1[i] ? 'white' : 'black'
+                      }">
                       <span class="enFontBold">{{ score1[i] }}</span>
-                      <ng-container *ngIf="order[i][p] != 0">
-                        <span class="position-absolute top-0 start-0 translate-middle badge rounded-pill badgeOrderCustomColor" [ngStyle] = "{ 'backgroundColor': nowPlaying == i ? '' : '#ffc6ff'}">
+                      <ng-container *ngIf="nowPlaying == i">
+                        <span class="position-absolute top-0 start-0 translate-middle badge rounded-pill badgeOrderCustomColor">
                           <span class="enFont">{{ order[i][p] }}</span>
                         </span>
                       </ng-container>
@@ -84,12 +88,14 @@
                     </button>
                   </ng-container>
                   <ng-container *ngIf="p == 1">
-                    <button type="button" class="btn btn-light position-relative" [ngStyle] = "{
-                      'backgroundColor' : lasvegas2[i] ? '#696969' : '#F8F9FA',
-                      'color' : lasvegas2[i] ? 'white' : 'black'}">
+                    <button type="button" class="btn btn-light position-relative" data-bs-toggle="modal" data-bs-target="#course1Modal" data-bs-whatever="0" (click)="setDialogIndex(i)"
+                      [ngStyle] = "{
+                        'backgroundColor' : lasvegas2[i] ? '#696969' : '#F8F9FA',
+                        'color' : lasvegas2[i] ? 'white' : 'black'
+                      }">
                       <span class="enFontBold">{{ score2[i] }}</span>
-                      <div *ngIf="order[i][p] != 0">
-                        <span class="position-absolute top-0 start-0 translate-middle badge rounded-pill badgeOrderCustomColor" [ngStyle] = "{ 'backgroundColor': nowPlaying == i ? '' : '#ffc6ff'}">
+                      <div *ngIf="nowPlaying == i">
+                        <span class="position-absolute top-0 start-0 translate-middle badge rounded-pill badgeOrderCustomColor">
                           <span class="enFont">{{ order[i][p] }}</span>
                         </span>
                       </div>
@@ -135,12 +141,14 @@
                     </button>
                   </ng-container>
                   <ng-container *ngIf="p == 2">
-                    <button type="button" class="btn btn-light position-relative" [ngStyle] = "{
-                      'backgroundColor' : lasvegas3[i] ? '#696969' : '#F8F9FA',
-                      'color' : lasvegas3[i] ? 'white' : 'black'}">
+                    <button type="button" class="btn btn-light position-relative" data-bs-toggle="modal" data-bs-target="#course1Modal" data-bs-whatever="0" (click)="setDialogIndex(i)"
+                      [ngStyle] = "{
+                        'backgroundColor' : lasvegas3[i] ? '#696969' : '#F8F9FA',
+                        'color' : lasvegas3[i] ? 'white' : 'black'
+                      }">
                       <span class="enFontBold">{{ score3[i] }}</span>
-                      <div *ngIf="order[i][p] != 0">
-                        <span class="position-absolute top-0 start-0 translate-middle badge rounded-pill badgeOrderCustomColor" [ngStyle] = "{ 'backgroundColor': nowPlaying == i ? '' : '#ffc6ff'}">
+                      <div *ngIf="nowPlaying == i">
+                        <span class="position-absolute top-0 start-0 translate-middle badge rounded-pill badgeOrderCustomColor">
                           <span class="enFont">{{ order[i][p] }}</span>
                         </span>
                       </div>
@@ -186,44 +194,46 @@
                     </button>
                   </ng-container>
                   <ng-container *ngIf="p == 3">
-                    <button type="button" class="btn btn-light position-relative" [ngStyle] = "{
-                      'backgroundColor' : lasvegas4[i] ? '#696969' : '#F8F9FA',
-                      'color' : lasvegas4[i] ? 'white' : 'black'}">
+                    <button type="button" class="btn btn-light position-relative" data-bs-toggle="modal" data-bs-target="#course1Modal" data-bs-whatever="0" (click)="setDialogIndex(i)"
+                      [ngStyle] = "{
+                        'backgroundColor' : lasvegas4[i] ? '#696969' : '#F8F9FA',
+                        'color' : lasvegas4[i] ? 'white' : 'black'
+                      }">
                       <span class="enFontBold">{{ score4[i] }}</span>
-                      <div *ngIf="order[i][p] != 0">
-                        <span class="position-absolute top-0 start-0 translate-middle badge rounded-pill badgeOrderCustomColor" [ngStyle] = "{ 'backgroundColor': nowPlaying == i ? '' : '#ffc6ff'}">
+                      <div *ngIf="nowPlaying == i">
+                        <span class="position-absolute top-0 start-0 translate-middle badge rounded-pill badgeOrderCustomColor">
                           <span class="enFont">{{ order[i][p] }}</span>
                         </span>
-                        <ng-container [ngSwitch]="olympic4[i]">
-                          <ng-container *ngSwitchCase=5>
-                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill text-bg-dark">
-                              <span><small>ダ</small></span>
-                            </span>
-                          </ng-container>
-                          <ng-container *ngSwitchCase=4>
-                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill text-bg-dark">
-                              <span><small>金</small></span>
-                            </span>
-                          </ng-container>
-                          <ng-container *ngSwitchCase=3>
-                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill text-bg-dark">
-                              <span><small>銀</small></span>
-                            </span>
-                          </ng-container>
-                          <ng-container *ngSwitchCase=2>
-                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill text-bg-dark">
-                              <span><small>銅</small></span>
-                            </span>
-                          </ng-container>
-                          <ng-container *ngSwitchCase=1>
-                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill text-bg-dark">
-                              <span><small>鉄</small></span>
-                            </span>
-                          </ng-container>
-                          <ng-container *ngSwitchDefault>
-                          </ng-container>
-                        </ng-container>
                       </div>
+                      <ng-container [ngSwitch]="olympic4[i]">
+                        <ng-container *ngSwitchCase=5>
+                          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill text-bg-dark">
+                            <span><small>ダ</small></span>
+                          </span>
+                        </ng-container>
+                        <ng-container *ngSwitchCase=4>
+                          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill text-bg-dark">
+                            <span><small>金</small></span>
+                          </span>
+                        </ng-container>
+                        <ng-container *ngSwitchCase=3>
+                          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill text-bg-dark">
+                            <span><small>銀</small></span>
+                          </span>
+                        </ng-container>
+                        <ng-container *ngSwitchCase=2>
+                          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill text-bg-dark">
+                            <span><small>銅</small></span>
+                          </span>
+                        </ng-container>
+                        <ng-container *ngSwitchCase=1>
+                          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill text-bg-dark">
+                            <span><small>鉄</small></span>
+                          </span>
+                        </ng-container>
+                        <ng-container *ngSwitchDefault>
+                        </ng-container>
+                      </ng-container>
                       <ng-container *ngIf="order[i][p]!=0 && score4[i]!=0">
                         <span class="position-absolute top-100 start-100 translate-middle badge rounded-pill text-bg-success">
                           <span class="enFontSmall">{{ putscore4[i] }}</span>
@@ -324,12 +334,18 @@
                   <small>{{ score.name1 }}</small>
                 </td>
                 <td>
-                  <div class="text-end" [ngStyle] = "{'color' : olympicTotal1 >= 0 ? 'blue' : 'red'}">
+                  <div class="text-end"
+                    [ngStyle] = "{
+                      'color' : olympicTotal1 >= 0 ? 'blue' : 'red'
+                    }">
                     <small><span class="enFont">{{ olympicTotal1 }}</span></small>
                   </div>
                 </td>
                 <td>
-                  <div class="text-end" [ngStyle] = "{'color' : olympicTotal1 >= 0 ? 'blue' : 'red'}">
+                  <div class="text-end"
+                    [ngStyle] = "{
+                      'color' : olympicTotal1 >= 0 ? 'blue' : 'red'
+                    }">
                     <small><span class="enFont">{{ olympicTotal1_rated }}</span></small>
                   </div>
                 </td>
@@ -339,12 +355,18 @@
                   <small>{{ score.name2 }}</small>
                 </td>
                 <td>
-                  <div class="text-end" [ngStyle] = "{'color' : olympicTotal2 >= 0 ? 'blue' : 'red'}">
+                  <div class="text-end"
+                    [ngStyle] = "{
+                      'color' : olympicTotal2 >= 0 ? 'blue' : 'red'
+                    }">
                     <small><span class="enFont">{{ olympicTotal2 }}</span></small>
                   </div>
                 </td>
                 <td>
-                  <div class="text-end" [ngStyle] = "{'color' : olympicTotal2 >= 0 ? 'blue' : 'red'}">
+                  <div class="text-end"
+                    [ngStyle] = "{
+                      'color' : olympicTotal2 >= 0 ? 'blue' : 'red'
+                    }">
                     <small><span class="enFont">{{ olympicTotal2_rated }}</span></small>
                   </div>
                 </td>
@@ -354,12 +376,18 @@
                   <small>{{ score.name3 }}</small>
                 </td>
                 <td>
-                  <div class="text-end" [ngStyle] = "{'color' : olympicTotal3 >= 0 ? 'blue' : 'red'}">
+                  <div class="text-end"
+                    [ngStyle] = "{
+                      'color' : olympicTotal3 >= 0 ? 'blue' : 'red'
+                    }">
                     <small><span class="enFont">{{ olympicTotal3 }}</span></small>
                   </div>
                 </td>
                 <td>
-                  <div class="text-end" [ngStyle] = "{'color' : olympicTotal3 >= 0 ? 'blue' : 'red'}">
+                  <div class="text-end"
+                    [ngStyle] = "{
+                      'color' : olympicTotal3 >= 0 ? 'blue' : 'red'
+                    }">
                     <small><span class="enFont">{{ olympicTotal3_rated }}</span></small>
                   </div>
                 </td>
@@ -369,12 +397,18 @@
                   <small>{{ score.name4 }}</small>
                 </td>
                 <td>
-                  <div class="text-end" [ngStyle] = "{'color' : olympicTotal4 >= 0 ? 'blue' : 'red'}">
+                  <div class="text-end"
+                    [ngStyle] = "{
+                      'color' : olympicTotal4 >= 0 ? 'blue' : 'red'
+                    }">
                     <small><span class="enFont">{{ olympicTotal4 }}</span></small>
                   </div>
                 </td>
                 <td>
-                  <div class="text-end" [ngStyle] = "{'color' : olympicTotal4 >= 0 ? 'blue' : 'red'}">
+                  <div class="text-end"
+                    [ngStyle] = "{
+                      'color' : olympicTotal4 >= 0 ? 'blue' : 'red'
+                    }">
                     <small><span class="enFont">{{ olympicTotal4_rated }}</span></small>
                   </div>
                 </td>
@@ -589,7 +623,7 @@
         <div class="modal-body">
           <mat-accordion>
             <ng-container *ngIf="courseIndex == 0">
-              <mat-expansion-panel class="remove-mat-expansion-panel-padding" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+              <mat-expansion-panel class="remove-mat-expansion-panel-padding">
                 <mat-expansion-panel-header>
                   <mat-panel-title>
                     打順を設定
@@ -651,7 +685,7 @@
                 </div>
               </mat-expansion-panel>
             </ng-container>
-            <mat-expansion-panel class="remove-mat-expansion-panel-padding" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <mat-expansion-panel class="remove-mat-expansion-panel-padding">
               <mat-expansion-panel-header>
                 <mat-panel-title>
                   {{ score.name1 }}
@@ -737,7 +771,7 @@
                 </ng-container>
               </div>
             </mat-expansion-panel>
-            <mat-expansion-panel class="remove-mat-expansion-panel-padding" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <mat-expansion-panel class="remove-mat-expansion-panel-padding">
               <mat-expansion-panel-header>
                 <mat-panel-title>
                   {{ score.name2 }}
@@ -837,7 +871,7 @@
                 </ng-container>
               </div>
             </mat-expansion-panel>
-            <mat-expansion-panel class="remove-mat-expansion-panel-padding" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <mat-expansion-panel class="remove-mat-expansion-panel-padding">
               <mat-expansion-panel-header>
                 <mat-panel-title>
                   {{ score.name3 }}
@@ -937,7 +971,7 @@
                 </ng-container>
               </div>
             </mat-expansion-panel>
-            <mat-expansion-panel class="remove-mat-expansion-panel-padding" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <mat-expansion-panel class="remove-mat-expansion-panel-padding">
               <mat-expansion-panel-header>
                 <mat-panel-title>
                   {{ score.name4 }}
