@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Subscription } from 'rxjs';
 import { getAuth } from '@angular/fire/auth';
-import { NgForm } from '@angular/forms';
+import { SnackbarService } from 'src/app/common/snackbar/snackbar.service';
 
 @Component({
   selector: 'app-scorelist1pt',
@@ -11,11 +11,6 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./scorelist1pt.component.scss']
 })
 export class Scorelist1ptComponent implements OnInit {
-
-  panelOpenState = false;
-
-  //NgFormの作成
-  form!: NgForm;
 
   //DBから取得した値のかたまり(ドキュメント)
   score: any
@@ -55,9 +50,6 @@ export class Scorelist1ptComponent implements OnInit {
   //フォームデータ
   checkoutForm: any
 
-  //保存確認フラグ
-  saving: any
-
   //オーダーフラグ
   orderError: any
 
@@ -75,7 +67,8 @@ export class Scorelist1ptComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private firestore: AngularFirestore
+    private firestore: AngularFirestore,
+    private snackberService: SnackbarService
     ){
     }
 
@@ -110,7 +103,7 @@ export class Scorelist1ptComponent implements OnInit {
     this.no = data.no
     this.playerArray.push(this._index_name1)
     this.memo = data.memo == undefined ? "" : data.memo
-    this.save()
+    this.displayUpdate()
   }
 
   /**
@@ -146,7 +139,8 @@ export class Scorelist1ptComponent implements OnInit {
       this.getSubcollection(getAuth().currentUser?.uid || '', 'scores').doc(_id).valueChanges().subscribe(data => {
         this.score = data
         this.setInitParam(data)
-        console.log("[log] " + new Date() + " GET Firestore Document: " + "ID=" + _id + " DATA=" + JSON.stringify(data))
+        //console.log("[log] " + new Date() + " GET Firestore Document: " + "ID=" + _id + " DATA=" + JSON.stringify(data))
+        console.log("[log] " + new Date() + " GET Firestore Document: " + "ID=" + _id + " DATA=" + data)
         // unsubscribe
         this.execUnsubscribe()
       })
@@ -177,14 +171,9 @@ export class Scorelist1ptComponent implements OnInit {
    * @param playerIndex プレイヤー番号
    */
   setScoreCounter1Up(courseNo: any, playerIndex: any){
-    switch (playerIndex){
-      case this._index_name1:
-        if(this.score1[courseNo] < 15 )
-          this.score1[courseNo]++
-        break
-      default:
-        break
-    }
+
+    if(this.score1[courseNo] < 15 )
+      this.score1[courseNo]++
   }
 
   /**
@@ -194,14 +183,9 @@ export class Scorelist1ptComponent implements OnInit {
    * @param playerIndex プレイヤー番号
    */
   setScoreCounter5Up(courseNo: any, playerIndex: any){
-    switch (playerIndex){
-      case this._index_name1:
-        if(this.score1[courseNo] < 15 )
-          this.score1[courseNo] = this.score1[courseNo] + 5 > 15 ? 15 : this.score1[courseNo] + 5
-        break
-      default:
-        break
-    }
+
+    if(this.score1[courseNo] < 15 )
+      this.score1[courseNo] = this.score1[courseNo] + 5 > 15 ? 15 : this.score1[courseNo] + 5
   }
 
   /**
@@ -211,14 +195,9 @@ export class Scorelist1ptComponent implements OnInit {
    * @param playerIndex プレイヤー番号
    */
   setScoreCounter1Down(courseNo: any, playerIndex: any){
-    switch (playerIndex){
-      case this._index_name1:
-        if(this.score1[courseNo] > 0 )
-          this.score1[courseNo]--
-        break
-      default:
-        break
-    }
+
+    if(this.score1[courseNo] > 0 )
+      this.score1[courseNo]--
   }
 
   /**
@@ -228,49 +207,34 @@ export class Scorelist1ptComponent implements OnInit {
    * @param playerIndex プレイヤー番号
    */
   setScoreCounter5Down(courseNo: any, playerIndex: any){
-    switch (playerIndex){
-      case this._index_name1:
-        if(this.score1[courseNo] > 0 )
-          this.score1[courseNo] = this.score1[courseNo] - 5 < 0 ? 0 : this.score1[courseNo] - 5
-        break
-      default:
-        break
-    }
+
+    if(this.score1[courseNo] > 0 )
+      this.score1[courseNo] = this.score1[courseNo] - 5 < 0 ? 0 : this.score1[courseNo] - 5
   }
 
-    /**
+  /**
    * パターのカウントアップ(プラス1)
    * ダイアログ用イベント
    * @param courseNo コースNo
    * @param playerIndex プレイヤー番号
    */
-    setPutscoreCounter1Up(courseNo: any, playerIndex: any){
-      switch (playerIndex){
-        case this._index_name1:
-          if(this.putscore1[courseNo] < 15 )
-            this.putscore1[courseNo]++
-          break
-        default:
-          break
-      }
-    }
+  setPutscoreCounter1Up(courseNo: any, playerIndex: any){
 
-    /**
-     * パターのカウントダウン（マイナス1）
-     * ダイアログ用イベント
-     * @param courseNo コースNo
-     * @param playerIndex プレイヤー番号
-     */
-    setPutscoreCounter1Down(courseNo: any, playerIndex: any){
-      switch (playerIndex){
-        case this._index_name1:
-          if(this.putscore1[courseNo] > 0 )
-            this.putscore1[courseNo]--
-          break
-        default:
-          break
-      }
-    }
+    if(this.putscore1[courseNo] < 15 )
+      this.putscore1[courseNo]++
+  }
+
+  /**
+   * パターのカウントダウン（マイナス1）
+   * ダイアログ用イベント
+   * @param courseNo コースNo
+   * @param playerIndex プレイヤー番号
+   */
+  setPutscoreCounter1Down(courseNo: any, playerIndex: any){
+
+    if(this.putscore1[courseNo] > 0 )
+      this.putscore1[courseNo]--
+  }
 
   /**
    * ダイアログを閉じるタイミングの処理
@@ -279,13 +243,40 @@ export class Scorelist1ptComponent implements OnInit {
    * /ラスベガスの更新/
    * /打順の更新/
    */
-  save() {
+  displayUpdate() {
     // changes.prop contains the old and the new value...
     this.outTotal1 = this.setOutTotal1()
     this.inTotal1 = this.setInTotal1()
     this.total1 = this.setTotal1()
 
     this.setBadgeOrder()
+  }
+
+  /**
+   * 各ホールのスコア入力ダイアログを閉じた時の処理
+   */
+  closeInputDialog() {
+
+    this.displayUpdate()
+    this.snackberService.openSnackBar("スコアを一覧に反映しました")
+    this.saveScore()
+  }
+
+  /**
+   * スコアをFirestoreに保存する
+   */
+  saveScore() {
+    this.onSubmit()
+  }
+
+  /**
+   * 設定画面の内容を反映
+   */
+  setSettings(){
+
+    this.displayUpdate()
+    this.snackberService.openSnackBar("設定内容を反映しました")
+    this.saveScore()
   }
 
   /**
@@ -344,7 +335,7 @@ export class Scorelist1ptComponent implements OnInit {
    * 入力内容をFirestoreに上書きする
    * Subscribeできないため、try-catchでエラーをハンドリングする
    */
-  onSubmit(form: any) {
+  onSubmit() {
 
     // リクエスト送信用にJSON作成
     this.checkoutForm = ({
@@ -353,13 +344,12 @@ export class Scorelist1ptComponent implements OnInit {
       memo: this.memo
     });
 
-    this.saving = true
     try {
       this.getSubcollection(getAuth().currentUser?.uid || '', 'scores').doc(this._id).update(this.checkoutForm)
       console.log("[log] " + new Date() + " POST Firestore Document: " + "scores/" + this._id)
     } catch (error) {
-      this.saving = false
       console.log("[log] " + new Date() + " POST Error: " + error)
+      this.snackberService.openSnackBar("スコアの保存に失敗しました")
     }
   }
 }

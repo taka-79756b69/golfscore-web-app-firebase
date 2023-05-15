@@ -9,6 +9,8 @@ import { NewgameComponent } from './newgame.component'
 import { MatFormFieldModule} from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatButtonModule } from '@angular/material/button';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { ScoreComponent } from '../score/score.component';
 
@@ -30,7 +32,9 @@ const routes: Routes = [
     MatNativeDateModule,
     FormsModule,
     MatIconModule,
-    MatSelectModule
+    MatSelectModule,
+    MatStepperModule,
+    MatButtonModule
   ],
   exports: [
     MatDatepickerModule,

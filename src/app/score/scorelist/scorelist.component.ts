@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Subscription } from 'rxjs';
 import { getAuth } from '@angular/fire/auth';
-import { NgForm } from '@angular/forms';
+import { SnackbarService } from 'src/app/common/snackbar/snackbar.service';
 
 @Component({
   selector: 'app-scorelist',
@@ -11,11 +11,6 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./scorelist.component.scss']
 })
 export class ScorelistComponent implements OnInit {
-
-  panelOpenState = false;
-
-  //NgFormの作成
-  form!: NgForm;
 
   //DBから取得した値のかたまり(ドキュメント)
   score: any
@@ -158,11 +153,11 @@ export class ScorelistComponent implements OnInit {
   noStorey = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
   noStoreyNow = 0
 
+  //ラスベガスのチームローテーション
+  teamType = [1,2,3,1,2,3,1,2,3,1,2,3,1,2,3,1,2,3]
+
   //フォームデータ
   checkoutForm: any
-
-  //保存確認フラグ
-  saving: any
 
   //オーダーフラグ
   orderError: any
@@ -184,7 +179,8 @@ export class ScorelistComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private firestore: AngularFirestore
+    private firestore: AngularFirestore,
+    private snackberService: SnackbarService
     ){
     }
 
@@ -245,7 +241,7 @@ export class ScorelistComponent implements OnInit {
     this.isLas2stories = data.isLas2stories == undefined ? false : data.isLas2stories
     this.isLasPair = data.isLasPair == undefined ? false : data.isLasPair
     this.memo = data.memo == undefined ? "" : data.memo
-    this.save()
+    this.displayUpdate()
   }
 
   /**
@@ -281,7 +277,8 @@ export class ScorelistComponent implements OnInit {
       this.getSubcollection(getAuth().currentUser?.uid || '', 'scores').doc(_id).valueChanges().subscribe(data => {
         this.score = data
         this.setInitParam(data)
-        console.log("[log] " + new Date() + " GET Firestore Document: " + "ID=" + _id + " DATA=" + JSON.stringify(data))
+        //console.log("[log] " + new Date() + " GET Firestore Document: " + "ID=" + _id + " DATA=" + JSON.stringify(data))
+        console.log("[log] " + new Date() + " GET Firestore Document: " + "ID=" + _id + " DATA=" + data)
         // unsubscribe
         this.execUnsubscribe()
       })
@@ -486,7 +483,7 @@ export class ScorelistComponent implements OnInit {
    * /ラスベガスの更新/
    * /打順の更新/
    */
-  save() {
+  displayUpdate() {
     // changes.prop contains the old and the new value...
     this.outTotal1 = this.setOutTotal1()
     this.inTotal1 = this.setInTotal1()
@@ -513,6 +510,33 @@ export class ScorelistComponent implements OnInit {
     this.setOlympicTotal()
     this.setLasvegasTotal()
     this.setOlympicAndLasvegasAfterRate()
+  }
+
+  /**
+   * 各ホールのスコア入力ダイアログを閉じた時の処理
+   */
+  closeInputDialog() {
+
+    this.displayUpdate()
+    this.snackberService.openSnackBar("スコアを一覧に反映しました")
+    this.saveScore()
+  }
+
+  /**
+   * スコアをFirestoreに保存する
+   */
+  saveScore() {
+    this.onSubmit()
+  }
+
+  /**
+   * 設定画面の内容を反映
+   */
+  setSettings(){
+
+    this.displayUpdate()
+    this.snackberService.openSnackBar("設定内容を反映しました")
+    this.saveScore()
   }
 
   /**
@@ -559,6 +583,7 @@ export class ScorelistComponent implements OnInit {
   /**
    * 一覧のラスベガスの合計を設定する
    * コース毎に集計し、合計を設定する
+   * 同点の場合は次コースの持ち越しする
    * @param index 判定するコースNo
    * @param teamA チームAのスコア
    * @param teamB チームBのスコア
@@ -607,11 +632,20 @@ export class ScorelistComponent implements OnInit {
       p4Score = this.getLasTeamScore(teamA) - this.getLasTeamScore(teamB)
     }
 
+    //ラスベガスの2階建てルールを設定する
     if(this.isLas2stories){
       //同点の場合次のコースの倍率を上げる
       if(teamAScore==teamBScore){
+        //倍率をアップ
         this.noStoreyNow += 1
+        //次のコースの倍率に加算する
         this.noStorey[index+1] += this.noStoreyNow
+        //次のコースのチームも持ち越しで同じチームにする
+        this.teamType[index+1] = this.teamType[index]
+        this.lasvegas1[index+1] = this.lasvegas1[index]
+        this.lasvegas2[index+1] = this.lasvegas2[index]
+        this.lasvegas3[index+1] = this.lasvegas3[index]
+        this.lasvegas4[index+1] = this.lasvegas4[index]
       }else{
         //同点でない場合倍率を元に戻す
         this.noStoreyNow = 0
@@ -1016,13 +1050,11 @@ export class ScorelistComponent implements OnInit {
    */
   setLasvegasTeam() {
 
-    let teamType = [1,2,3,1,2,3,1,2,3,1,2,3,1,2,3,1,2,3]
-
     for (let i=0; i<=17; i++) {
       if ( this.order[i][this._index_name1] != 0 && this.order[i][this._index_name2] != 0
           && this.order[i][this._index_name3] != 0 && this.order[i][this._index_name4] != 0 ) {
         if(this.isLasPair){
-          this.setLasvegas2(i, this.order[i], teamType[i])
+          this.setLasvegas2(i, this.order[i], this.teamType[i])
         }else{
           this.setLasvegas1(i, this.order[i])
         }
@@ -1079,7 +1111,7 @@ export class ScorelistComponent implements OnInit {
    * 入力内容をFirestoreに上書きする
    * Subscribeできないため、try-catchでエラーをハンドリングする
    */
-  onSubmit(form: any) {
+  onSubmit() {
 
     this.chipsUndefinedReplace()
 
@@ -1113,13 +1145,12 @@ export class ScorelistComponent implements OnInit {
       memo: this.memo
     });
 
-    this.saving = true
     try {
       this.getSubcollection(getAuth().currentUser?.uid || '', 'scores').doc(this._id).update(this.checkoutForm)
-      console.log("[log] " + new Date() + " POST Firestore Document: " + "scores/" + this._id)
+      console.log("[log] " + new Date() + " POST Success => [Firestore Document]: " + "scores/" + this._id)
     } catch (error) {
-      this.saving = false
       console.log("[log] " + new Date() + " POST Error: " + error)
+      this.snackberService.openSnackBar("スコアの保存に失敗しました")
     }
   }
 

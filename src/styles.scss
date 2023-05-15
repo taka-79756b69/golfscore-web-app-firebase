@@ -26,3 +26,7 @@ body { margin: 0; font-family: 'Kosugi', sans-serif; font-size: 15px;}
 .remove-mat-expansion-panel-padding .mat-expansion-panel-content .mat-expansion-panel-body{
   padding: 0 !important;
 }
+
+.cdk-overlay-container {
+  z-index: 10000;
+}

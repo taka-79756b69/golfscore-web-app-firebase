@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Subscription } from 'rxjs';
 import { getAuth } from '@angular/fire/auth';
-import { NgForm } from '@angular/forms';
+import { SnackbarService } from 'src/app/common/snackbar/snackbar.service';
 
 @Component({
   selector: 'app-scorelist2pt',
@@ -11,11 +11,6 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./scorelist2pt.component.scss']
 })
 export class Scorelist2ptComponent implements OnInit {
-
-  panelOpenState = false;
-
-  //NgFormの作成
-  form!: NgForm;
 
   //DBから取得した値のかたまり(ドキュメント)
   score: any
@@ -89,9 +84,6 @@ export class Scorelist2ptComponent implements OnInit {
   //フォームデータ
   checkoutForm: any
 
-  //保存確認フラグ
-  saving: any
-
   //オーダーフラグ
   orderError: any
 
@@ -109,7 +101,8 @@ export class Scorelist2ptComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private firestore: AngularFirestore
+    private firestore: AngularFirestore,
+    private snackberService: SnackbarService
     ){
     }
 
@@ -129,7 +122,7 @@ export class Scorelist2ptComponent implements OnInit {
       let confirmationMessage = "\o/";
       e.returnValue = confirmationMessage;     // Gecko, Trident, Chrome 34+
       return confirmationMessage;              // Gecko, WebKit, Chrome <34
-  });
+    });
   }
 
   /**
@@ -150,7 +143,7 @@ export class Scorelist2ptComponent implements OnInit {
     //2023年3月以降追加分はDBに項目がないためundifinedになる
     //undifinedの場合、初期値を設定する
     this.memo = data.memo == undefined ? "" : data.memo
-    this.save()
+    this.displayUpdate()
   }
 
   /**
@@ -186,7 +179,8 @@ export class Scorelist2ptComponent implements OnInit {
       this.getSubcollection(getAuth().currentUser?.uid || '', 'scores').doc(_id).valueChanges().subscribe(data => {
         this.score = data
         this.setInitParam(data)
-        console.log("[log] " + new Date() + " GET Firestore Document: " + "ID=" + _id + " DATA=" + JSON.stringify(data))
+        //console.log("[log] " + new Date() + " GET Firestore Document: " + "ID=" + _id + " DATA=" + JSON.stringify(data))
+        console.log("[log] " + new Date() + " GET Firestore Document: " + "ID=" + _id + " DATA=" + data)
         // unsubscribe
         this.execUnsubscribe()
       })
@@ -294,47 +288,47 @@ export class Scorelist2ptComponent implements OnInit {
     }
   }
 
-    /**
+  /**
    * パターのカウントアップ(プラス1)
    * ダイアログ用イベント
    * @param courseNo コースNo
    * @param playerIndex プレイヤー番号
    */
-    setPutscoreCounter1Up(courseNo: any, playerIndex: any){
-      switch (playerIndex){
-        case this._index_name1:
-          if(this.putscore1[courseNo] < 15 )
-            this.putscore1[courseNo]++
-          break
-        case this._index_name2:
-          if(this.putscore2[courseNo] < 15 )
-            this.putscore2[courseNo]++
-          break
-        default:
-          break
-      }
+  setPutscoreCounter1Up(courseNo: any, playerIndex: any){
+    switch (playerIndex){
+      case this._index_name1:
+        if(this.putscore1[courseNo] < 15 )
+          this.putscore1[courseNo]++
+        break
+      case this._index_name2:
+        if(this.putscore2[courseNo] < 15 )
+          this.putscore2[courseNo]++
+        break
+      default:
+        break
     }
+  }
 
-    /**
-     * パターのカウントダウン（マイナス1）
-     * ダイアログ用イベント
-     * @param courseNo コースNo
-     * @param playerIndex プレイヤー番号
-     */
-    setPutscoreCounter1Down(courseNo: any, playerIndex: any){
-      switch (playerIndex){
-        case this._index_name1:
-          if(this.putscore1[courseNo] > 0 )
-            this.putscore1[courseNo]--
-          break
-        case this._index_name2:
-          if(this.putscore2[courseNo] > 0 )
-            this.putscore2[courseNo]--
-          break
-        default:
-          break
-      }
+  /**
+   * パターのカウントダウン（マイナス1）
+   * ダイアログ用イベント
+   * @param courseNo コースNo
+   * @param playerIndex プレイヤー番号
+   */
+  setPutscoreCounter1Down(courseNo: any, playerIndex: any){
+    switch (playerIndex){
+      case this._index_name1:
+        if(this.putscore1[courseNo] > 0 )
+          this.putscore1[courseNo]--
+        break
+      case this._index_name2:
+        if(this.putscore2[courseNo] > 0 )
+          this.putscore2[courseNo]--
+        break
+      default:
+        break
     }
+  }
 
   /**
    * ダイアログを閉じるタイミングの処理
@@ -343,7 +337,7 @@ export class Scorelist2ptComponent implements OnInit {
    * /ラスベガスの更新/
    * /打順の更新/
    */
-  save() {
+  displayUpdate() {
     // changes.prop contains the old and the new value...
     this.outTotal1 = this.setOutTotal1()
     this.inTotal1 = this.setInTotal1()
@@ -354,8 +348,34 @@ export class Scorelist2ptComponent implements OnInit {
 
     //undifinedになる可能性があるものは置き換える
     this.chipsUndefinedReplace()
-
     this.setBadgeOrder()
+  }
+
+  /**
+   * 各ホールのスコア入力ダイアログを閉じた時の処理
+   */
+  closeInputDialog() {
+
+    this.displayUpdate()
+    this.snackberService.openSnackBar("スコアを一覧に反映しました")
+    this.saveScore()
+  }
+
+  /**
+   * スコアをFirestoreに保存する
+   */
+  saveScore() {
+    this.onSubmit()
+  }
+
+  /**
+   * 設定画面の内容を反映
+   */
+  setSettings(){
+
+    this.displayUpdate()
+    this.snackberService.openSnackBar("設定内容を反映しました")
+    this.saveScore()
   }
 
   /**
@@ -510,7 +530,7 @@ export class Scorelist2ptComponent implements OnInit {
    * 入力内容をFirestoreに上書きする
    * Subscribeできないため、try-catchでエラーをハンドリングする
    */
-  onSubmit(form: any) {
+  onSubmit() {
 
     //オーダーが未設定の場合undefinedになるため
     //undifinedの場合は、0に置き換えてから保存する
@@ -530,13 +550,12 @@ export class Scorelist2ptComponent implements OnInit {
       memo: this.memo
     });
 
-    this.saving = true
     try {
       this.getSubcollection(getAuth().currentUser?.uid || '', 'scores').doc(this._id).update(this.checkoutForm)
       console.log("[log] " + new Date() + " POST Firestore Document: " + "scores/" + this._id)
     } catch (error) {
-      this.saving = false
       console.log("[log] " + new Date() + " POST Error: " + error)
+      this.snackberService.openSnackBar("スコアの保存に失敗しました")
     }
   }
 

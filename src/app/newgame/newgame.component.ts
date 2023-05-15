@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { getAuth } from '@angular/fire/auth';
+import { SnackbarService } from 'src/app/common/snackbar/snackbar.service';
 
 @Component({
   selector: 'app-newgame',
@@ -14,8 +15,13 @@ export class NewgameComponent {
 
   constructor(
     private router: Router,
-    private firestore: AngularFirestore,) {
+    private firestore: AngularFirestore,
+    private snackberService: SnackbarService
+    ) {
   }
+
+  //ローディング
+  loading: any
 
   //初期化
   name1 = ''
@@ -29,9 +35,6 @@ export class NewgameComponent {
 
   //NgFormの作成
   form!: NgForm;
-
-  //保存ダイアログ用のフラグ
-  saving: any
 
   //バリデーション
   validate = true
@@ -61,9 +64,9 @@ export class NewgameComponent {
    * フォーム入力内容で新規作成
    * 空のスコア入力データをDBに作成する。
    */
-  onSubmit() {
+  async onSubmit() {
 
-    this.saving = true
+    this.loading = true
 
     //1000で割って日付を保存
     let savePlayDate = this.playDate
@@ -122,16 +125,18 @@ export class NewgameComponent {
       isLasPair: false,
     });
 
-    this.saving = true
     try {
-      this.getSubcollection(getAuth().currentUser?.uid || '', 'scores').add(this.checkoutForm).then(result =>{
+      await this.getSubcollection(getAuth().currentUser?.uid || '', 'scores').add(this.checkoutForm).then(result =>{
         console.log("[log] " + new Date() + " POST Firestore New Document: ID=" + result.id)
         this.createdDocId = result.id
       })
+      this.snackberService.openSnackBar("データを作成しました")
+      this.reload()
     } catch (error) {
-      this.saving = false
       console.log("[log] " + new Date() + " POST Error: " + error)
+      this.snackberService.openSnackBar("データの作成に失敗しました")
     }
+    this.loading = false
   }
 
   /**

@@ -1,5 +1,5 @@
 <div *ngIf="score">
-  <form #form=ngForm (ngSubmit)="onSubmit(form)">
+  <form #form=ngForm (ngSubmit)="onSubmit()">
     <table class="table table-borderless table-sm">
       <thead class="sticky-top table-secondary">
         <tr class="table-primary">
@@ -27,7 +27,7 @@
               <td class="text-center align-bottom">
                 <div class="d-grid gap-2 col-8 mx-auto">
                   <ng-container *ngIf="p == 0">
-                    <button type="button" class="btn btn-light position-relative">
+                    <button type="button" class="btn btn-light position-relative" data-bs-toggle="modal" data-bs-target="#course1Modal" data-bs-whatever="0" (click)="setDialogIndex(i)">
                       <span class="enFontBold">{{ score1[i] }}</span>
                       <div *ngIf="order[i][p] != 0">
                         <span class="position-absolute top-0 start-0 translate-middle badge rounded-pill badgeOrderCustomColor" [ngStyle] = "{ 'backgroundColor': nowPlaying == i ? '' : '#ffc6ff'}">
@@ -77,7 +77,7 @@
                     </button>
                   </ng-container>
                   <ng-container *ngIf="p == 1">
-                    <button type="button" class="btn btn-light position-relative">
+                    <button type="button" class="btn btn-light position-relative" data-bs-toggle="modal" data-bs-target="#course1Modal" data-bs-whatever="0" (click)="setDialogIndex(i)">
                       <span class="enFontBold">{{ score2[i] }}</span>
                       <div *ngIf="order[i][p] != 0">
                         <span class="position-absolute top-0 start-0 translate-middle badge rounded-pill badgeOrderCustomColor" [ngStyle] = "{ 'backgroundColor': nowPlaying == i ? '' : '#ffc6ff'}">
@@ -127,7 +127,7 @@
                     </button>
                   </ng-container>
                   <ng-container *ngIf="p == 2">
-                    <button type="button" class="btn btn-light position-relative">
+                    <button type="button" class="btn btn-light position-relative" data-bs-toggle="modal" data-bs-target="#course1Modal" data-bs-whatever="0" (click)="setDialogIndex(i)">
                       <span class="enFontBold">{{ score3[i] }}</span>
                       <div *ngIf="order[i][p] != 0">
                         <span class="position-absolute top-0 start-0 translate-middle badge rounded-pill badgeOrderCustomColor" [ngStyle] = "{ 'backgroundColor': nowPlaying == i ? '' : '#ffc6ff'}">
@@ -301,19 +301,8 @@
       </div>
       <br>
       <br>
-      <br>
-      <br>
-      <div class="container fixed-bottom">
-        <div class="row">
-          <div class="col"></div>
-          <div class="col-5 d-grid gap-2">
-            <button class="btn btn-primary mb-3" type="submit" data-bs-toggle="modal" data-bs-target="#saveDialog">
-              <i class="material-icons small-size">save_as</i> スコア保存
-            </button>
-          </div>
-          <div class="col"></div>
-        </div>
-        <div class="row">
+      <div class="container fixed-bottom overlay">
+        <div class="row mt-3">
           <div class="col"></div>
           <div class="col text-center">
             <a routerLink="{{ '/score' }}">
@@ -323,8 +312,8 @@
             </a>
           </div>
           <div class="col text-end">
-            <button class="btn btn-sm btn-secondary mb-3 mr-3" type="button" data-bs-toggle="modal" data-bs-target="#settingModal" style="width: 35px; height: 35px;">
-              <i class="material-icons small-size">settings</i>
+            <button class="btn btn-primary mb-3 mr-3" type="button" data-bs-toggle="modal" data-bs-target="#settingModal">
+              <i class="material-icons small-size">settings</i> 設定
             </button>
           </div>
         </div>
@@ -351,7 +340,7 @@
         <div class="modal-body">
           <mat-accordion>
             <ng-container *ngIf="courseIndex == 0">
-              <mat-expansion-panel class="remove-mat-expansion-panel-padding" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+              <mat-expansion-panel class="remove-mat-expansion-panel-padding">
                 <mat-expansion-panel-header>
                   <mat-panel-title>
                     打順を設定
@@ -397,7 +386,7 @@
                 </div>
               </mat-expansion-panel>
             </ng-container>
-            <mat-expansion-panel class="remove-mat-expansion-panel-padding" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <mat-expansion-panel class="remove-mat-expansion-panel-padding">
               <mat-expansion-panel-header>
                 <mat-panel-title>
                   {{ score.name1 }}
@@ -483,7 +472,7 @@
                 </ng-container>
               </div>
             </mat-expansion-panel>
-            <mat-expansion-panel class="remove-mat-expansion-panel-padding" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <mat-expansion-panel class="remove-mat-expansion-panel-padding">
               <mat-expansion-panel-header>
                 <mat-panel-title>
                   {{ score.name2 }}
@@ -581,7 +570,7 @@
                 </ng-container>
               </div>
             </mat-expansion-panel>
-            <mat-expansion-panel class="remove-mat-expansion-panel-padding" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <mat-expansion-panel class="remove-mat-expansion-panel-padding">
               <mat-expansion-panel-header>
                 <mat-panel-title>
                   {{ score.name3 }}
@@ -685,7 +674,7 @@
             <div class="row justify-content-center">
               <div class="col-6">
                 <div class="d-grid">
-                  <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="save()">一覧へ反映</button>
+                  <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="closeInputDialog()">一覧へ反映</button>
                 </div>
               </div>
             </div>
@@ -694,40 +683,7 @@
       </div>
     </div>
   </div>
-  <!-- 保存確認ダイアログ -->
-  <div class="modal fade" id="saveDialog" tabindex="-1" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
-    <div class="modal-dialog modal-sm modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-body">
-          <div class="container">
-            <div class="row justify-content-center">
-              <div class="col-9 text-center">
-                <div *ngIf="saving; else elseContent">
-                  <mat-icon style="color: green; font-size: 35px; height: 37px; width: 37px;">check_circle</mat-icon>
-                  <h3>保存が完了しました。</h3>
-                </div>
-                <ng-template #elseContent>
-                  <mat-icon style="color: red; font-size: 35px; height: 37px; width: 37px;">error</mat-icon>
-                  <h3>保存失敗しました。</h3>
-                </ng-template>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <div class="container">
-            <div class="row justify-content-center">
-              <div class="col-9">
-                <div class="d-grid">
-                  <button type="button" class="btn btn-primary" data-bs-dismiss="modal">閉じる</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+
   <!-- 設定ダイアログ -->
   <div class="modal fade" id="settingModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
@@ -812,7 +768,7 @@
             <div class="row justify-content-center">
               <div class="col-6">
                 <div class="d-grid">
-                  <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="save()">閉じる</button>
+                  <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="setSettings()">閉じる</button>
                 </div>
               </div>
             </div>

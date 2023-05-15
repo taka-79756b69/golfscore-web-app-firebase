@@ -1,102 +1,54 @@
 <div class="card card-body">
-  <form class="needs-validation" #form=ngForm (ngSubmit)="onSubmit()" novalidate>
-    <table class="table">
-      <tr>
-        <td class="text-start" style="width: 50%;">
-          <h3>
-            <small>プレイヤー１ </small>
-            <ng-container *ngIf="name1==''; else name1Else">
-              <i class="material-icons mat-icon-error">error</i>
-            </ng-container>
-            <ng-template #name1Else>
-              <i class="material-icons mat-icon-priority">verified</i>
-            </ng-template>
-          </h3>
-        </td>
-        <td class="text-start" style="width: 50%;">
-          <input type="text" class="form-control my-2" [(ngModel)]="name1" name="name1" placeholder="氏名" (blur)="inputCheck()">
-        </td>
-      </tr>
-      <tr>
-        <td class="text-start">
-          <h3>
-            <small>プレイヤー２ </small>
-          </h3>
-        </td>
-        <td class="text-start">
-          <input type="text" class="form-control my-2" [(ngModel)]="name2" name="name2" placeholder="氏名">
-        </td>
-      </tr>
-      <tr>
-        <td class="text-start">
-          <h3>
-            <small>プレイヤー３ </small>
-          </h3>
-        </td>
-        <td class="text-start">
-          <input type="text" class="form-control my-2" [(ngModel)]="name3" name="name3" placeholder="氏名">
-        </td>
-      </tr>
-      <tr>
-        <td class="text-start">
-          <h3><small>プレイヤー４ </small></h3>
-        </td>
-        <td class="text-start">
-          <input type="text" class="form-control my-2" [(ngModel)]="name4" name="name4" placeholder="氏名">
-        </td>
-      </tr>
-      <tr>
-        <td class="text-start">
-          <h3>
-            <small>プレイ日付 </small>
-            <ng-container *ngIf="playDate==''; else playDateElse">
-              <i class="material-icons mat-icon-error">error</i>
-            </ng-container>
-            <ng-template #playDateElse>
-              <i class="material-icons mat-icon-priority">verified</i>
-            </ng-template>
-          </h3>
-        </td>
-        <td class="text-start">
-          <input type="date" class="form-control enFont my-2" [(ngModel)]="playDate" name="playDate" placeholder="プレイ日付" (blur)="inputCheck()">
-        </td>
-      </tr>
-      <tr>
-        <td class="text-start">
-          <h3><small>コース名 </small></h3>
-        </td>
-        <td class="text-start">
-          <input type="text" class="form-control my-2" [(ngModel)]="courseName" name="courseName" placeholder="コース名">
-        </td>
-      </tr>
-      <tr>
-        <td class="text-start">
-          <h3><small>スタート </small></h3>
-        </td>
-        <td class="text-start">
-          <select class="form-select form-control enFont my-2" [(ngModel)]="inout" name="inout">
+  <form class="needs-validation" #form=ngForm (ngSubmit)="onSubmit()">
+    <mat-stepper orientation="vertical">
+      <mat-step>
+        <ng-template matStepLabel>コース情報</ng-template>
+        <ng-template matStepContent>
+          プレイ日付 <span class="badge rounded-pill text-bg-danger mat-badge-error">必須</span>
+          <input type="date" class="form-control enFont mb-2" [(ngModel)]="playDate" name="playDate" placeholder="プレイ日付" (blur)="inputCheck()">
+          コース名
+          <input type="text" class="form-control mb-2" [(ngModel)]="courseName" name="courseName" placeholder="コース名">
+          スタート
+          <select class="form-select form-control enFont" [(ngModel)]="inout" name="inout">
             <option class="enFont" value=0>OUT → IN</option>
             <option class="enFont" value=1>IN → OUT</option>
           </select>
-        </td>
-      </tr>
-    </table>
-    <div class="container">
-      <div class="row">
-        <div class="col">
-        </div>
-        <div class="col-5 d-grid gap-2">
-          <button *ngIf="validate; else elseButton" class="btn btn-secondary btn-block" type="submit" [disabled]="validate" data-bs-toggle="modal" data-bs-target="#saveDialog">
+        </ng-template>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>プレイ人数</ng-template>
+        <ng-template matStepContent>
+          １人目 <span class="badge rounded-pill text-bg-danger mat-badge-error">必須</span>
+          <input type="text" class="form-control mb-2" [(ngModel)]="name1" name="name1" placeholder="１人目のプレーヤー名" (blur)="inputCheck()">
+          ２人目
+          <input type="text" class="form-control mb-2" [(ngModel)]="name2" name="name2" placeholder="２人目のプレーヤー名">
+          ３人目
+          <input type="text" class="form-control mb-2" [(ngModel)]="name3" name="name3" placeholder="３人目のプレーヤー名">
+          ４人目
+          <input type="text" class="form-control" [(ngModel)]="name4" name="name4" placeholder="４人目のプレーヤー名">
+        </ng-template>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>プレイ開始</ng-template>
+        <div>
+          <button mat-raised-button color="primary" type="submit" [disabled]="validate">
             プレイ開始
           </button>
-          <ng-template #elseButton>
-            <button class="btn btn-primary btn-block" type="submit" [disabled]="validate" data-bs-toggle="modal" data-bs-target="#saveDialog">
-              プレイ開始
-            </button>
-          </ng-template>
+          <ng-container *ngIf="validate">
+            <p class="mt-3 font-red">
+              <i class="material-icons mat-icon-error">error</i>
+               未入力箇所があります。
+            </p>
+            以下を確認してください。
+            <ul>
+              <li><small>プレイ日付が未入力</small></li>
+              <li><small>プレイ人数が0人</small></li>
+            </ul>
+          </ng-container>
         </div>
-        <div class="col"></div>
-      </div>
+      </mat-step>
+    </mat-stepper>
+    <div class="container">
       <div class="row fixed-bottom">
         <div class="col"></div>
         <div class="col text-center">
@@ -110,39 +62,13 @@
       </div>
     </div>
   </form>
+</div>
 
-  <!-- 保存確認ダイアログ -->
-  <div class="modal fade" id="saveDialog" tabindex="-1" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
-    <div class="modal-dialog modal-sm modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-body">
-          <div class="container">
-            <div class="row justify-content-center">
-              <div class="col-9 text-center">
-                <div *ngIf="saving; else elseContent">
-                  <mat-icon style="color: green; font-size: 35px; height: 37px; width: 37px;">check_circle</mat-icon>
-                  <h3>作成が完了しました。</h3>
-                </div>
-                <ng-template #elseContent>
-                  <mat-icon style="color: red; font-size: 35px; height: 37px; width: 37px;">check_circle</mat-icon>
-                  <h3>作成に失敗しました。</h3>
-                </ng-template>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <div class="container">
-            <div class="row justify-content-center">
-              <div class="col-9">
-                <div class="d-grid">
-                  <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="reload()">移動する</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+<ng-container *ngIf="loading">
+  <div class="overlay"></div>
+  <div class="spanner d-flex justify-content-center">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
     </div>
   </div>
-</div>
+</ng-container>
