@@ -71,12 +71,22 @@
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-body">
-          データを削除します。よろしいですか？
+          <div *ngIf="confflag; else elseContent">
+            データを削除します。よろしいですか？
+          </div>
+          <ng-template #elseContent>
+            データを削除しました。
+          </ng-template>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">キャンセル</button>
-          &nbsp;
-          <button type="button" class="btn btn-danger btn-sm"  data-bs-dismiss="modal" (click)="delDocument()">&nbsp;削除&nbsp;</button>
+          <div *ngIf="confflag; else elseContentFooter">
+            <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">キャンセル</button>
+            &nbsp;
+            <button type="button" class="btn btn-danger btn-sm" (click)="delDocument()">&nbsp;削除&nbsp;</button>
+          </div>
+          <ng-template #elseContentFooter>
+            <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal" (click)="reload()">閉じる</button>
+          </ng-template>
         </div>
       </div>
     </div>

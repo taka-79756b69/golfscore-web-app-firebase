@@ -2,7 +2,6 @@ import { getAuth } from '@angular/fire/auth';
 import { Subscription } from 'rxjs';
 import { Component } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { SnackbarService } from 'src/app/common/snackbar/snackbar.service';
 
 @Component({
   selector: 'app-scorelisttop',
@@ -11,6 +10,7 @@ import { SnackbarService } from 'src/app/common/snackbar/snackbar.service';
 })
 export class ScorelisttopComponent {
 
+  confflag: any
   scorelist: any
   scoresEmpty: any
   delDocId: any
@@ -21,8 +21,7 @@ export class ScorelisttopComponent {
    * @param firestore
    */
   constructor(
-    private firestore: AngularFirestore,
-    private snackberService: SnackbarService
+    private firestore: AngularFirestore
     ) {
   }
 
@@ -113,6 +112,8 @@ export class ScorelisttopComponent {
    */
   deleteConf(trget: any) {
 
+    //削除確認メッセージ表示用のフラグをセット
+    this.confflag = true
     //削除対象IDをセット
     this.delDocId = trget
   }
@@ -123,12 +124,11 @@ export class ScorelisttopComponent {
    */
   delDocument() {
 
+    this.confflag = false
     try {
       //this.firestore.collection('scores').doc(this.delDocId).delete()
       this.getSubcollectionDel(getAuth().currentUser?.uid || '', 'scores').doc(this.delDocId).delete()
       console.log("[log] " + new Date() + " Document Delete Complete : ID=" + this.delDocId)
-      this.snackberService.openSnackBar("削除しました")
-      this.reload()
     } catch (error) {
       console.log("[log] " + new Date() + " POST Error: " + error)
     }
