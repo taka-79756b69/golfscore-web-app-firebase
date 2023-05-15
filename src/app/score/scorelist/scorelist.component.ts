@@ -3,7 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Subscription } from 'rxjs';
 import { getAuth } from '@angular/fire/auth';
-import { NgForm } from '@angular/forms';
 import { SnackbarService } from 'src/app/common/snackbar/snackbar.service';
 
 @Component({

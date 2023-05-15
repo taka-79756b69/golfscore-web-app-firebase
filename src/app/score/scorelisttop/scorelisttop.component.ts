@@ -2,6 +2,7 @@ import { getAuth } from '@angular/fire/auth';
 import { Subscription } from 'rxjs';
 import { Component } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { SnackbarService } from 'src/app/common/snackbar/snackbar.service';
 
 @Component({
   selector: 'app-scorelisttop',
@@ -10,10 +11,12 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 })
 export class ScorelisttopComponent {
 
-  confflag: any
   scorelist: any
   scoresEmpty: any
   delDocId: any
+
+  //ローディング
+  loading: any
 
   /**
    * コンストラクタ
@@ -21,7 +24,8 @@ export class ScorelisttopComponent {
    * @param firestore
    */
   constructor(
-    private firestore: AngularFirestore
+    private firestore: AngularFirestore,
+    private snackberService: SnackbarService
     ) {
   }
 
@@ -111,9 +115,6 @@ export class ScorelisttopComponent {
    * @param trget 削除対象ID
    */
   deleteConf(trget: any) {
-
-    //削除確認メッセージ表示用のフラグをセット
-    this.confflag = true
     //削除対象IDをセット
     this.delDocId = trget
   }
@@ -122,16 +123,21 @@ export class ScorelisttopComponent {
    * ドキュメント削除処理
    * 削除する対象のIDをキーにして削除する
    */
-  delDocument() {
+  async delDocument() {
 
-    this.confflag = false
+    this.loading = true
     try {
       //this.firestore.collection('scores').doc(this.delDocId).delete()
-      this.getSubcollectionDel(getAuth().currentUser?.uid || '', 'scores').doc(this.delDocId).delete()
+      await this.getSubcollectionDel(getAuth().currentUser?.uid || '', 'scores').doc(this.delDocId).delete()
+        .then(()=> this.loading = false)
       console.log("[log] " + new Date() + " Document Delete Complete : ID=" + this.delDocId)
+      this.snackberService.openSnackBar("データを削除しました")
     } catch (error) {
       console.log("[log] " + new Date() + " POST Error: " + error)
+      this.snackberService.openSnackBar("データの削除に失敗しました")
+      this.loading = false
     }
+    this.reload()
   }
 
   /**
