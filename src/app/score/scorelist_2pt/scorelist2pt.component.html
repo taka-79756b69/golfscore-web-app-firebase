@@ -28,8 +28,8 @@
                   <ng-container *ngIf="p == 0">
                     <button type="button" class="btn btn-light position-relative" data-bs-toggle="modal" data-bs-target="#course1Modal" data-bs-whatever="0" (click)="setDialogIndex(i)">
                       <span class="enFontBold">{{ score1[i] }}</span>
-                      <div *ngIf="nowPlaying == i">
-                        <span class="position-absolute top-0 start-0 translate-middle badge rounded-pill badgeOrderCustomColor">
+                      <div *ngIf="order[i][p] != 0">
+                        <span class="position-absolute top-0 start-0 translate-middle badge rounded-pill badgeOrderCustomColor" [ngStyle] = "{ 'backgroundColor': nowPlaying == i ? '' : '#ffc6ff'}">
                           <span class="enFont">{{ order[i][p] }}</span>
                           <span class="visually-hidden">unread messages</span>
                         </span>
@@ -44,8 +44,8 @@
                   <ng-container *ngIf="p == 1">
                     <button type="button" class="btn btn-light position-relative" data-bs-toggle="modal" data-bs-target="#course1Modal" data-bs-whatever="0" (click)="setDialogIndex(i)">
                       <span class="enFontBold">{{ score2[i] }}</span>
-                      <div *ngIf="nowPlaying == i">
-                        <span class="position-absolute top-0 start-0 translate-middle badge rounded-pill badgeOrderCustomColor">
+                      <div *ngIf="order[i][p] != 0">
+                        <span class="position-absolute top-0 start-0 translate-middle badge rounded-pill badgeOrderCustomColor" [ngStyle] = "{ 'backgroundColor': nowPlaying == i ? '' : '#ffc6ff'}">
                           <span class="enFont">{{ order[i][p] }}</span>
                           <span class="visually-hidden">unread messages</span>
                         </span>
@@ -112,8 +112,8 @@
       <br>
       <br>
       <br>
-      <div class="container fixed-bottom">
-        <div class="row">
+      <div class="container fixed-bottom overlay">
+        <div class="row mt-3">
           <div class="col"></div>
           <div class="col-5 d-grid gap-2">
             <button class="btn btn-primary mb-3" type="submit">
