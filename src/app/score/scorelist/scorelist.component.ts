@@ -13,9 +13,6 @@ import { SnackbarService } from 'src/app/common/snackbar/snackbar.service';
 })
 export class ScorelistComponent implements OnInit {
 
-  //NgFormの作成
-  form!: NgForm;
-
   //DBから取得した値のかたまり(ドキュメント)
   score: any
 
@@ -245,7 +242,7 @@ export class ScorelistComponent implements OnInit {
     this.isLas2stories = data.isLas2stories == undefined ? false : data.isLas2stories
     this.isLasPair = data.isLasPair == undefined ? false : data.isLasPair
     this.memo = data.memo == undefined ? "" : data.memo
-    this.save()
+    this.displayUpdate()
   }
 
   /**
@@ -486,7 +483,7 @@ export class ScorelistComponent implements OnInit {
    * /ラスベガスの更新/
    * /打順の更新/
    */
-  save() {
+  displayUpdate() {
     // changes.prop contains the old and the new value...
     this.outTotal1 = this.setOutTotal1()
     this.inTotal1 = this.setInTotal1()
@@ -516,12 +513,30 @@ export class ScorelistComponent implements OnInit {
   }
 
   /**
+   * 各ホールのスコア入力ダイアログを閉じた時の処理
+   */
+  closeInputDialog() {
+
+    this.displayUpdate()
+    this.snackberService.openSnackBar("スコアを一覧に反映しました")
+    this.saveScore()
+  }
+
+  /**
+   * スコアをFirestoreに保存する
+   */
+  saveScore() {
+    this.onSubmit()
+  }
+
+  /**
    * 設定画面の内容を反映
    */
   setSettings(){
 
-    this.save()
+    this.displayUpdate()
     this.snackberService.openSnackBar("設定内容を反映しました")
+    this.saveScore()
   }
 
   /**
@@ -1096,7 +1111,7 @@ export class ScorelistComponent implements OnInit {
    * 入力内容をFirestoreに上書きする
    * Subscribeできないため、try-catchでエラーをハンドリングする
    */
-  onSubmit(form: any) {
+  onSubmit() {
 
     this.chipsUndefinedReplace()
 
@@ -1133,7 +1148,6 @@ export class ScorelistComponent implements OnInit {
     try {
       this.getSubcollection(getAuth().currentUser?.uid || '', 'scores').doc(this._id).update(this.checkoutForm)
       console.log("[log] " + new Date() + " POST Success => [Firestore Document]: " + "scores/" + this._id)
-      this.snackberService.openSnackBar("スコアを保存しました")
     } catch (error) {
       console.log("[log] " + new Date() + " POST Error: " + error)
       this.snackberService.openSnackBar("スコアの保存に失敗しました")

@@ -1,5 +1,5 @@
 <div *ngIf="score">
-  <form #form=ngForm (ngSubmit)="onSubmit(form)">
+  <form #form=ngForm (ngSubmit)="onSubmit()">
     <table class="table table-borderless table-sm">
       <thead class="sticky-top table-secondary">
         <tr class="table-primary">
@@ -110,23 +110,8 @@
     <div class="justify-content-center">
       <br>
       <br>
-      <br>
-      <br>
       <div class="container fixed-bottom overlay">
         <div class="row mt-3">
-          <div class="col"></div>
-          <div class="col-5 d-grid gap-2">
-            <button class="btn btn-primary mb-3" type="submit">
-              <i class="material-icons small-size">save_as</i> スコア保存
-            </button>
-          </div>
-          <div class="col text-end">
-            <button class="btn btn-sm btn-primary mb-3 mr-3" type="button" data-bs-toggle="modal" data-bs-target="#settingModal" style="width: 35px; height: 35px;">
-              <i class="material-icons small-size">settings</i>
-            </button>
-          </div>
-        </div>
-        <div class="row">
           <div class="col"></div>
           <div class="col text-center">
             <a routerLink="{{ '/score' }}">
@@ -135,7 +120,11 @@
               </button>
             </a>
           </div>
-          <div class="col"></div>
+          <div class="col text-end">
+            <button class="btn btn-primary mb-3 mr-3" type="button" data-bs-toggle="modal" data-bs-target="#settingModal">
+              <i class="material-icons small-size">settings</i> 設定
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -342,7 +331,7 @@
             <div class="row justify-content-center">
               <div class="col-6">
                 <div class="d-grid">
-                  <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="save()">一覧へ反映</button>
+                  <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="closeInputDialog()">一覧へ反映</button>
                 </div>
               </div>
             </div>
@@ -386,7 +375,7 @@
             <div class="row justify-content-center">
               <div class="col-6">
                 <div class="d-grid">
-                  <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="save()">閉じる</button>
+                  <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="setSettings()">閉じる</button>
                 </div>
               </div>
             </div>

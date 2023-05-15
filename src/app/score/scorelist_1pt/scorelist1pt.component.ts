@@ -13,9 +13,6 @@ import { SnackbarService } from 'src/app/common/snackbar/snackbar.service';
 })
 export class Scorelist1ptComponent implements OnInit {
 
-  //NgFormの作成
-  form!: NgForm;
-
   //DBから取得した値のかたまり(ドキュメント)
   score: any
 
@@ -107,7 +104,7 @@ export class Scorelist1ptComponent implements OnInit {
     this.no = data.no
     this.playerArray.push(this._index_name1)
     this.memo = data.memo == undefined ? "" : data.memo
-    this.save()
+    this.displayUpdate()
   }
 
   /**
@@ -215,29 +212,29 @@ export class Scorelist1ptComponent implements OnInit {
       this.score1[courseNo] = this.score1[courseNo] - 5 < 0 ? 0 : this.score1[courseNo] - 5
   }
 
-    /**
+  /**
    * パターのカウントアップ(プラス1)
    * ダイアログ用イベント
    * @param courseNo コースNo
    * @param playerIndex プレイヤー番号
    */
-    setPutscoreCounter1Up(courseNo: any, playerIndex: any){
+  setPutscoreCounter1Up(courseNo: any, playerIndex: any){
 
-      if(this.putscore1[courseNo] < 15 )
-        this.putscore1[courseNo]++
-    }
+    if(this.putscore1[courseNo] < 15 )
+      this.putscore1[courseNo]++
+  }
 
-    /**
-     * パターのカウントダウン（マイナス1）
-     * ダイアログ用イベント
-     * @param courseNo コースNo
-     * @param playerIndex プレイヤー番号
-     */
-    setPutscoreCounter1Down(courseNo: any, playerIndex: any){
+  /**
+   * パターのカウントダウン（マイナス1）
+   * ダイアログ用イベント
+   * @param courseNo コースNo
+   * @param playerIndex プレイヤー番号
+   */
+  setPutscoreCounter1Down(courseNo: any, playerIndex: any){
 
-      if(this.putscore1[courseNo] > 0 )
-        this.putscore1[courseNo]--
-    }
+    if(this.putscore1[courseNo] > 0 )
+      this.putscore1[courseNo]--
+  }
 
   /**
    * ダイアログを閉じるタイミングの処理
@@ -246,13 +243,40 @@ export class Scorelist1ptComponent implements OnInit {
    * /ラスベガスの更新/
    * /打順の更新/
    */
-  save() {
+  displayUpdate() {
     // changes.prop contains the old and the new value...
     this.outTotal1 = this.setOutTotal1()
     this.inTotal1 = this.setInTotal1()
     this.total1 = this.setTotal1()
 
     this.setBadgeOrder()
+  }
+
+  /**
+   * 各ホールのスコア入力ダイアログを閉じた時の処理
+   */
+  closeInputDialog() {
+
+    this.displayUpdate()
+    this.snackberService.openSnackBar("スコアを一覧に反映しました")
+    this.saveScore()
+  }
+
+  /**
+   * スコアをFirestoreに保存する
+   */
+  saveScore() {
+    this.onSubmit()
+  }
+
+  /**
+   * 設定画面の内容を反映
+   */
+  setSettings(){
+
+    this.displayUpdate()
+    this.snackberService.openSnackBar("設定内容を反映しました")
+    this.saveScore()
   }
 
   /**
@@ -311,7 +335,7 @@ export class Scorelist1ptComponent implements OnInit {
    * 入力内容をFirestoreに上書きする
    * Subscribeできないため、try-catchでエラーをハンドリングする
    */
-  onSubmit(form: any) {
+  onSubmit() {
 
     // リクエスト送信用にJSON作成
     this.checkoutForm = ({
@@ -323,7 +347,6 @@ export class Scorelist1ptComponent implements OnInit {
     try {
       this.getSubcollection(getAuth().currentUser?.uid || '', 'scores').doc(this._id).update(this.checkoutForm)
       console.log("[log] " + new Date() + " POST Firestore Document: " + "scores/" + this._id)
-      this.snackberService.openSnackBar("スコアを保存しました")
     } catch (error) {
       console.log("[log] " + new Date() + " POST Error: " + error)
       this.snackberService.openSnackBar("スコアの保存に失敗しました")
