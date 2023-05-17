@@ -29,6 +29,7 @@ button[type="submit"] {
 	height: 100%;
   background: rgba(0,0,0,0.5);
   top: 0;
+  z-index: 9000;
 }
 
 .spanner{
@@ -40,5 +41,5 @@ button[type="submit"] {
   text-align:center;
   color: #FFF;
   transform: translateY(-50%);
-  z-index: 1000;
+  z-index: 9001;
 }

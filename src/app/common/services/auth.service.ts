@@ -33,4 +33,8 @@ export class AuthService {
   getAccountEmail() {
     return getAuth().currentUser?.email
   }
+
+  resetPassword(email: string) {
+    return this.afAuth.sendPasswordResetEmail(email)
+  }
 }

@@ -6,7 +6,7 @@
       <div class="card-body">
         <div class="card-text text-center">
           新しく始める場合は<br>
-          「メンバーを登録して開始」<br>を押してください。
+          「新しく始める」<br>を選択してください。
         </div>
       </div>
     </div>
@@ -15,32 +15,32 @@
 <br>
 <div class="container">
   <div class="row">
-    <div class="col-2">
-    </div>
-    <div class="col-8 d-grid gap-2">
-      <a class="btn btn-primary btn-block" routerLink="{{ '/newgame' }}" role="button">メンバーを登録して開始</a>
-    </div>
-    <div class="col-2">
-    </div>
-  </div>
-  <br>
-  <div class="row">
-    <div class="col-2">
-    </div>
-    <div class="col-8 d-grid gap-2">
-      <a class="btn btn-primary btn-block" routerLink="{{ '/score' }}" role="button">スコア一覧</a>
-    </div>
-    <div class="col-2">
-    </div>
-  </div>
-  <br>
-  <div class="row">
-    <div class="col-3">
+    <div class="col">
     </div>
     <div class="col-6 d-grid gap-2">
-      <a class="btn btn-danger btn-block" routerLink="{{ '/account' }}" role="button">アカウントを削除</a>
+      <a mat-raised-button color="primary" routerLink="{{ '/newgame' }}">新しく始める</a>
     </div>
-    <div class="col-3">
+    <div class="col">
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col">
+    </div>
+    <div class="col-6 d-grid gap-2">
+      <a mat-raised-button color="primary" routerLink="{{ '/score' }}">過去のデータ</a>
+    </div>
+    <div class="col">
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col">
+    </div>
+    <div class="col-6 d-grid gap-2">
+      <a class="btn btn-danger btn-block" routerLink="{{ '/account' }}" role="button">アカウント削除</a>
+    </div>
+    <div class="col">
     </div>
   </div>
   <br>
