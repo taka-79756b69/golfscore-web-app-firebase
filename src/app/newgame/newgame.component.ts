@@ -149,11 +149,9 @@ export class NewgameComponent {
 
   /**
    * 入力チェックを実施
-   * 最低入力人数3人をチェックする。
+   * 最低入力人数1人をチェックする。
    * エラーの状態では「プレイ開始」を押せないようにしている。
    * @param name1 お名前1
-   * @param name2 お名前2
-   * @param name3 お名前3
    */
   inputCheck() {
 

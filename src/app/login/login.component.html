@@ -13,7 +13,9 @@
   <div class="note">
     <a routerLink="{{ '/signup' }}" class="signup-link">新規ユーザー登録</a>
   </div>
-  <a class="urlLink" (click)="resetPassword(form)">パスワードをリセット</a>
+  <div>
+    <a routerLink="" class="signup-link" (click)="resetPassword(form)">パスワードをリセット</a>
+  </div>
 </div>
 <ng-container *ngIf="loading">
   <div class="overlay"></div>

@@ -477,11 +477,10 @@ export class ScorelistComponent implements OnInit {
   }
 
   /**
-   * ダイアログを閉じるタイミングの処理
-   * /トータルスコアの更新/
-   * /オリンピックの更新/
-   * /ラスベガスの更新/
-   * /打順の更新/
+   * トータルスコアの更新/
+   * オリンピックの更新/
+   * ラスベガスの更新/
+   * 打順の更新
    */
   displayUpdate() {
     // changes.prop contains the old and the new value...
