@@ -102,7 +102,7 @@ export class Scorelist1ptComponent implements OnInit {
     this.player = data.player
     this.no = data.no
     this.playerArray.push(this._index_name1)
-    this.memo = data.memo == undefined ? "" : data.memo
+    this.memo = data.memo ?? ""
     this.displayUpdate()
   }
 

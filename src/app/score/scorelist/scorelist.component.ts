@@ -5,6 +5,8 @@ import { Subscription } from 'rxjs';
 import { getAuth } from '@angular/fire/auth';
 import { SnackbarService } from 'src/app/common/snackbar/snackbar.service';
 
+declare const bootstrap: any;
+
 @Component({
   selector: 'app-scorelist',
   templateUrl: './scorelist.component.html',
@@ -201,12 +203,18 @@ export class ScorelistComponent implements OnInit {
       e.returnValue = confirmationMessage;     // Gecko, Trident, Chrome 34+
       return confirmationMessage;              // Gecko, WebKit, Chrome <34
     });
+
+    //TODO 設定画面を最初に開きたい場合はここのコメントアウトを外す
+    // setTimeout(() => {
+    //   // HTMLの描画が完了した後に実行したい処理をここに書く
+    //   this.openModal()
+    // }, 500);
   }
 
   /**
    * 初期データを設定
    * @param data Firestoreドキュメントデータ
-   */
+  */
   setInitParam(data: any){
 
     this.score1 = data.score1
@@ -233,14 +241,14 @@ export class ScorelistComponent implements OnInit {
 
     //2023年3月以降追加分はDBに項目がないためundifinedになる
     //undifinedの場合、初期値を設定する
-    this.nearping1 = data.nearping1 == undefined ? [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] : data.nearping1
-    this.nearping2 = data.nearping2 == undefined ? [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] : data.nearping2
-    this.nearping3 = data.nearping3 == undefined ? [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] : data.nearping3
-    this.nearping4 = data.nearping4 == undefined ? [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] : data.nearping4
-    this.isOlyNearping = data.isOlyNearping == undefined ? false : data.isOlyNearping
-    this.isLas2stories = data.isLas2stories == undefined ? false : data.isLas2stories
-    this.isLasPair = data.isLasPair == undefined ? false : data.isLasPair
-    this.memo = data.memo == undefined ? "" : data.memo
+    this.nearping1 = data.nearping1 ?? [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    this.nearping2 = data.nearping2 ?? [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    this.nearping3 = data.nearping3 ?? [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    this.nearping4 = data.nearping4 ?? [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    this.isOlyNearping = data.isOlyNearping ?? false
+    this.isLas2stories = data.isLas2stories ?? false
+    this.isLasPair = data.isLasPair ?? false
+    this.memo = data.memo ?? ""
     this.displayUpdate()
   }
 
@@ -1208,5 +1216,11 @@ export class ScorelistComponent implements OnInit {
     this.lasvegas2 = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
     this.lasvegas3 = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
     this.lasvegas4 = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+  }
+
+  openModal() {
+    const modalElement = document.getElementById('settingModal');
+    const bootstrapModal = new bootstrap.Modal(modalElement);
+    bootstrapModal.show();
   }
 }

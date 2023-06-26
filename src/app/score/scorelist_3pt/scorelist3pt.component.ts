@@ -181,11 +181,11 @@ export class Scorelist3ptComponent implements OnInit {
 
     //2023年3月以降追加分はDBに項目がないためundifinedになる
     //undifinedの場合、初期値を設定する
-    this.nearping1 = data.nearping1 == undefined ? [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] : data.nearping1
-    this.nearping2 = data.nearping2 == undefined ? [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] : data.nearping2
-    this.nearping3 = data.nearping3 == undefined ? [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] : data.nearping3
-    this.isOlyNearping = data.isOlyNearping == undefined ? false : data.isOlyNearping
-    this.memo = data.memo == undefined ? "" : data.memo
+    this.nearping1 = data.nearping1 ?? [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    this.nearping2 = data.nearping2 ?? [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    this.nearping3 = data.nearping3 ?? [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    this.isOlyNearping = data.isOlyNearping ?? false
+    this.memo = data.memo ?? ""
     this.displayUpdate()
   }
 
