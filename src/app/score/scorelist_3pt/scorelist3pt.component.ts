@@ -135,7 +135,7 @@ export class Scorelist3ptComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private firestore: AngularFirestore,
-    private snackberService: SnackbarService
+    private snackbarService: SnackbarService
     ){
     }
 
@@ -430,7 +430,7 @@ export class Scorelist3ptComponent implements OnInit {
   closeInputDialog() {
 
     this.displayUpdate()
-    this.snackberService.openSnackBar("スコアを一覧に反映しました")
+    this.snackbarService.openSnackBar("スコアを一覧に反映しました")
     this.saveScore()
   }
 
@@ -447,7 +447,7 @@ export class Scorelist3ptComponent implements OnInit {
   setSettings(){
 
     this.displayUpdate()
-    this.snackberService.openSnackBar("設定内容を反映しました")
+    this.snackbarService.openSnackBar("設定内容を反映しました")
     this.saveScore()
   }
 
@@ -845,7 +845,7 @@ export class Scorelist3ptComponent implements OnInit {
       console.log("[log] " + new Date() + " POST Firestore Document: " + "scores/" + this._id)
     } catch (error) {
       console.log("[log] " + new Date() + " POST Error: " + error)
-      this.snackberService.openSnackBar("スコアの保存に失敗しました")
+      this.snackbarService.openSnackBar("スコアの保存に失敗しました")
     }
   }
 
