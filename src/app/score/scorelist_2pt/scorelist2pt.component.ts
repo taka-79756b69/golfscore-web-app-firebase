@@ -142,7 +142,7 @@ export class Scorelist2ptComponent implements OnInit {
 
     //2023年3月以降追加分はDBに項目がないためundifinedになる
     //undifinedの場合、初期値を設定する
-    this.memo = data.memo == undefined ? "" : data.memo
+    this.memo = data.memo ?? ""
     this.displayUpdate()
   }
 
